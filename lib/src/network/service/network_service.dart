@@ -72,17 +72,18 @@ class NetworkService extends getx.GetxService {
             options.headers['Authorization'] = 'Bearer $accessToken';
           }
 
-          // v1.0.5: Request ID برای traceability
-          options.headers['X-Request-ID'] =
-              options.headers['X-Request-ID'] ?? _generateRequestId();
+          // The current eCardo API CORS contract allows standard headers on
+          // Web but does not allow the mobile telemetry headers below. Keep
+          // those headers on native clients until the backend explicitly
+          // expands Access-Control-Allow-Headers.
+          if (!kIsWeb) {
+            // v1.0.5: Request ID برای traceability
+            options.headers['X-Request-ID'] =
+                options.headers['X-Request-ID'] ?? _generateRequestId();
 
-          // v1.0.5: Client identification
-          options.headers['X-App-Version'] = '1.0.5';
-          options.headers['X-Client'] = 'ecardo_etrip_flutter';
-          // v1.0.5: Platform identification
-          if (kIsWeb) {
-            options.headers['X-Platform'] = 'web';
-          } else {
+            // v1.0.5: Client identification
+            options.headers['X-App-Version'] = '1.0.5';
+            options.headers['X-Client'] = 'ecardo_etrip_flutter';
             options.headers['X-Platform'] = Platform.isAndroid
                 ? 'android'
                 : Platform.isIOS
