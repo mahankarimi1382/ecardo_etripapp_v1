@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
 import 'package:ecardo_etrip/src/app/constants/app_colors.dart';
 import 'package:ecardo_etrip/src/app/constants/assets_path/png/png_assets.dart';
+import 'package:ecardo_etrip/src/presentation/screens/dashboard/etrip_dashboard_screen.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/controller/home_controller.dart';
-import 'package:ecardo_etrip/src/presentation/screens/home/view/home_screen.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/view/sub_sections/drawer/drawer_section.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/view/sub_sections/drawer/end_drawer_section.dart';
 import 'package:ecardo_etrip/src/presentation/screens/settings/view/settings_screen.dart';
@@ -23,6 +23,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   final HomeController homeController = Get.find<HomeController>();
   final String signUpBonus = Get.arguments?["bonus"] ?? "";
 
+  // etrip: داشبورد اختصاصی etrip در تب اول (نه صفحهٔ خانهٔ سوپر اپ)
   final iconList = [
     PngAssets.bottomNavigationHomeSolidIcon,
     PngAssets.bottomNavigationTransferSolidIcon,
@@ -47,8 +48,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
       ];
 
       final pages = [
-        HomeScreen(signUpBonus: signUpBonus),
-        TravelHomeScreen(),
+        const EtripDashboardScreen(),
+        const TravelHomeScreen(),
         SettingsScreen(),
       ];
 

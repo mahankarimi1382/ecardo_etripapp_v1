@@ -9,6 +9,8 @@ import 'package:ecardo_etrip/src/common/widgets/common_loading.dart';
 import '../account/travel_account_screen.dart';
 import '../bookings/travel_orders_screen.dart';
 import '../core/models/travel_models.dart';
+import '../esim/esim_intro_screen.dart';
+import '../flights/flight_search_screen.dart';
 import '../hotels/hotel_search_screen.dart';
 import '../shared/travel_theme.dart';
 import '../shared/travel_widgets.dart';
@@ -256,8 +258,11 @@ class _Services extends StatelessWidget {
     }
 
     final serviceByType = {for (final service in services) service.type: service};
-    // etrip: فقط هتل (طبق فرمان کاربر — فعلاً پرواز/eSIM نمایش داده نمی‌شود)
-    final visibleServices = [TravelProductType.hotel]
+    final visibleServices = [
+      TravelProductType.flight,
+      TravelProductType.hotel,
+      TravelProductType.esim,
+    ]
         .map((type) => serviceByType[type])
         .whereType<TravelServiceConfig>()
         .toList();
@@ -290,7 +295,10 @@ class _Services extends StatelessWidget {
         Get.to(() => const HotelSearchScreen());
         return;
       case TravelProductType.flight:
+        Get.to(() => const FlightSearchScreen());
+        return;
       case TravelProductType.esim:
+        Get.to(() => const EsimIntroScreen());
         return;
     }
   }
