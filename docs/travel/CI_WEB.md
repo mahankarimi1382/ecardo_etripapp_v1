@@ -23,6 +23,26 @@ The workflow:
 10. Builds a release Web artifact.
 11. Uploads the Web build and logs.
 
+## Web API routing
+
+Web builds use same-origin API paths by default:
+
+```text
+/api                 → https://ecardo.ir/api
+/travel-api/v1       → https://trip.ecardo.ir/api/v1
+```
+
+The hosting layer must proxy these paths to the corresponding HTTPS APIs. This
+keeps browser requests same-origin and avoids relying on an unapproved CORS
+allow-list. Native builds continue to use the public HTTPS URLs directly.
+
+The paths can be overridden for staging/preview builds with:
+
+```text
+ECARDO_MAIN_API_BASE_URL
+ECARDO_TRAVEL_API_BASE_URL
+```
+
 ## Deployment status
 
 There is no deployment job yet because the target host, deployment API and

@@ -1,6 +1,8 @@
+import 'api_environment.dart';
+
 class ApiPath {
   // Base Endpoints
-  static const String baseUrl = 'https://ecardo.ir/api';
+  static String get baseUrl => ApiEnvironment.mainApiBaseUrl;
 
   // Common Endpoints
   static const String countriesEndpoint = '/get-countries';

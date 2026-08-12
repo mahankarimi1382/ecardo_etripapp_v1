@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
+import 'package:ecardo_etrip/src/network/api/api_environment.dart';
 import 'package:ecardo_etrip/src/network/service/token_service.dart';
 
 import '../models/travel_models.dart';
 import 'travel_repository.dart';
 
 class TravelApiRepository implements TravelRepository {
-  static const String baseUrl = 'https://trip.ecardo.ir/api/v1';
+  static String get baseUrl => ApiEnvironment.travelApiBaseUrl;
 
   final Dio _client;
   String? _travelAccessToken;
