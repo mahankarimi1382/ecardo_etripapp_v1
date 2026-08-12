@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
@@ -19,6 +20,7 @@ class SignInController extends GetxController {
   final RxBool isPressed = false.obs;
   final Rx<UserModel> userModel = UserModel().obs;
   final SettingsService settingsService = Get.find<SettingsService>();
+  late final Future<void> _initialization;
 
   // Email
   final RxBool isEmailFocused = false.obs;
@@ -38,13 +40,18 @@ class SignInController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    clearSignUpStatus();
-    setLogInState();
-    loadSavedEmail();
-    loadBiometricStatus();
+    _initialization = _initialize();
 
     emailFocusNode.addListener(_handleEmailFocusChange);
     passwordFocusNode.addListener(_handlePasswordFocusChange);
+  }
+
+  Future<void> _initialize() async {
+    await clearSignUpStatus();
+    await Future.wait<void>([
+      loadSavedEmail(),
+      loadBiometricStatus(),
+    ]);
   }
 
   @override
@@ -89,15 +96,20 @@ class SignInController extends GetxController {
   Future<void> submitSignIn({bool useBiometric = false}) async {
     isLoading.value = true;
 
-    final String email = useBiometric
-        ? biometricEmail.value.trim()
-        : emailController.text.trim();
-
-    final String password = useBiometric
-        ? biometricPassword.value.trim()
-        : passwordController.text.trim();
-
     try {
+      // Sign-in screen initialization clears the previous token. Waiting here
+      // prevents that asynchronous cleanup from racing with a new login and
+      // deleting the freshly saved token before fetchUser() runs.
+      await _initialization;
+
+      final String email = useBiometric
+          ? biometricEmail.value.trim()
+          : emailController.text.trim();
+
+      final String password = useBiometric
+          ? biometricPassword.value.trim()
+          : passwordController.text.trim();
+
       final response = await Get.find<NetworkService>().login(
         email: email,
         password: password,
@@ -130,6 +142,7 @@ class SignInController extends GetxController {
 
       if (response.status == Status.completed) {
         userModel.value = UserModel.fromJson(response.data!);
+        await setLogInState();
 
         if (userModel.value.data!.twoFa == true &&
             Get.find<SettingsService>().getSetting("fa_verification") == "1") {
@@ -170,33 +183,38 @@ class SignInController extends GetxController {
     required bool useBiometric,
   }) async {
     try {
-      final deviceInfoPlugin = DeviceInfoPlugin();
-      final savedFcmToken = await SettingsService.getFcmToken();
+      // Firebase/device APIs are not part of the Web build. More importantly,
+      // attempting Platform.isAndroid/isIOS on Web can throw before the user
+      // profile request is reached. Native behavior remains unchanged.
+      if (!kIsWeb) {
+        final deviceInfoPlugin = DeviceInfoPlugin();
+        final savedFcmToken = await SettingsService.getFcmToken();
 
-      String deviceId = '';
-      String deviceType = '';
+        String deviceId = '';
+        String deviceType = '';
 
-      if (Platform.isAndroid) {
-        final androidInfo = await deviceInfoPlugin.androidInfo;
-        deviceId = androidInfo.id;
-        deviceType = 'android';
-      } else if (Platform.isIOS) {
-        final iosInfo = await deviceInfoPlugin.iosInfo;
-        deviceId = iosInfo.identifierForVendor ?? '';
-        deviceType = 'ios';
-      } else {
-        deviceId = 'unknown';
-        deviceType = 'unknown';
+        if (Platform.isAndroid) {
+          final androidInfo = await deviceInfoPlugin.androidInfo;
+          deviceId = androidInfo.id;
+          deviceType = 'android';
+        } else if (Platform.isIOS) {
+          final iosInfo = await deviceInfoPlugin.iosInfo;
+          deviceId = iosInfo.identifierForVendor ?? '';
+          deviceType = 'ios';
+        } else {
+          deviceId = 'unknown';
+          deviceType = 'unknown';
+        }
+
+        await Get.find<NetworkService>().post(
+          endpoint: ApiPath.getSetupFcm,
+          data: {
+            'device_id': deviceId,
+            'device_type': deviceType,
+            'fcm_token': savedFcmToken,
+          },
+        );
       }
-
-      await Get.find<NetworkService>().post(
-        endpoint: ApiPath.getSetupFcm,
-        data: {
-          'device_id': deviceId,
-          'device_type': deviceType,
-          'fcm_token': savedFcmToken,
-        },
-      );
     } catch (e, s) {
       debugPrint('❌ postFcmNotification() error: $e');
       debugPrint('📍 StackTrace: $s');
