@@ -66,6 +66,7 @@ class BaseRoute {
   static const String maintenanceMode = "/maintenance_mode_route";
 
   // Travel (etrip)
+  static const String travelFoundation = "/travel_foundation_route";
   static const String travel = "/travel_route";
   static const String travelHistory = "/travel_history_route";
   static const String travelAccount = "/travel_account_route";

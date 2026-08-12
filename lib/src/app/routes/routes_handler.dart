@@ -191,6 +191,12 @@ List<GetPage> routesHandler = [
     page: () => RoutesConfig.noInternetConnection,
   ),
 
+  // Travel foundation (does not replace the current Travel Home yet)
+  GetPage(
+    name: BaseRoute.travelFoundation,
+    page: () => RoutesConfig.travelFoundation,
+  ),
+
   // Travel (etrip)
   GetPage(
     name: BaseRoute.travel,

@@ -26,6 +26,7 @@ import 'package:ecardo_etrip/src/presentation/screens/settings/view/two_factor_a
 import 'package:ecardo_etrip/src/presentation/screens/transactions/view/transactions_screen.dart';
 import 'package:ecardo_etrip/src/presentation/screens/travel/account/travel_account_screen.dart';
 import 'package:ecardo_etrip/src/presentation/screens/travel/account/travel_history_screen.dart';
+import 'package:ecardo_etrip/src/features/travel/shell/travel_shell.dart';
 import 'package:ecardo_etrip/src/presentation/screens/travel/home/travel_home_screen.dart';
 import 'package:ecardo_etrip/src/presentation/screens/wallets/view/create_new_wallet/create_new_wallet.dart';
 import 'package:ecardo_etrip/src/presentation/screens/wallets/view/wallets_screen.dart';
@@ -97,6 +98,7 @@ class RoutesConfig {
   static const noInternetConnection = NoInternetConnection();
 
   // Travel (etrip)
+  static const travelFoundation = TravelShellScreen();
   static const travel = TravelHomeScreen();
 
   static const travelHistory = TravelHistoryScreen();
