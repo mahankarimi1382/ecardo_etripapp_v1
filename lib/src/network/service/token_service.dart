@@ -34,6 +34,7 @@ class TokenService extends GetxService {
 
   /// The reactive access token (null when logged out).
   final Rx<String?> accessToken = Rx<String?>(null);
+  Future<void>? _initialLoad;
 
   @override
   void onInit() {
@@ -42,7 +43,13 @@ class TokenService extends GetxService {
       aOptions: _androidOptions,
       iOptions: _iosOptions,
     );
-    loadAccessToken();
+    // Keep the first storage read observable so login/logout cannot race it.
+    _initialLoad = loadAccessToken();
+  }
+
+  Future<void> _waitForInitialLoad() async {
+    final initialLoad = _initialLoad;
+    if (initialLoad != null) await initialLoad;
   }
 
   /// Load the access token from secure storage.
@@ -74,6 +81,7 @@ class TokenService extends GetxService {
   /// A storage failure must not make the just-completed login lose its bearer
   /// token before the first authenticated request is sent.
   Future<bool> saveAccessToken(String token) async {
+    await _waitForInitialLoad();
     accessToken.value = token;
     try {
       await _secureStorage.write(key: accessTokenKey, value: token);
@@ -92,6 +100,7 @@ class TokenService extends GetxService {
 
   /// Clear the access token (logout).
   Future<bool> clearToken() async {
+    await _waitForInitialLoad();
     accessToken.value = null;
     try {
       await _secureStorage.delete(key: accessTokenKey);
