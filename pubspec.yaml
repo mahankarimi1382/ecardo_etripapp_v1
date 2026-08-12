@@ -82,6 +82,7 @@ flutter:
     - assets/icons/png/bottom_navigation/solid/
     - assets/icons/png/common/
     - assets/images/avatar/
+    - assets/images/etrip/
     - assets/icons/png/others/
     - assets/icons/svg/drawer/
     - assets/icons/png/end_drawer/

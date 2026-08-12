@@ -128,8 +128,8 @@ class TravelAccountScreen extends StatelessWidget {
             title: localization.travelMainWallet,
             subtitle: localization.travelWalletSharedDescription,
             onTap: () => Get.toNamed(
-              BaseRoute.addMoney,
-              arguments: {'returnRoute': BaseRoute.travel},
+              BaseRoute.wallets,
+              arguments: {'returnRoute': BaseRoute.travelAccount},
             ),
           ),
         ],

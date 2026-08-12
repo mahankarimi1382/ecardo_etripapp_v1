@@ -172,12 +172,7 @@ class TravelBottomNavigation extends StatelessWidget {
               selected: activeSection == TravelNavigationSection.account,
               onTap: () => _open(BaseRoute.travelAccount),
             ),
-            _TravelNavigationItem(
-              label: localization.bottomNavHome,
-              icon: Icons.home_rounded,
-              selected: false,
-              onTap: () => Get.offAllNamed(BaseRoute.navigation),
-            ),
+
           ],
         ),
       ),

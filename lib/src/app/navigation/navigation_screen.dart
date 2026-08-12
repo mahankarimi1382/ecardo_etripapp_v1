@@ -4,13 +4,17 @@ import 'package:get/get.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
 import 'package:ecardo_etrip/src/app/constants/app_colors.dart';
 import 'package:ecardo_etrip/src/app/constants/assets_path/png/png_assets.dart';
-import 'package:ecardo_etrip/src/presentation/screens/dashboard/etrip_dashboard_screen.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/controller/home_controller.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/view/sub_sections/drawer/drawer_section.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/view/sub_sections/drawer/end_drawer_section.dart';
 import 'package:ecardo_etrip/src/presentation/screens/settings/view/settings_screen.dart';
 import 'package:ecardo_etrip/src/presentation/screens/travel/home/travel_home_screen.dart';
 
+/// NavigationScreen — ناوبری اصلی etrip
+///
+/// etrip یک اپ واحد است (همان «eCardo Travel» با برند etrip) — پس فقط
+/// دو بخش دارد: سفر (صفحهٔ اصلی) و تنظیمات. کیف پول از داخل «اکانت» در
+/// صفحهٔ سفر در دسترس است (نه در صفحهٔ اول).
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
 
@@ -23,9 +27,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
   final HomeController homeController = Get.find<HomeController>();
   final String signUpBonus = Get.arguments?["bonus"] ?? "";
 
-  // etrip: داشبورد اختصاصی etrip در تب اول (نه صفحهٔ خانهٔ سوپر اپ)
+  // etrip: سفر (صفحهٔ اصلی) + تنظیمات
   final iconList = [
-    PngAssets.bottomNavigationHomeSolidIcon,
     PngAssets.bottomNavigationTransferSolidIcon,
     PngAssets.bottomNavigationSettingsSolidIcon,
   ];
@@ -42,13 +45,11 @@ class _NavigationScreenState extends State<NavigationScreen> {
       final localization = AppLocalizations.of(context)!;
 
       final labelList = [
-        localization.bottomNavHome,
-        localization.travelTitle,
+        'etrip',
         localization.bottomNavSettings,
       ];
 
       final pages = [
-        const EtripDashboardScreen(),
         const TravelHomeScreen(),
         SettingsScreen(),
       ];
@@ -77,7 +78,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 Image.asset(
                   iconList[index],
                   color: color,
-                  width: index == 0 ? 25 : index == 1 ? 26 : 24,
+                  width: index == 0 ? 26 : 24,
                 ),
                 const SizedBox(height: 2),
                 Text(

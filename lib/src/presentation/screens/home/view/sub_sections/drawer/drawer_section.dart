@@ -20,22 +20,6 @@ class DrawerSection extends StatelessWidget {
 
     final List<Map<String, dynamic>> navigationItemList = [
       {
-        "icon": SvgAssets.dashboardDrawerIcon,
-        "navigation": localization.drawerDashboard,
-        "navigate": "",
-      },
-      {
-        "icon": SvgAssets.myWalletsDrawerIcon,
-        "navigation": localization.drawerMyWallets,
-        "navigate": BaseRoute.wallets,
-      },
-      {
-        "icon": SvgAssets.addMoneyDrawerIcon,
-        "navigation": localization.drawerAddMoney,
-        "navigate": BaseRoute.addMoney,
-        "setting": "user_deposit",
-      },
-      {
         "icon": SvgAssets.invitingDrawerIcon,
         "navigation": localization.drawerTravel,
         "navigate": BaseRoute.travel,

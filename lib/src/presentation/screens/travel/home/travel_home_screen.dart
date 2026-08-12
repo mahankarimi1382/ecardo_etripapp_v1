@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
-import 'package:ecardo_etrip/src/app/routes/routes.dart';
 import 'package:ecardo_etrip/src/common/widgets/button/common_button.dart';
 import 'package:ecardo_etrip/src/common/widgets/common_loading.dart';
+import 'package:ecardo_etrip/src/common/widgets/language_dropdown.dart';
 
 import '../account/travel_account_screen.dart';
 import '../bookings/travel_orders_screen.dart';
@@ -24,12 +24,20 @@ class TravelHomeScreen extends StatelessWidget {
     final controller = ensureTravelController();
 
     return TravelPage(
-      title: localization.travelTitle,
+      title: 'etrip',
+      showBack: false,
+      showTravelNavigation: false,
       trailing: Padding(
         padding: EdgeInsetsDirectional.only(end: 12.w),
-        child: IconButton(
-          onPressed: () => Get.to(() => const TravelAccountScreen()),
-          icon: const Icon(Icons.account_circle_outlined),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const LanguageDropdown(),
+            IconButton(
+              onPressed: () => Get.to(() => const TravelAccountScreen()),
+              icon: const Icon(Icons.account_circle_outlined),
+            ),
+          ],
         ),
       ),
       child: RefreshIndicator(
@@ -92,53 +100,6 @@ class TravelHomeScreen extends StatelessWidget {
                           .toList(),
                     ),
             ),
-            SizedBox(height: 14.h),
-            TravelCard(
-              color: const Color(0xFFEAF3FF),
-              onTap: () => Get.toNamed(
-                BaseRoute.addMoney,
-                arguments: {'returnRoute': BaseRoute.travel},
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(12.r),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.account_balance_wallet_rounded,
-                      color: TravelTheme.green,
-                    ),
-                  ),
-                  SizedBox(width: 14.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          localization.travelMainWallet,
-                          style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                        SizedBox(height: 3.h),
-                        Text(
-                          localization.travelWalletSharedDescription,
-                          style: TextStyle(
-                            color: TravelTheme.muted,
-                            fontSize: 11.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Icon(Icons.chevron_right_rounded),
-                ],
-              ),
-            ),
           ],
         ),
       ),
@@ -165,57 +126,96 @@ class _Hero extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 205.h,
-      padding: EdgeInsets.all(24.r),
-      decoration: BoxDecoration(
-        borderRadius: TravelTheme.radius,
-        gradient: const LinearGradient(
-          begin: AlignmentDirectional.topStart,
-          end: AlignmentDirectional.bottomEnd,
-          colors: [Color(0xFF0D47A1), TravelTheme.blue, TravelTheme.purple],
+    return ClipRRect(
+      borderRadius: TravelTheme.radius,
+      child: Container(
+        height: 210.h,
+        decoration: BoxDecoration(
+          boxShadow: TravelTheme.shadow,
         ),
-        boxShadow: TravelTheme.shadow,
-      ),
-      child: Stack(
-        children: [
-          PositionedDirectional(
-            end: -18.w,
-            top: -14.h,
-            child: Icon(
-              Icons.public_rounded,
-              color: Colors.white.withValues(alpha: 0.13),
-              size: 180.r,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            // تصویر پس‌زمینهٔ سفر (وایب سفر — هواپیما/نقشهٔ جهان)
+            Image.asset(
+              'assets/images/etrip/hero-plane.jpg',
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => Container(
+                color: const Color(0xFF0D47A1),
+              ),
             ),
-          ),
-          Align(
-            alignment: AlignmentDirectional.bottomStart,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  eyebrow,
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.84),
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
+            // گرادیان نیمه‌شفاف سرمه‌ای برای خوانایی متن
+            DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: AlignmentDirectional.topCenter,
+                  end: AlignmentDirectional.bottomCenter,
+                  colors: [
+                    Colors.black.withValues(alpha: 0.08),
+                    Colors.black.withValues(alpha: 0.55),
+                    Colors.black.withValues(alpha: 0.78),
+                  ],
                 ),
-                SizedBox(height: 8.h),
-                Text(
-                  title,
+              ),
+            ),
+            PositionedDirectional(
+              end: 12.w,
+              bottom: 16.h,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 7.h),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFD4AF37),
+                  borderRadius: BorderRadius.circular(40.r),
+                ),
+                child: Text(
+                  'etrip',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25.sp,
-                    height: 1.3,
+                    color: const Color(0xFF0A1628),
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w900,
+                    letterSpacing: 0.5,
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.all(24.r),
+              child: Align(
+                alignment: AlignmentDirectional.bottomStart,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      eyebrow,
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.92),
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(height: 8.h),
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25.sp,
+                        height: 1.3,
+                        fontWeight: FontWeight.w900,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black.withValues(alpha: 0.4),
+                            blurRadius: 8,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
