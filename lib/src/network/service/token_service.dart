@@ -67,31 +67,40 @@ class TokenService extends GetxService {
   }
 
   /// Save the access token to secure storage.
+  ///
+  /// The in-memory value is updated before the platform storage write. This
+  /// matters on Web preview/origins where the secure-storage implementation can
+  /// reject a non-secure context even though the current API session is valid.
+  /// A storage failure must not make the just-completed login lose its bearer
+  /// token before the first authenticated request is sent.
   Future<bool> saveAccessToken(String token) async {
+    accessToken.value = token;
     try {
       await _secureStorage.write(key: accessTokenKey, value: token);
-      accessToken.value = token;
       if (kDebugMode) {
         debugPrint('🔑 TokenService: token saved securely');
       }
       return true;
     } catch (e) {
-      debugPrint('🔑 TokenService: failed to save token: $e');
-      return false;
+      debugPrint('🔑 TokenService: failed to persist token: $e');
+      // The current session can continue with the in-memory token. It will
+      // require a new login after a Web reload if persistent storage is not
+      // available. Native clients still report the persistence failure.
+      return kIsWeb;
     }
   }
 
   /// Clear the access token (logout).
   Future<bool> clearToken() async {
+    accessToken.value = null;
     try {
       await _secureStorage.delete(key: accessTokenKey);
-      accessToken.value = null;
       if (kDebugMode) {
         debugPrint('🔑 TokenService: token cleared');
       }
       return true;
     } catch (e) {
-      debugPrint('🔑 TokenService: failed to clear token: $e');
+      debugPrint('🔑 TokenService: failed to clear persisted token: $e');
       return false;
     }
   }
