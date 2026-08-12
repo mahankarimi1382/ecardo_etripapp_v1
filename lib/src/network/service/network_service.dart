@@ -22,6 +22,7 @@ class NetworkService extends getx.GetxService {
   final Dio _globalDio = Dio();
   final String baseUrl = ApiPath.baseUrl;
   late TokenService _tokenService;
+  String? _sessionAccessToken;
 
   AppLocalizations? get localization {
     final ctx = getx.Get.context;
@@ -65,8 +66,9 @@ class NetworkService extends getx.GetxService {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          String? accessToken = _tokenService.accessToken.value;
-          _log('🔑 Token: $accessToken');
+          final accessToken =
+              _sessionAccessToken ?? _tokenService.accessToken.value;
+          _log('🔑 Token present: ${accessToken?.isNotEmpty == true}');
 
           if (accessToken != null && accessToken.isNotEmpty) {
             options.headers['Authorization'] = 'Bearer $accessToken';
@@ -116,7 +118,8 @@ class NetworkService extends getx.GetxService {
 
             if (refreshed) {
               // retry request اصلی
-              final newToken = _tokenService.accessToken.value;
+              final newToken =
+                  _sessionAccessToken ?? _tokenService.accessToken.value;
               if (newToken != null) {
                 error.requestOptions.headers['Authorization'] = 'Bearer $newToken';
                 try {
@@ -137,6 +140,7 @@ class NetworkService extends getx.GetxService {
 
             // refresh ناموفق — logout
             _log("Token refresh failed — logging out.");
+            _sessionAccessToken = null;
             await _tokenService.clearToken();
             _pendingRequests.clear();
 
@@ -161,7 +165,8 @@ class NetworkService extends getx.GetxService {
       final response = await _globalDio.post(
         '$baseUrl${ApiPath.tokenRefreshEndpoint}',
         options: Options(headers: {
-          'Authorization': 'Bearer ${_tokenService.accessToken.value}',
+          'Authorization':
+              'Bearer ${_sessionAccessToken ?? _tokenService.accessToken.value}',
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         }),
@@ -170,6 +175,7 @@ class NetworkService extends getx.GetxService {
       if (response.statusCode == 200) {
         final newToken = response.data['data']?['token'];
         if (newToken != null && newToken is String) {
+          _sessionAccessToken = newToken;
           await _tokenService.saveAccessToken(newToken);
           _log('✓ Token refreshed successfully');
           return true;
@@ -215,7 +221,11 @@ class NetworkService extends getx.GetxService {
       _log('✅ Login POST Response: ${response.data}');
 
       if (response.statusCode == 200) {
-        String accessToken = response.data["data"]["token"];
+        final accessToken = response.data["data"]["token"]?.toString();
+        if (accessToken == null || accessToken.isEmpty) {
+          return ApiResponse.error('Login did not return an access token.');
+        }
+        _sessionAccessToken = accessToken;
         await _tokenService.clearToken();
         await _tokenService.saveAccessToken(accessToken);
         _setupInterceptors();
@@ -255,7 +265,11 @@ class NetworkService extends getx.GetxService {
       _log('⏱️ Register Time: ${stopwatch.elapsedMilliseconds}ms');
 
       if (response.statusCode == 200) {
-        String accessToken = response.data["data"]['token'];
+        final accessToken = response.data["data"]['token']?.toString();
+        if (accessToken == null || accessToken.isEmpty) {
+          return ApiResponse.error('Registration did not return an access token.');
+        }
+        _sessionAccessToken = accessToken;
         await _tokenService.saveAccessToken(accessToken);
         _setupInterceptors();
         _log('🔑 Token Saved Successfully');
