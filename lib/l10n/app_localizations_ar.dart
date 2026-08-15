@@ -5565,16 +5565,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get filterMyOrder => 'تصفية طلبي';
 
   @override
-  String get comment_travel => '==== سفر eCardo ====';
+  String get comment_travel => '==== etrip ====';
 
   @override
-  String get travelTitle => 'سفر eCardo';
+  String get travelTitle => 'etrip';
 
   @override
-  String get travelHeroEyebrow => 'تجربة سفر أفضل';
+  String get travelHeroEyebrow => 'تجربة سفر فاخرة';
 
   @override
-  String get travelHeroTitle => 'احجز رحلتك القادمة اليوم';
+  String get travelHeroTitle => 'احجز رحلتك القادمة مع etrip';
 
   @override
   String get travelFlights => 'الرحلات';
@@ -5583,7 +5583,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get travelHotels => 'الفنادق';
 
   @override
-  String get travelEsim => 'eSIM';
+  String get travelEsim => 'الشريحة الإلكترونية';
 
   @override
   String get travelRecentActivity => 'النشاط الأخير';
@@ -5596,13 +5596,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get travelWalletSharedDescription =>
-      'نفس المحفظة الآمنة التي تستخدمها عبر eCardo';
+      'نفس المحفظة الآمنة المستخدمة في eCardo';
 
   @override
-  String get travelHotelSearch => 'بحث الفنادق';
+  String get travelHotelSearch => 'البحث عن الفنادق';
 
   @override
-  String get travelHotelHero => 'أقم في مكان لا يُنسى';
+  String get travelHotelHero => 'إقامة لا تُنسى';
 
   @override
   String get travelDestinationCountry => 'بلد الوجهة';
@@ -5620,7 +5620,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get travelGuests => 'الضيوف';
 
   @override
-  String get travelSearchHotels => 'البحث عن فنادق';
+  String get travelSearchHotels => 'بحث الفنادق';
 
   @override
   String get travelRecentSearches => 'عمليات البحث الأخيرة';
@@ -5657,7 +5657,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get travelHotelDescription =>
-      'إقامة مدينة راقية بغرف مريحة وخدمة يقظة ووصول مريح إلى المعالم الرئيسية. سيتم توفير محتوى الغرفة النهائي والسياسات عبر واجهة eCardo Travel.';
+      'إقامة مدينة راقية بغرف مريحة وخدمة دقيقة ووصول سهل إلى المعالم الرئيسية. سيتم توفير تفاصيل الغرفة والسياسات عبر واجهة etrip.';
 
   @override
   String get travelPolicies => 'السياسات';
@@ -5669,13 +5669,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get travelCancellationSummary => 'إلغاء مجاني قبل الموعد المحدد';
 
   @override
-  String get travelFlightSearch => 'بحث الرحلات';
+  String get travelFlightSearch => 'البحث عن الرحلات';
 
   @override
-  String get travelFlightHero => 'رحلة أحلامك تبدأ هنا';
+  String get travelFlightHero => 'سافر بأسلوب الدرجة الأولى';
 
   @override
-  String get travelOrigin => 'المغادرة من';
+  String get travelOrigin => 'المغادرة';
 
   @override
   String get travelDestination => 'الوجهة';
@@ -5699,19 +5699,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get travelChildren => 'الأطفال';
 
   @override
-  String get travelInfants => 'الرضع';
+  String get travelInfants => 'الرضّع';
 
   @override
-  String get travelCabinClass => 'درجة السفر';
+  String get travelCabinClass => 'درجة المقصورة';
 
   @override
-  String get travelEconomy => 'السياحية';
+  String get travelEconomy => 'اقتصادية';
 
   @override
-  String get travelBusiness => 'رجال الأعمال';
+  String get travelBusiness => 'أعمال';
 
   @override
-  String get travelSearchFlights => 'البحث عن رحلات';
+  String get travelSearchFlights => 'بحث الرحلات';
 
   @override
   String get travelFlightResults => 'نتائج الرحلات';
@@ -5742,7 +5742,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get travelFlightDetails => 'تفاصيل الرحلة والمسافر';
 
   @override
-  String get travelContinueToPayment => 'المتابعة إلى الدفع';
+  String get travelContinueToPayment => 'المتابعة للدفع';
 
   @override
   String get travelPassengerReview => 'مراجعة المسافر';
@@ -5767,14 +5767,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get travelTotal => 'الإجمالي';
 
   @override
-  String get travelBrowseEsimPackages => 'تصفح باقات eSIM';
+  String get travelBrowseEsimPackages => 'استعراض باقات eSIM';
 
   @override
-  String get travelEsimIntroTitle => 'ابق متصلًا أينما سافرت';
+  String get travelEsimIntroTitle => 'ابق متصلاً أينما سافرت';
 
   @override
   String get travelEsimIntroDescription =>
-      'اختر باقة بيانات رقمية، وادفع من محفظة eCardo الرئيسية، وفعّلها دون استبدال شريحة SIM الفعلية.';
+      'اختر باقة بيانات رقمية وادفع من محفظة eCardo وفعّلها دون استبدال الشريحة.';
 
   @override
   String get travelEsimInstantTitle => 'تسليم فوري';
@@ -5818,10 +5818,10 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get travelWalletCheckout => 'الدفع بالمحفظة';
+  String get travelWalletCheckout => 'الدفع من المحفظة';
 
   @override
-  String get travelBackendConfirmedPrice => 'السعر مؤكد من eCardo Travel';
+  String get travelBackendConfirmedPrice => 'السعر مؤكد من etrip';
 
   @override
   String get travelPaymentMethod => 'طريقة الدفع';
@@ -5831,7 +5831,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get travelInsufficientBalance =>
-      'رصيد محفظتك الرئيسية غير كافٍ. أضف المال، ثم ارجع لتحديث الدفع.';
+      'رصيد محفظتك الرئيسية غير كافٍ. أضف رصيدًا ثم عد لتحديث الدفع.';
 
   @override
   String get travelPriceSummary => 'ملخص السعر';
@@ -5850,7 +5850,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get travelPayFromWallet => 'ادفع من المحفظة';
 
   @override
-  String get travelAddMoney => 'إضافة أموال';
+  String get travelAddMoney => 'إضافة رصيد';
 
   @override
   String get travelPaymentFailed => 'لم يكتمل الدفع';
@@ -5923,7 +5923,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get travelHotelPendingConfirmationDescription =>
-      'تم استلام الدفع. يؤكد eCardo Travel الفندق مع المورد المعتمد قبل إصدار القسيمة.';
+      'تم استلام الدفع. يؤكد etrip الفندق مع المورد المعتمد قبل إصدار القسيمة.';
 
   @override
   String get travelPaidAmount => 'المبلغ المدفوع';
@@ -5963,7 +5963,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get travelMyEsimsDescription => 'باقات البيانات النشطة والسابقة';
 
   @override
-  String get travelNoBookings => 'ليس لديك أي حجوزات سفر بعد.';
+  String get travelNoBookings => 'ليس لديك حجوزات سفر بعد.';
 
   @override
   String get travelNoHotels => 'ليس لديك أي حجوزات فندقية بعد.';
@@ -6057,28 +6057,28 @@ class AppLocalizationsAr extends AppLocalizations {
   String get travelAccountHolder => 'عضو eCardo';
 
   @override
-  String get travelMemberDescription => 'ملف شخصي ومحفظة ومعلومات مسافر مشتركة';
+  String get travelMemberDescription => 'ملف شخصي ومحفظة وبيانات مسافر مشتركة';
 
   @override
-  String get travelMyBookingsDescription =>
-      'الفنادق والرحلات وشرائح eSIM النشطة';
+  String get travelMyBookingsDescription => 'فنادق ورحلات وشرائح eSIM نشطة';
 
   @override
   String get travelSavedTravelersDescription =>
-      'إعادة استخدام تفاصيل المسافر بأمان';
+      'أعد استخدام بيانات المسافرين بأمان';
 
   @override
   String get travelPersonalInformation => 'المعلومات الشخصية';
 
   @override
   String get travelPersonalInformationDescription =>
-      'إدارة التفاصيل المشتركة مع السفر';
+      'إدارة البيانات المشتركة مع etrip';
 
   @override
-  String get travelHistory => 'سجل السفر والمحفظة';
+  String get travelHistory => 'السجل';
 
   @override
-  String get travelHistoryDescription => 'عرض المشتريات ونشاط المحفظة معًا';
+  String get travelHistoryDescription =>
+      'اعرض مشتريات السفر ونشاط المحفظة معًا';
 
   @override
   String get travelNoActivity => 'لا يوجد نشاط سفر أو محفظة.';
@@ -6432,7 +6432,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get travelPaymentReceivedDescription =>
-      'تم استلام الدفع. تعمل eCardo Travel على إكمال تأكيد المورد قبل إصدار المستند النهائي.';
+      'تم استلام الدفع. يكمل etrip تأكيد المورد قبل إصدار المستند النهائي.';
 
   @override
   String get travelSearchFailedDescription =>
@@ -6538,4 +6538,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get drawerSupport => 'الدعم';
+
+  @override
+  String get travelFlightHeroSubtitle =>
+      'قارن المسارات واختر المسافرين وادفع بأمان من محفظة eCardo.';
+
+  @override
+  String get travelHotelHeroSubtitle =>
+      'اعثر على إقامات مختارة بنفس إحساس etrip الفاخر.';
 }

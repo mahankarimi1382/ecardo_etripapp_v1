@@ -28,11 +28,7 @@ class LanguageDropdown extends StatelessWidget {
     final current = Get.locale?.languageCode.toLowerCase() ?? 'en';
     return PopupMenuButton<String>(
       tooltip: 'Language',
-      icon: Icon(
-        Icons.translate_rounded,
-        color: TravelInk,
-        size: 24.r,
-      ),
+      icon: Icon(Icons.translate_rounded, color: travelInk, size: 24.r),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       onSelected: _change,
       itemBuilder: (context) => [
@@ -50,7 +46,7 @@ class LanguageDropdown extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                     color: lang.code == current
                         ? const Color(0xFFD4AF37)
-                        : TravelInk,
+                        : travelInk,
                   ),
                 ),
                 if (lang.code == current) ...[
@@ -69,4 +65,4 @@ class LanguageDropdown extends StatelessWidget {
   }
 }
 
-const Color TravelInk = Color(0xFF191C1D);
+const Color travelInk = Color(0xFF191C1D);

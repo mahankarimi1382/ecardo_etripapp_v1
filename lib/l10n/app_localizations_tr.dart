@@ -2638,7 +2638,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get comment_settings_screen => '==== Settings Screen ====';
 
   @override
-  String get settingsScreenTitle => 'Settings';
+  String get settingsScreenTitle => 'Ayarlar';
 
   @override
   String get settingsProfileSettings => 'Profile Settings';
@@ -3307,7 +3307,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get bottomNavGift => 'Gift';
 
   @override
-  String get bottomNavSettings => 'Settings';
+  String get bottomNavSettings => 'Ayarlar';
 
   @override
   String get qrInvalidFormat =>
@@ -5597,68 +5597,68 @@ class AppLocalizationsTr extends AppLocalizations {
   String get filterMyOrder => 'Filter My Order';
 
   @override
-  String get comment_travel => '==== eCardo Travel ====';
+  String get comment_travel => '==== etrip ====';
 
   @override
-  String get travelTitle => 'eCardo Travel';
+  String get travelTitle => 'etrip';
 
   @override
-  String get travelHeroEyebrow => 'A better travel experience';
+  String get travelHeroEyebrow => 'Lüks seyahat deneyimi';
 
   @override
-  String get travelHeroTitle => 'Book your next journey today';
+  String get travelHeroTitle => 'Sonraki yolculuğunu etrip ile rezerve et';
 
   @override
-  String get travelFlights => 'Flights';
+  String get travelFlights => 'Uçuşlar';
 
   @override
-  String get travelHotels => 'Hotels';
+  String get travelHotels => 'Oteller';
 
   @override
   String get travelEsim => 'eSIM';
 
   @override
-  String get travelRecentActivity => 'Recent activity';
+  String get travelRecentActivity => 'Son aktiviteler';
 
   @override
-  String get travelViewAll => 'View all';
+  String get travelViewAll => 'Tümünü gör';
 
   @override
-  String get travelMainWallet => 'Main eCardo wallet';
+  String get travelMainWallet => 'Ana eCardo cüzdanı';
 
   @override
   String get travelWalletSharedDescription =>
-      'The same secure wallet you use across eCardo';
+      'eCardo genelinde kullandığın aynı güvenli cüzdan';
 
   @override
-  String get travelHotelSearch => 'Hotel search';
+  String get travelHotelSearch => 'Otel ara';
 
   @override
-  String get travelHotelHero => 'Stay somewhere unforgettable';
+  String get travelHotelHero => 'Unutulmaz bir konaklama seç';
 
   @override
   String get travelDestinationCountry => 'Destination country';
 
   @override
-  String get travelDestinationCity => 'City';
+  String get travelDestinationCity => 'Şehir';
 
   @override
-  String get travelCheckIn => 'Check-in';
+  String get travelCheckIn => 'Giriş';
 
   @override
-  String get travelCheckOut => 'Check-out';
+  String get travelCheckOut => 'Çıkış';
 
   @override
-  String get travelGuests => 'Guests';
+  String get travelGuests => 'Misafirler';
 
   @override
-  String get travelSearchHotels => 'Search hotels';
+  String get travelSearchHotels => 'Otel ara';
 
   @override
   String get travelRecentSearches => 'Recent searches';
 
   @override
-  String get travelHotelResults => 'Hotel results';
+  String get travelHotelResults => 'Otel sonuçları';
 
   @override
   String get travelNoHotelResults => 'No matching hotels were found.';
@@ -5689,7 +5689,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get travelHotelDescription =>
-      'A refined city stay with comfortable rooms, attentive service and convenient access to major attractions. Final room content and policies will be supplied by the eCardo Travel API.';
+      'Konforlu odalar, özenli hizmet ve önemli noktalara kolay erişim sunan rafine bir şehir konaklaması. Nihai oda bilgileri ve kurallar etrip API tarafından sağlanır.';
 
   @override
   String get travelPolicies => 'Policies';
@@ -5702,52 +5702,52 @@ class AppLocalizationsTr extends AppLocalizations {
       'Free cancellation before the stated deadline';
 
   @override
-  String get travelFlightSearch => 'Flight search';
+  String get travelFlightSearch => 'Uçuş ara';
 
   @override
-  String get travelFlightHero => 'Your dream journey starts here';
+  String get travelFlightHero => 'First class tarzında seyahat et';
 
   @override
-  String get travelOrigin => 'Origin';
+  String get travelOrigin => 'Nereden';
 
   @override
-  String get travelDestination => 'Destination';
+  String get travelDestination => 'Nereye';
 
   @override
-  String get travelDepartureDate => 'Departure date';
+  String get travelDepartureDate => 'Gidiş tarihi';
 
   @override
-  String get travelReturnDate => 'Return date';
+  String get travelReturnDate => 'Dönüş tarihi';
 
   @override
-  String get travelOneWay => 'One-way';
+  String get travelOneWay => 'Tek yön';
 
   @override
-  String get travelRoundTrip => 'Round trip';
+  String get travelRoundTrip => 'Gidiş-dönüş';
 
   @override
-  String get travelAdults => 'Adults';
+  String get travelAdults => 'Yetişkin';
 
   @override
-  String get travelChildren => 'Children';
+  String get travelChildren => 'Çocuk';
 
   @override
-  String get travelInfants => 'Infants';
+  String get travelInfants => 'Bebek';
 
   @override
-  String get travelCabinClass => 'Cabin class';
+  String get travelCabinClass => 'Kabin sınıfı';
 
   @override
-  String get travelEconomy => 'Economy';
+  String get travelEconomy => 'Ekonomi';
 
   @override
   String get travelBusiness => 'Business';
 
   @override
-  String get travelSearchFlights => 'Search flights';
+  String get travelSearchFlights => 'Uçuş ara';
 
   @override
-  String get travelFlightResults => 'Flight results';
+  String get travelFlightResults => 'Uçuş sonuçları';
 
   @override
   String get travelNoFlightResults => 'No matching flights were found.';
@@ -5760,7 +5760,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Your exact search has no matches. These upcoming options are shown as alternatives; edit the search to change route or date.';
 
   @override
-  String get travelSelectFlight => 'Select flight';
+  String get travelSelectFlight => 'Uçuş seç';
 
   @override
   String get travelSelectReturnFlight => 'Select return flight';
@@ -5775,7 +5775,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get travelFlightDetails => 'Flight and passenger details';
 
   @override
-  String get travelContinueToPayment => 'Continue to payment';
+  String get travelContinueToPayment => 'Ödemeye devam et';
 
   @override
   String get travelPassengerReview => 'Passenger review';
@@ -5797,17 +5797,17 @@ class AppLocalizationsTr extends AppLocalizations {
   String get travelTaxesAndFees => 'Taxes and fees';
 
   @override
-  String get travelTotal => 'Total';
+  String get travelTotal => 'Toplam';
 
   @override
-  String get travelBrowseEsimPackages => 'Browse eSIM packages';
+  String get travelBrowseEsimPackages => 'eSIM paketleri';
 
   @override
-  String get travelEsimIntroTitle => 'Stay connected wherever you travel';
+  String get travelEsimIntroTitle => 'Nereye gidersen bağlı kal';
 
   @override
   String get travelEsimIntroDescription =>
-      'Choose a digital data package, pay from your main eCardo wallet and activate it without replacing your physical SIM.';
+      'Dijital veri paketi seç, eCardo cüzdanından öde ve fiziksel SIM’i değiştirmeden etkinleştir.';
 
   @override
   String get travelEsimInstantTitle => 'Instant delivery';
@@ -5851,26 +5851,26 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get travelWalletCheckout => 'Wallet checkout';
+  String get travelWalletCheckout => 'Cüzdanla ödeme';
 
   @override
-  String get travelBackendConfirmedPrice => 'Price confirmed by eCardo Travel';
+  String get travelBackendConfirmedPrice => 'Fiyat etrip tarafından onaylandı';
 
   @override
-  String get travelPaymentMethod => 'Payment method';
+  String get travelPaymentMethod => 'Ödeme yöntemi';
 
   @override
-  String get travelAvailableBalance => 'Available balance';
+  String get travelAvailableBalance => 'Kullanılabilir bakiye';
 
   @override
   String get travelInsufficientBalance =>
-      'Your main wallet balance is insufficient. Add money, then return to refresh checkout.';
+      'Ana cüzdan bakiyen yetersiz. Para ekle ve ödemeyi yenile.';
 
   @override
   String get travelPriceSummary => 'Price summary';
 
   @override
-  String get travelSubtotal => 'Subtotal';
+  String get travelSubtotal => 'Ara toplam';
 
   @override
   String get travelWalletPayment => 'Wallet payment';
@@ -5880,10 +5880,10 @@ class AppLocalizationsTr extends AppLocalizations {
       'Payment is submitted once using an idempotent booking request.';
 
   @override
-  String get travelPayFromWallet => 'Pay from wallet';
+  String get travelPayFromWallet => 'Cüzdandan öde';
 
   @override
-  String get travelAddMoney => 'Add money';
+  String get travelAddMoney => 'Para ekle';
 
   @override
   String get travelPaymentFailed => 'Payment was not completed';
@@ -5911,13 +5911,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get travelEsimReady => 'Your eSIM is active and ready to install.';
 
   @override
-  String get travelPurchaseSuccessful => 'Purchase successful';
+  String get travelPurchaseSuccessful => 'Satın alma başarılı';
 
   @override
-  String get travelReference => 'Reference';
+  String get travelReference => 'Referans';
 
   @override
-  String get travelStatus => 'Status';
+  String get travelStatus => 'Durum';
 
   @override
   String get travelActive => 'Active';
@@ -5956,7 +5956,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get travelHotelPendingConfirmationDescription =>
-      'Payment was received. eCardo Travel is confirming the hotel with the authorized supplier before issuing your voucher.';
+      'Ödeme alındı. etrip, kuponu düzenlemeden önce oteli yetkili tedarikçiyle onaylıyor.';
 
   @override
   String get travelPaidAmount => 'Paid amount';
@@ -5969,10 +5969,10 @@ class AppLocalizationsTr extends AppLocalizations {
       'Open your device cellular settings, add an eSIM and use the secure installation details returned by the eCardo backend.';
 
   @override
-  String get travelViewMyBookings => 'View my bookings';
+  String get travelViewMyBookings => 'Rezervasyonlarımı gör';
 
   @override
-  String get travelMyBookings => 'My bookings';
+  String get travelMyBookings => 'Rezervasyonlarım';
 
   @override
   String get travelAllBookings => 'All bookings';
@@ -5996,7 +5996,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get travelMyEsimsDescription => 'Active and previous data packages';
 
   @override
-  String get travelNoBookings => 'You do not have any travel bookings yet.';
+  String get travelNoBookings => 'Henüz seyahat rezervasyonun yok.';
 
   @override
   String get travelNoHotels => 'You do not have any hotel bookings yet.';
@@ -6084,35 +6084,36 @@ class AppLocalizationsTr extends AppLocalizations {
   String get travelSaveTraveler => 'Save traveler';
 
   @override
-  String get travelAccount => 'Travel account';
+  String get travelAccount => 'Seyahat hesabı';
 
   @override
-  String get travelAccountHolder => 'eCardo member';
+  String get travelAccountHolder => 'eCardo üyesi';
 
   @override
   String get travelMemberDescription =>
-      'Shared profile, wallet and traveler information';
+      'Ortak profil, cüzdan ve yolcu bilgileri';
 
   @override
-  String get travelMyBookingsDescription => 'Hotels, flights and active eSIMs';
+  String get travelMyBookingsDescription =>
+      'Oteller, uçuşlar ve aktif eSIM’ler';
 
   @override
   String get travelSavedTravelersDescription =>
-      'Reuse passenger details securely';
+      'Yolcu bilgilerini güvenle yeniden kullan';
 
   @override
-  String get travelPersonalInformation => 'Personal information';
+  String get travelPersonalInformation => 'Kişisel bilgiler';
 
   @override
   String get travelPersonalInformationDescription =>
-      'Manage details shared with Travel';
+      'etrip ile paylaşılan bilgileri yönet';
 
   @override
-  String get travelHistory => 'Travel and wallet history';
+  String get travelHistory => 'Geçmiş';
 
   @override
   String get travelHistoryDescription =>
-      'View purchases and wallet activity together';
+      'Seyahat alışverişleri ve cüzdan hareketleri bir arada';
 
   @override
   String get travelNoActivity => 'No travel or wallet activity is available.';
@@ -6467,7 +6468,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get travelPaymentReceivedDescription =>
-      'Payment was received. eCardo Travel is completing supplier confirmation before issuing the final document.';
+      'Ödeme alındı. etrip, nihai belgeyi düzenlemeden önce tedarikçi onayını tamamlıyor.';
 
   @override
   String get travelSearchFailedDescription =>
@@ -6566,11 +6567,19 @@ class AppLocalizationsTr extends AppLocalizations {
       'Keep the reference available, refresh My Bookings for status changes, and use only issued backend artifacts for travel.';
 
   @override
-  String get drawerTravel => 'Travel / Stays';
+  String get drawerTravel => 'Seyahat';
 
   @override
-  String get drawerTransactions => 'Transactions';
+  String get drawerTransactions => 'İşlemler';
 
   @override
-  String get drawerSupport => 'Support';
+  String get drawerSupport => 'Destek';
+
+  @override
+  String get travelFlightHeroSubtitle =>
+      'Rotaları karşılaştır, yolcuları seç ve eCardo cüzdanınla güvenli öde.';
+
+  @override
+  String get travelHotelHeroSubtitle =>
+      'etrip’in premium hissiyle seçili konaklamaları bul.';
 }

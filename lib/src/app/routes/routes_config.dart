@@ -19,6 +19,7 @@ import 'package:ecardo_etrip/src/presentation/screens/settings/view/id_verificat
 import 'package:ecardo_etrip/src/presentation/screens/settings/view/id_verification/kyc_history/kyc_history.dart';
 import 'package:ecardo_etrip/src/presentation/screens/settings/view/notifications/notifications.dart';
 import 'package:ecardo_etrip/src/presentation/screens/settings/view/profile_settings/profile_settings.dart';
+import 'package:ecardo_etrip/src/presentation/screens/settings/view/settings_screen.dart';
 import 'package:ecardo_etrip/src/presentation/screens/settings/view/support_tickets/add_new_ticket/add_new_ticket.dart';
 import 'package:ecardo_etrip/src/presentation/screens/settings/view/support_tickets/replay_ticket/replay_ticket.dart';
 import 'package:ecardo_etrip/src/presentation/screens/settings/view/support_tickets/support_tickets.dart';
@@ -57,6 +58,8 @@ class RoutesConfig {
   static const resetPassword = ResetPassword();
 
   static const navigation = NavigationScreen();
+
+  static const settings = SettingsScreen();
 
   static const setUpPassword = SetUpPasswordScreen();
 

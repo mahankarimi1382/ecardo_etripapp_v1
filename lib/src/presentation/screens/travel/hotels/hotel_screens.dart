@@ -190,34 +190,25 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
     final cityField = service?.searchFields.firstWhereOrNull(
       (field) => field.key == 'city',
     );
-    final heroTitle =
-        service?.presentation['hero_title']?.toString() ??
-        localization.travelHotelHero;
+    final serviceHeroTitle = travelBackendText(
+      context,
+      service?.presentation['hero_title'],
+    );
+    final heroTitle = serviceHeroTitle.isNotEmpty
+        ? serviceHeroTitle
+        : localization.travelHotelHero;
     return TravelPage(
       title: localization.travelHotelSearch,
       child: ListView(
         padding: EdgeInsets.all(20.r),
         children: [
-          Container(
-            height: 170.h,
-            padding: EdgeInsets.all(22.r),
-            decoration: BoxDecoration(
-              borderRadius: TravelTheme.radius,
-              gradient: const LinearGradient(
-                colors: [Color(0xFF6A1B9A), TravelTheme.purple],
-              ),
-            ),
-            child: Align(
-              alignment: AlignmentDirectional.bottomStart,
-              child: Text(
-                heroTitle,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22.sp,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-            ),
+          TravelPosterHero(
+            assetPath: 'assets/images/etrip/hero-travel.jpg',
+            eyebrow: localization.travelHotels,
+            title: heroTitle,
+            subtitle: localization.travelHotelHeroSubtitle,
+            icon: Icons.hotel_rounded,
+            accentColor: TravelTheme.purple,
           ),
           SizedBox(height: 22.h),
           TravelCard(

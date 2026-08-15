@@ -67,46 +67,25 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
     final destinationField = service?.searchFields.firstWhereOrNull(
       (field) => field.key == 'destination',
     );
-    final heroTitle =
-        service?.presentation['hero_title']?.toString() ??
-        localization.travelFlightHero;
+    final serviceHeroTitle = travelBackendText(
+      context,
+      service?.presentation['hero_title'],
+    );
+    final heroTitle = serviceHeroTitle.isNotEmpty
+        ? serviceHeroTitle
+        : localization.travelFlightHero;
     return TravelPage(
       title: localization.travelFlightSearch,
       child: ListView(
         padding: EdgeInsets.all(20.r),
         children: [
-          Container(
-            height: 170.h,
-            padding: EdgeInsets.all(22.r),
-            decoration: BoxDecoration(
-              borderRadius: TravelTheme.radius,
-              gradient: const LinearGradient(
-                colors: [Color(0xFF0D47A1), TravelTheme.blue],
-              ),
-            ),
-            child: Stack(
-              children: [
-                Align(
-                  alignment: AlignmentDirectional.centerEnd,
-                  child: Icon(
-                    Icons.flight_takeoff_rounded,
-                    size: 110.r,
-                    color: Colors.white.withValues(alpha: 0.16),
-                  ),
-                ),
-                Align(
-                  alignment: AlignmentDirectional.bottomStart,
-                  child: Text(
-                    heroTitle,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22.sp,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          TravelPosterHero(
+            assetPath: 'assets/images/etrip/hero-plane.jpg',
+            eyebrow: localization.travelFlights,
+            title: heroTitle,
+            subtitle: localization.travelFlightHeroSubtitle,
+            icon: Icons.flight_takeoff_rounded,
+            accentColor: TravelTheme.blue,
           ),
           SizedBox(height: 22.h),
           TravelCard(

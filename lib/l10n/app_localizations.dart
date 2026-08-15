@@ -10591,25 +10591,25 @@ abstract class AppLocalizations {
   /// No description provided for @comment_travel.
   ///
   /// In en, this message translates to:
-  /// **'==== eCardo Travel ===='**
+  /// **'==== etrip ===='**
   String get comment_travel;
 
   /// No description provided for @travelTitle.
   ///
   /// In en, this message translates to:
-  /// **'eCardo Travel'**
+  /// **'etrip'**
   String get travelTitle;
 
   /// No description provided for @travelHeroEyebrow.
   ///
   /// In en, this message translates to:
-  /// **'A better travel experience'**
+  /// **'Luxury travel experience'**
   String get travelHeroEyebrow;
 
   /// No description provided for @travelHeroTitle.
   ///
   /// In en, this message translates to:
-  /// **'Book your next journey today'**
+  /// **'Book your next journey with etrip'**
   String get travelHeroTitle;
 
   /// No description provided for @travelFlights.
@@ -10771,7 +10771,7 @@ abstract class AppLocalizations {
   /// No description provided for @travelHotelDescription.
   ///
   /// In en, this message translates to:
-  /// **'A refined city stay with comfortable rooms, attentive service and convenient access to major attractions. Final room content and policies will be supplied by the eCardo Travel API.'**
+  /// **'A refined city stay with comfortable rooms, attentive service and convenient access to major attractions. Final room content and policies will be supplied by the etrip API.'**
   String get travelHotelDescription;
 
   /// No description provided for @travelPolicies.
@@ -10801,7 +10801,7 @@ abstract class AppLocalizations {
   /// No description provided for @travelFlightHero.
   ///
   /// In en, this message translates to:
-  /// **'Your dream journey starts here'**
+  /// **'Travel in first class style'**
   String get travelFlightHero;
 
   /// No description provided for @travelOrigin.
@@ -11083,7 +11083,7 @@ abstract class AppLocalizations {
   /// No description provided for @travelBackendConfirmedPrice.
   ///
   /// In en, this message translates to:
-  /// **'Price confirmed by eCardo Travel'**
+  /// **'Price confirmed by etrip'**
   String get travelBackendConfirmedPrice;
 
   /// No description provided for @travelPaymentMethod.
@@ -11275,7 +11275,7 @@ abstract class AppLocalizations {
   /// No description provided for @travelHotelPendingConfirmationDescription.
   ///
   /// In en, this message translates to:
-  /// **'Payment was received. eCardo Travel is confirming the hotel with the authorized supplier before issuing your voucher.'**
+  /// **'Payment was received. etrip is confirming the hotel with the authorized supplier before issuing your voucher.'**
   String get travelHotelPendingConfirmationDescription;
 
   /// No description provided for @travelPaidAmount.
@@ -11563,19 +11563,19 @@ abstract class AppLocalizations {
   /// No description provided for @travelPersonalInformationDescription.
   ///
   /// In en, this message translates to:
-  /// **'Manage details shared with Travel'**
+  /// **'Manage details shared with etrip'**
   String get travelPersonalInformationDescription;
 
   /// No description provided for @travelHistory.
   ///
   /// In en, this message translates to:
-  /// **'Travel and wallet history'**
+  /// **'History'**
   String get travelHistory;
 
   /// No description provided for @travelHistoryDescription.
   ///
   /// In en, this message translates to:
-  /// **'View purchases and wallet activity together'**
+  /// **'View travel purchases and wallet activity together'**
   String get travelHistoryDescription;
 
   /// No description provided for @travelNoActivity.
@@ -12247,7 +12247,7 @@ abstract class AppLocalizations {
   /// No description provided for @travelPaymentReceivedDescription.
   ///
   /// In en, this message translates to:
-  /// **'Payment was received. eCardo Travel is completing supplier confirmation before issuing the final document.'**
+  /// **'Payment was received. etrip is completing supplier confirmation before issuing the final document.'**
   String get travelPaymentReceivedDescription;
 
   /// No description provided for @travelSearchFailedDescription.
@@ -12429,6 +12429,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Support'**
   String get drawerSupport;
+
+  /// No description provided for @travelFlightHeroSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare routes, choose passengers and pay securely with your eCardo wallet.'**
+  String get travelFlightHeroSubtitle;
+
+  /// No description provided for @travelHotelHeroSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Find stays with the same premium travel feel as etrip.'**
+  String get travelHotelHeroSubtitle;
 }
 
 class _AppLocalizationsDelegate

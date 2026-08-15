@@ -10,6 +10,7 @@ import 'package:ecardo_etrip/src/common/widgets/app_bar/common_app_bar.dart';
 import 'package:ecardo_etrip/src/common/widgets/app_bar/common_default_app_bar.dart';
 import 'package:ecardo_etrip/src/common/widgets/common_loading.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/controller/home_controller.dart';
+import 'package:ecardo_etrip/src/presentation/screens/travel/shared/travel_widgets.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -128,6 +129,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       },
       child: Scaffold(
         appBar: CommonDefaultAppBar(),
+        bottomNavigationBar: const TravelBottomNavigation(
+          activeSection: TravelNavigationSection.settings,
+        ),
         body: Stack(
           children: [
             RefreshIndicator(

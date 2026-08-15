@@ -5599,16 +5599,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get filterMyOrder => 'Filter My Order';
 
   @override
-  String get comment_travel => '==== eCardo Travel ====';
+  String get comment_travel => '==== etrip ====';
 
   @override
-  String get travelTitle => 'eCardo Travel';
+  String get travelTitle => 'etrip';
 
   @override
-  String get travelHeroEyebrow => 'A better travel experience';
+  String get travelHeroEyebrow => 'Luxury travel experience';
 
   @override
-  String get travelHeroTitle => 'Book your next journey today';
+  String get travelHeroTitle => 'Book your next journey with etrip';
 
   @override
   String get travelFlights => 'Flights';
@@ -5691,7 +5691,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get travelHotelDescription =>
-      'A refined city stay with comfortable rooms, attentive service and convenient access to major attractions. Final room content and policies will be supplied by the eCardo Travel API.';
+      'A refined city stay with comfortable rooms, attentive service and convenient access to major attractions. Final room content and policies will be supplied by the etrip API.';
 
   @override
   String get travelPolicies => 'Policies';
@@ -5707,7 +5707,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get travelFlightSearch => 'Flight search';
 
   @override
-  String get travelFlightHero => 'Your dream journey starts here';
+  String get travelFlightHero => 'Travel in first class style';
 
   @override
   String get travelOrigin => 'Origin';
@@ -5856,7 +5856,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get travelWalletCheckout => 'Wallet checkout';
 
   @override
-  String get travelBackendConfirmedPrice => 'Price confirmed by eCardo Travel';
+  String get travelBackendConfirmedPrice => 'Price confirmed by etrip';
 
   @override
   String get travelPaymentMethod => 'Payment method';
@@ -5958,7 +5958,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get travelHotelPendingConfirmationDescription =>
-      'Payment was received. eCardo Travel is confirming the hotel with the authorized supplier before issuing your voucher.';
+      'Payment was received. etrip is confirming the hotel with the authorized supplier before issuing your voucher.';
 
   @override
   String get travelPaidAmount => 'Paid amount';
@@ -6107,14 +6107,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get travelPersonalInformationDescription =>
-      'Manage details shared with Travel';
+      'Manage details shared with etrip';
 
   @override
-  String get travelHistory => 'Travel and wallet history';
+  String get travelHistory => 'History';
 
   @override
   String get travelHistoryDescription =>
-      'View purchases and wallet activity together';
+      'View travel purchases and wallet activity together';
 
   @override
   String get travelNoActivity => 'No travel or wallet activity is available.';
@@ -6469,7 +6469,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get travelPaymentReceivedDescription =>
-      'Payment was received. eCardo Travel is completing supplier confirmation before issuing the final document.';
+      'Payment was received. etrip is completing supplier confirmation before issuing the final document.';
 
   @override
   String get travelSearchFailedDescription =>
@@ -6575,4 +6575,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get drawerSupport => 'Support';
+
+  @override
+  String get travelFlightHeroSubtitle =>
+      'Compare routes, choose passengers and pay securely with your eCardo wallet.';
+
+  @override
+  String get travelHotelHeroSubtitle =>
+      'Find stays with the same premium travel feel as etrip.';
 }

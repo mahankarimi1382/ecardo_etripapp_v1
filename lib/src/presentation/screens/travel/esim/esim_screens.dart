@@ -19,12 +19,20 @@ class EsimIntroScreen extends StatelessWidget {
     final localization = AppLocalizations.of(context)!;
     final controller = ensureTravelController();
     final service = controller.serviceFor(TravelProductType.esim);
-    final heroTitle =
-        service?.presentation['hero_title']?.toString() ??
-        localization.travelEsimIntroTitle;
-    final heroSubtitle =
-        service?.presentation['hero_subtitle']?.toString() ??
-        localization.travelEsimIntroDescription;
+    final serviceHeroTitle = travelBackendText(
+      context,
+      service?.presentation['hero_title'],
+    );
+    final serviceHeroSubtitle = travelBackendText(
+      context,
+      service?.presentation['hero_subtitle'],
+    );
+    final heroTitle = serviceHeroTitle.isNotEmpty
+        ? serviceHeroTitle
+        : localization.travelEsimIntroTitle;
+    final heroSubtitle = serviceHeroSubtitle.isNotEmpty
+        ? serviceHeroSubtitle
+        : localization.travelEsimIntroDescription;
     return TravelPage(
       title: localization.travelEsim,
       bottomNavigationBar: SafeArea(
@@ -42,37 +50,14 @@ class EsimIntroScreen extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.all(20.r),
         children: [
-          Container(
-            height: 260.h,
-            decoration: BoxDecoration(
-              borderRadius: TravelTheme.radius,
-              gradient: const LinearGradient(
-                begin: AlignmentDirectional.topStart,
-                end: AlignmentDirectional.bottomEnd,
-                colors: [Color(0xFFFFE082), TravelTheme.yellow],
-              ),
-            ),
-            child: Center(
-              child: Icon(
-                Icons.sim_card_download_rounded,
-                color: TravelTheme.ink,
-                size: 120.r,
-              ),
-            ),
-          ),
-          SizedBox(height: 24.h),
-          Text(
-            heroTitle,
-            style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.w900),
-          ),
-          SizedBox(height: 10.h),
-          Text(
-            heroSubtitle,
-            style: TextStyle(
-              color: TravelTheme.muted,
-              fontSize: 13.sp,
-              height: 1.7,
-            ),
+          TravelPosterHero(
+            assetPath: 'assets/images/etrip/hero-worldmap.jpg',
+            eyebrow: localization.travelEsim,
+            title: heroTitle,
+            subtitle: heroSubtitle,
+            icon: Icons.sim_card_download_rounded,
+            accentColor: TravelTheme.yellow,
+            height: 230,
           ),
           SizedBox(height: 24.h),
           _Benefit(

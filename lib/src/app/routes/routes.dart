@@ -26,6 +26,8 @@ class BaseRoute {
 
   static const String navigation = "/navigation_route";
 
+  static const String settings = "/settings_route";
+
   static const String setUpPassword = "/set_up_password_route";
 
   static const String personalInfo = "/personal_info_route";

@@ -68,6 +68,12 @@ List<GetPage> routesHandler = [
   ),
 
   GetPage(
+    name: BaseRoute.settings,
+    page: () => RoutesConfig.settings,
+    binding: HomeBinding(),
+  ),
+
+  GetPage(
     name: BaseRoute.setUpPassword,
     page: () => RoutesConfig.setUpPassword,
     binding: SetUpPasswordBinding(),

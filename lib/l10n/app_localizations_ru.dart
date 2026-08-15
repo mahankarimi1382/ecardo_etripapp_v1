@@ -2638,7 +2638,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get comment_settings_screen => '==== Settings Screen ====';
 
   @override
-  String get settingsScreenTitle => 'Settings';
+  String get settingsScreenTitle => 'Настройки';
 
   @override
   String get settingsProfileSettings => 'Profile Settings';
@@ -3307,7 +3307,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get bottomNavGift => 'Gift';
 
   @override
-  String get bottomNavSettings => 'Settings';
+  String get bottomNavSettings => 'Настройки';
 
   @override
   String get qrInvalidFormat =>
@@ -5597,68 +5597,68 @@ class AppLocalizationsRu extends AppLocalizations {
   String get filterMyOrder => 'Filter My Order';
 
   @override
-  String get comment_travel => '==== eCardo Travel ====';
+  String get comment_travel => '==== etrip ====';
 
   @override
-  String get travelTitle => 'eCardo Travel';
+  String get travelTitle => 'etrip';
 
   @override
-  String get travelHeroEyebrow => 'A better travel experience';
+  String get travelHeroEyebrow => 'Премиальный опыт путешествий';
 
   @override
-  String get travelHeroTitle => 'Book your next journey today';
+  String get travelHeroTitle => 'Забронируйте следующую поездку с etrip';
 
   @override
-  String get travelFlights => 'Flights';
+  String get travelFlights => 'Авиабилеты';
 
   @override
-  String get travelHotels => 'Hotels';
+  String get travelHotels => 'Отели';
 
   @override
   String get travelEsim => 'eSIM';
 
   @override
-  String get travelRecentActivity => 'Recent activity';
+  String get travelRecentActivity => 'Недавняя активность';
 
   @override
-  String get travelViewAll => 'View all';
+  String get travelViewAll => 'Смотреть все';
 
   @override
-  String get travelMainWallet => 'Main eCardo wallet';
+  String get travelMainWallet => 'Основной кошелек eCardo';
 
   @override
   String get travelWalletSharedDescription =>
-      'The same secure wallet you use across eCardo';
+      'Тот же защищенный кошелек eCardo';
 
   @override
-  String get travelHotelSearch => 'Hotel search';
+  String get travelHotelSearch => 'Поиск отелей';
 
   @override
-  String get travelHotelHero => 'Stay somewhere unforgettable';
+  String get travelHotelHero => 'Незабываемое проживание';
 
   @override
   String get travelDestinationCountry => 'Destination country';
 
   @override
-  String get travelDestinationCity => 'City';
+  String get travelDestinationCity => 'Город';
 
   @override
-  String get travelCheckIn => 'Check-in';
+  String get travelCheckIn => 'Заезд';
 
   @override
-  String get travelCheckOut => 'Check-out';
+  String get travelCheckOut => 'Выезд';
 
   @override
-  String get travelGuests => 'Guests';
+  String get travelGuests => 'Гости';
 
   @override
-  String get travelSearchHotels => 'Search hotels';
+  String get travelSearchHotels => 'Искать отели';
 
   @override
   String get travelRecentSearches => 'Recent searches';
 
   @override
-  String get travelHotelResults => 'Hotel results';
+  String get travelHotelResults => 'Результаты отелей';
 
   @override
   String get travelNoHotelResults => 'No matching hotels were found.';
@@ -5689,7 +5689,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get travelHotelDescription =>
-      'A refined city stay with comfortable rooms, attentive service and convenient access to major attractions. Final room content and policies will be supplied by the eCardo Travel API.';
+      'Изысканное городское проживание с удобными номерами, внимательным сервисом и доступом к главным достопримечательностям. Финальные данные номера и правила поступают из API etrip.';
 
   @override
   String get travelPolicies => 'Policies';
@@ -5702,52 +5702,52 @@ class AppLocalizationsRu extends AppLocalizations {
       'Free cancellation before the stated deadline';
 
   @override
-  String get travelFlightSearch => 'Flight search';
+  String get travelFlightSearch => 'Поиск рейсов';
 
   @override
-  String get travelFlightHero => 'Your dream journey starts here';
+  String get travelFlightHero => 'Путешествуйте в стиле first class';
 
   @override
-  String get travelOrigin => 'Origin';
+  String get travelOrigin => 'Откуда';
 
   @override
-  String get travelDestination => 'Destination';
+  String get travelDestination => 'Куда';
 
   @override
-  String get travelDepartureDate => 'Departure date';
+  String get travelDepartureDate => 'Дата вылета';
 
   @override
-  String get travelReturnDate => 'Return date';
+  String get travelReturnDate => 'Дата возврата';
 
   @override
-  String get travelOneWay => 'One-way';
+  String get travelOneWay => 'В одну сторону';
 
   @override
-  String get travelRoundTrip => 'Round trip';
+  String get travelRoundTrip => 'Туда-обратно';
 
   @override
-  String get travelAdults => 'Adults';
+  String get travelAdults => 'Взрослые';
 
   @override
-  String get travelChildren => 'Children';
+  String get travelChildren => 'Дети';
 
   @override
-  String get travelInfants => 'Infants';
+  String get travelInfants => 'Младенцы';
 
   @override
-  String get travelCabinClass => 'Cabin class';
+  String get travelCabinClass => 'Класс';
 
   @override
-  String get travelEconomy => 'Economy';
+  String get travelEconomy => 'Эконом';
 
   @override
-  String get travelBusiness => 'Business';
+  String get travelBusiness => 'Бизнес';
 
   @override
-  String get travelSearchFlights => 'Search flights';
+  String get travelSearchFlights => 'Искать рейсы';
 
   @override
-  String get travelFlightResults => 'Flight results';
+  String get travelFlightResults => 'Результаты рейсов';
 
   @override
   String get travelNoFlightResults => 'No matching flights were found.';
@@ -5760,7 +5760,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Your exact search has no matches. These upcoming options are shown as alternatives; edit the search to change route or date.';
 
   @override
-  String get travelSelectFlight => 'Select flight';
+  String get travelSelectFlight => 'Выбрать рейс';
 
   @override
   String get travelSelectReturnFlight => 'Select return flight';
@@ -5775,7 +5775,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get travelFlightDetails => 'Flight and passenger details';
 
   @override
-  String get travelContinueToPayment => 'Continue to payment';
+  String get travelContinueToPayment => 'Перейти к оплате';
 
   @override
   String get travelPassengerReview => 'Passenger review';
@@ -5797,17 +5797,17 @@ class AppLocalizationsRu extends AppLocalizations {
   String get travelTaxesAndFees => 'Taxes and fees';
 
   @override
-  String get travelTotal => 'Total';
+  String get travelTotal => 'Итого';
 
   @override
-  String get travelBrowseEsimPackages => 'Browse eSIM packages';
+  String get travelBrowseEsimPackages => 'Пакеты eSIM';
 
   @override
-  String get travelEsimIntroTitle => 'Stay connected wherever you travel';
+  String get travelEsimIntroTitle => 'Оставайтесь на связи в поездке';
 
   @override
   String get travelEsimIntroDescription =>
-      'Choose a digital data package, pay from your main eCardo wallet and activate it without replacing your physical SIM.';
+      'Выберите цифровой пакет данных, оплатите из кошелька eCardo и активируйте без замены SIM.';
 
   @override
   String get travelEsimInstantTitle => 'Instant delivery';
@@ -5851,26 +5851,26 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get travelWalletCheckout => 'Wallet checkout';
+  String get travelWalletCheckout => 'Оплата кошельком';
 
   @override
-  String get travelBackendConfirmedPrice => 'Price confirmed by eCardo Travel';
+  String get travelBackendConfirmedPrice => 'Цена подтверждена etrip';
 
   @override
-  String get travelPaymentMethod => 'Payment method';
+  String get travelPaymentMethod => 'Способ оплаты';
 
   @override
-  String get travelAvailableBalance => 'Available balance';
+  String get travelAvailableBalance => 'Доступный баланс';
 
   @override
   String get travelInsufficientBalance =>
-      'Your main wallet balance is insufficient. Add money, then return to refresh checkout.';
+      'Недостаточно средств в основном кошельке. Пополните баланс и обновите оплату.';
 
   @override
   String get travelPriceSummary => 'Price summary';
 
   @override
-  String get travelSubtotal => 'Subtotal';
+  String get travelSubtotal => 'Подытог';
 
   @override
   String get travelWalletPayment => 'Wallet payment';
@@ -5880,10 +5880,10 @@ class AppLocalizationsRu extends AppLocalizations {
       'Payment is submitted once using an idempotent booking request.';
 
   @override
-  String get travelPayFromWallet => 'Pay from wallet';
+  String get travelPayFromWallet => 'Оплатить кошельком';
 
   @override
-  String get travelAddMoney => 'Add money';
+  String get travelAddMoney => 'Пополнить';
 
   @override
   String get travelPaymentFailed => 'Payment was not completed';
@@ -5911,13 +5911,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get travelEsimReady => 'Your eSIM is active and ready to install.';
 
   @override
-  String get travelPurchaseSuccessful => 'Purchase successful';
+  String get travelPurchaseSuccessful => 'Покупка успешна';
 
   @override
-  String get travelReference => 'Reference';
+  String get travelReference => 'Номер';
 
   @override
-  String get travelStatus => 'Status';
+  String get travelStatus => 'Статус';
 
   @override
   String get travelActive => 'Active';
@@ -5956,7 +5956,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get travelHotelPendingConfirmationDescription =>
-      'Payment was received. eCardo Travel is confirming the hotel with the authorized supplier before issuing your voucher.';
+      'Платеж получен. etrip подтверждает отель у авторизованного поставщика перед выдачей ваучера.';
 
   @override
   String get travelPaidAmount => 'Paid amount';
@@ -5969,10 +5969,10 @@ class AppLocalizationsRu extends AppLocalizations {
       'Open your device cellular settings, add an eSIM and use the secure installation details returned by the eCardo backend.';
 
   @override
-  String get travelViewMyBookings => 'View my bookings';
+  String get travelViewMyBookings => 'Мои бронирования';
 
   @override
-  String get travelMyBookings => 'My bookings';
+  String get travelMyBookings => 'Мои бронирования';
 
   @override
   String get travelAllBookings => 'All bookings';
@@ -5996,7 +5996,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get travelMyEsimsDescription => 'Active and previous data packages';
 
   @override
-  String get travelNoBookings => 'You do not have any travel bookings yet.';
+  String get travelNoBookings => 'У вас пока нет бронирований.';
 
   @override
   String get travelNoHotels => 'You do not have any hotel bookings yet.';
@@ -6084,35 +6084,35 @@ class AppLocalizationsRu extends AppLocalizations {
   String get travelSaveTraveler => 'Save traveler';
 
   @override
-  String get travelAccount => 'Travel account';
+  String get travelAccount => 'Аккаунт';
 
   @override
-  String get travelAccountHolder => 'eCardo member';
+  String get travelAccountHolder => 'Участник eCardo';
 
   @override
   String get travelMemberDescription =>
-      'Shared profile, wallet and traveler information';
+      'Общий профиль, кошелек и данные путешественника';
 
   @override
-  String get travelMyBookingsDescription => 'Hotels, flights and active eSIMs';
+  String get travelMyBookingsDescription => 'Отели, рейсы и активные eSIM';
 
   @override
   String get travelSavedTravelersDescription =>
-      'Reuse passenger details securely';
+      'Безопасное повторное использование данных пассажиров';
 
   @override
-  String get travelPersonalInformation => 'Personal information';
+  String get travelPersonalInformation => 'Личная информация';
 
   @override
   String get travelPersonalInformationDescription =>
-      'Manage details shared with Travel';
+      'Управляйте данными, передаваемыми etrip';
 
   @override
-  String get travelHistory => 'Travel and wallet history';
+  String get travelHistory => 'История';
 
   @override
   String get travelHistoryDescription =>
-      'View purchases and wallet activity together';
+      'Покупки путешествий и активность кошелька вместе';
 
   @override
   String get travelNoActivity => 'No travel or wallet activity is available.';
@@ -6467,7 +6467,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get travelPaymentReceivedDescription =>
-      'Payment was received. eCardo Travel is completing supplier confirmation before issuing the final document.';
+      'Платеж получен. etrip завершает подтверждение поставщика перед выпуском итогового документа.';
 
   @override
   String get travelSearchFailedDescription =>
@@ -6573,4 +6573,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get drawerSupport => 'Поддержка';
+
+  @override
+  String get travelFlightHeroSubtitle =>
+      'Сравните маршруты, выберите пассажиров и оплатите безопасно кошельком eCardo.';
+
+  @override
+  String get travelHotelHeroSubtitle =>
+      'Найдите отели с премиальным ощущением etrip.';
 }

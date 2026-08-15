@@ -29,7 +29,7 @@ void showTravelMessage(
     );
 }
 
-enum TravelNavigationSection { dashboard, history, account }
+enum TravelNavigationSection { account, history, dashboard, settings }
 
 String travelSafePresentationMessage(String message) {
   final trimmed = message.trim();
@@ -155,10 +155,10 @@ class TravelBottomNavigation extends StatelessWidget {
         child: Row(
           children: [
             _TravelNavigationItem(
-              label: localization.travelTitle,
-              icon: Icons.dashboard_rounded,
-              selected: activeSection == TravelNavigationSection.dashboard,
-              onTap: () => _open(BaseRoute.travel),
+              label: localization.travelAccount,
+              icon: Icons.person_rounded,
+              selected: activeSection == TravelNavigationSection.account,
+              onTap: () => _open(BaseRoute.travelAccount),
             ),
             _TravelNavigationItem(
               label: localization.travelHistory,
@@ -167,12 +167,17 @@ class TravelBottomNavigation extends StatelessWidget {
               onTap: () => _open(BaseRoute.travelHistory),
             ),
             _TravelNavigationItem(
-              label: localization.travelAccount,
-              icon: Icons.person_rounded,
-              selected: activeSection == TravelNavigationSection.account,
-              onTap: () => _open(BaseRoute.travelAccount),
+              label: localization.travelTitle,
+              icon: Icons.explore_rounded,
+              selected: activeSection == TravelNavigationSection.dashboard,
+              onTap: () => _open(BaseRoute.travel),
             ),
-
+            _TravelNavigationItem(
+              label: localization.bottomNavSettings,
+              icon: Icons.settings_rounded,
+              selected: activeSection == TravelNavigationSection.settings,
+              onTap: () => _open(BaseRoute.settings),
+            ),
           ],
         ),
       ),
@@ -232,6 +237,149 @@ class TravelBidiText extends StatelessWidget {
   }
 }
 
+class TravelPosterHero extends StatelessWidget {
+  final String assetPath;
+  final String title;
+  final String? eyebrow;
+  final String? subtitle;
+  final IconData? icon;
+  final Color accentColor;
+  final double height;
+  final AlignmentDirectional contentAlignment;
+
+  const TravelPosterHero({
+    super.key,
+    required this.assetPath,
+    required this.title,
+    this.eyebrow,
+    this.subtitle,
+    this.icon,
+    this.accentColor = TravelTheme.yellow,
+    this.height = 180,
+    this.contentAlignment = AlignmentDirectional.bottomStart,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: TravelTheme.radius,
+      child: Container(
+        height: height.h,
+        decoration: BoxDecoration(boxShadow: TravelTheme.shadow),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              assetPath,
+              fit: BoxFit.cover,
+              errorBuilder: (_, _, _) => Container(color: TravelTheme.blue),
+            ),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: AlignmentDirectional.topCenter,
+                  end: AlignmentDirectional.bottomCenter,
+                  colors: [
+                    Colors.black.withValues(alpha: 0.05),
+                    Colors.black.withValues(alpha: 0.45),
+                    Colors.black.withValues(alpha: 0.78),
+                  ],
+                ),
+              ),
+            ),
+            if (icon != null)
+              PositionedDirectional(
+                end: 18.w,
+                top: 18.h,
+                child: Container(
+                  width: 54.r,
+                  height: 54.r,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.90),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(icon, color: accentColor, size: 28.r),
+                ),
+              ),
+            PositionedDirectional(
+              end: 14.w,
+              bottom: 14.h,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 13.w, vertical: 7.h),
+                decoration: BoxDecoration(
+                  color: accentColor,
+                  borderRadius: BorderRadius.circular(40.r),
+                ),
+                child: Text(
+                  'etrip',
+                  style: TextStyle(
+                    color: TravelTheme.ink,
+                    fontSize: 11.sp,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: .4,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(22.r),
+              child: Align(
+                alignment: contentAlignment,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (eyebrow?.isNotEmpty == true) ...[
+                      Text(
+                        eyebrow!,
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: .9),
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      SizedBox(height: 7.h),
+                    ],
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22.sp,
+                        height: 1.28,
+                        fontWeight: FontWeight.w900,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black.withValues(alpha: .38),
+                            blurRadius: 8,
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (subtitle?.isNotEmpty == true) ...[
+                      SizedBox(height: 8.h),
+                      Text(
+                        subtitle!,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: .88),
+                          fontSize: 12.sp,
+                          height: 1.45,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _TravelNavigationItem extends StatelessWidget {
   final String label;
   final IconData icon;
@@ -265,7 +413,7 @@ class _TravelNavigationItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: color,
-                  fontSize: 9.sp,
+                  fontSize: 8.5.sp,
                   fontWeight: selected ? FontWeight.w900 : FontWeight.w600,
                 ),
               ),

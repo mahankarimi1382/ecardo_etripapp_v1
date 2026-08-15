@@ -2636,7 +2636,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get comment_settings_screen => '==== Settings Screen ====';
 
   @override
-  String get settingsScreenTitle => 'Settings';
+  String get settingsScreenTitle => '设置';
 
   @override
   String get settingsProfileSettings => 'Profile Settings';
@@ -3305,7 +3305,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get bottomNavGift => 'Gift';
 
   @override
-  String get bottomNavSettings => 'Settings';
+  String get bottomNavSettings => '设置';
 
   @override
   String get qrInvalidFormat =>
@@ -5595,68 +5595,67 @@ class AppLocalizationsZh extends AppLocalizations {
   String get filterMyOrder => 'Filter My Order';
 
   @override
-  String get comment_travel => '==== eCardo Travel ====';
+  String get comment_travel => '==== etrip ====';
 
   @override
-  String get travelTitle => 'eCardo Travel';
+  String get travelTitle => 'etrip';
 
   @override
-  String get travelHeroEyebrow => 'A better travel experience';
+  String get travelHeroEyebrow => '奢华旅行体验';
 
   @override
-  String get travelHeroTitle => 'Book your next journey today';
+  String get travelHeroTitle => '用 etrip 预订下一段旅程';
 
   @override
-  String get travelFlights => 'Flights';
+  String get travelFlights => '机票';
 
   @override
-  String get travelHotels => 'Hotels';
+  String get travelHotels => '酒店';
 
   @override
   String get travelEsim => 'eSIM';
 
   @override
-  String get travelRecentActivity => 'Recent activity';
+  String get travelRecentActivity => '最近动态';
 
   @override
-  String get travelViewAll => 'View all';
+  String get travelViewAll => '查看全部';
 
   @override
-  String get travelMainWallet => 'Main eCardo wallet';
+  String get travelMainWallet => 'eCardo 主钱包';
 
   @override
-  String get travelWalletSharedDescription =>
-      'The same secure wallet you use across eCardo';
+  String get travelWalletSharedDescription => '你在 eCardo 中使用的同一个安全钱包';
 
   @override
-  String get travelHotelSearch => 'Hotel search';
+  String get travelHotelSearch => '搜索酒店';
 
   @override
-  String get travelHotelHero => 'Stay somewhere unforgettable';
+  String get travelHotelHero => '选择难忘的住宿';
 
   @override
   String get travelDestinationCountry => 'Destination country';
 
   @override
-  String get travelDestinationCity => 'City';
+  String get travelDestinationCity => '城市';
 
   @override
-  String get travelCheckIn => 'Check-in';
+  String get travelCheckIn => '入住';
 
   @override
-  String get travelCheckOut => 'Check-out';
+  String get travelCheckOut => '退房';
 
   @override
-  String get travelGuests => 'Guests';
+  String get travelGuests => '客人';
 
   @override
-  String get travelSearchHotels => 'Search hotels';
+  String get travelSearchHotels => '搜索酒店';
 
   @override
   String get travelRecentSearches => 'Recent searches';
 
   @override
-  String get travelHotelResults => 'Hotel results';
+  String get travelHotelResults => '酒店结果';
 
   @override
   String get travelNoHotelResults => 'No matching hotels were found.';
@@ -5687,7 +5686,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get travelHotelDescription =>
-      'A refined city stay with comfortable rooms, attentive service and convenient access to major attractions. Final room content and policies will be supplied by the eCardo Travel API.';
+      '精致的城市住宿，舒适客房、贴心服务并可便捷前往主要景点。最终房型内容和政策由 etrip API 提供。';
 
   @override
   String get travelPolicies => 'Policies';
@@ -5700,52 +5699,52 @@ class AppLocalizationsZh extends AppLocalizations {
       'Free cancellation before the stated deadline';
 
   @override
-  String get travelFlightSearch => 'Flight search';
+  String get travelFlightSearch => '搜索航班';
 
   @override
-  String get travelFlightHero => 'Your dream journey starts here';
+  String get travelFlightHero => '以头等舱风格出行';
 
   @override
-  String get travelOrigin => 'Origin';
+  String get travelOrigin => '出发地';
 
   @override
-  String get travelDestination => 'Destination';
+  String get travelDestination => '目的地';
 
   @override
-  String get travelDepartureDate => 'Departure date';
+  String get travelDepartureDate => '出发日期';
 
   @override
-  String get travelReturnDate => 'Return date';
+  String get travelReturnDate => '返程日期';
 
   @override
-  String get travelOneWay => 'One-way';
+  String get travelOneWay => '单程';
 
   @override
-  String get travelRoundTrip => 'Round trip';
+  String get travelRoundTrip => '往返';
 
   @override
-  String get travelAdults => 'Adults';
+  String get travelAdults => '成人';
 
   @override
-  String get travelChildren => 'Children';
+  String get travelChildren => '儿童';
 
   @override
-  String get travelInfants => 'Infants';
+  String get travelInfants => '婴儿';
 
   @override
-  String get travelCabinClass => 'Cabin class';
+  String get travelCabinClass => '舱位';
 
   @override
-  String get travelEconomy => 'Economy';
+  String get travelEconomy => '经济舱';
 
   @override
-  String get travelBusiness => 'Business';
+  String get travelBusiness => '商务舱';
 
   @override
-  String get travelSearchFlights => 'Search flights';
+  String get travelSearchFlights => '搜索航班';
 
   @override
-  String get travelFlightResults => 'Flight results';
+  String get travelFlightResults => '航班结果';
 
   @override
   String get travelNoFlightResults => 'No matching flights were found.';
@@ -5758,7 +5757,7 @@ class AppLocalizationsZh extends AppLocalizations {
       'Your exact search has no matches. These upcoming options are shown as alternatives; edit the search to change route or date.';
 
   @override
-  String get travelSelectFlight => 'Select flight';
+  String get travelSelectFlight => '选择航班';
 
   @override
   String get travelSelectReturnFlight => 'Select return flight';
@@ -5773,7 +5772,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get travelFlightDetails => 'Flight and passenger details';
 
   @override
-  String get travelContinueToPayment => 'Continue to payment';
+  String get travelContinueToPayment => '继续支付';
 
   @override
   String get travelPassengerReview => 'Passenger review';
@@ -5795,17 +5794,17 @@ class AppLocalizationsZh extends AppLocalizations {
   String get travelTaxesAndFees => 'Taxes and fees';
 
   @override
-  String get travelTotal => 'Total';
+  String get travelTotal => '总计';
 
   @override
-  String get travelBrowseEsimPackages => 'Browse eSIM packages';
+  String get travelBrowseEsimPackages => '浏览 eSIM 套餐';
 
   @override
-  String get travelEsimIntroTitle => 'Stay connected wherever you travel';
+  String get travelEsimIntroTitle => '旅途中随时保持连接';
 
   @override
   String get travelEsimIntroDescription =>
-      'Choose a digital data package, pay from your main eCardo wallet and activate it without replacing your physical SIM.';
+      '选择数字流量套餐，用 eCardo 钱包支付，无需更换实体 SIM 即可激活。';
 
   @override
   String get travelEsimInstantTitle => 'Instant delivery';
@@ -5849,26 +5848,25 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get travelWalletCheckout => 'Wallet checkout';
+  String get travelWalletCheckout => '钱包支付';
 
   @override
-  String get travelBackendConfirmedPrice => 'Price confirmed by eCardo Travel';
+  String get travelBackendConfirmedPrice => '价格已由 etrip 确认';
 
   @override
-  String get travelPaymentMethod => 'Payment method';
+  String get travelPaymentMethod => '支付方式';
 
   @override
-  String get travelAvailableBalance => 'Available balance';
+  String get travelAvailableBalance => '可用余额';
 
   @override
-  String get travelInsufficientBalance =>
-      'Your main wallet balance is insufficient. Add money, then return to refresh checkout.';
+  String get travelInsufficientBalance => '主钱包余额不足。请充值后返回刷新支付。';
 
   @override
   String get travelPriceSummary => 'Price summary';
 
   @override
-  String get travelSubtotal => 'Subtotal';
+  String get travelSubtotal => '小计';
 
   @override
   String get travelWalletPayment => 'Wallet payment';
@@ -5878,10 +5876,10 @@ class AppLocalizationsZh extends AppLocalizations {
       'Payment is submitted once using an idempotent booking request.';
 
   @override
-  String get travelPayFromWallet => 'Pay from wallet';
+  String get travelPayFromWallet => '用钱包支付';
 
   @override
-  String get travelAddMoney => 'Add money';
+  String get travelAddMoney => '充值';
 
   @override
   String get travelPaymentFailed => 'Payment was not completed';
@@ -5909,13 +5907,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get travelEsimReady => 'Your eSIM is active and ready to install.';
 
   @override
-  String get travelPurchaseSuccessful => 'Purchase successful';
+  String get travelPurchaseSuccessful => '购买成功';
 
   @override
-  String get travelReference => 'Reference';
+  String get travelReference => '参考号';
 
   @override
-  String get travelStatus => 'Status';
+  String get travelStatus => '状态';
 
   @override
   String get travelActive => 'Active';
@@ -5954,7 +5952,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get travelHotelPendingConfirmationDescription =>
-      'Payment was received. eCardo Travel is confirming the hotel with the authorized supplier before issuing your voucher.';
+      '已收到付款。etrip 正在向授权供应商确认酒店，然后签发凭证。';
 
   @override
   String get travelPaidAmount => 'Paid amount';
@@ -5967,10 +5965,10 @@ class AppLocalizationsZh extends AppLocalizations {
       'Open your device cellular settings, add an eSIM and use the secure installation details returned by the eCardo backend.';
 
   @override
-  String get travelViewMyBookings => 'View my bookings';
+  String get travelViewMyBookings => '查看我的预订';
 
   @override
-  String get travelMyBookings => 'My bookings';
+  String get travelMyBookings => '我的预订';
 
   @override
   String get travelAllBookings => 'All bookings';
@@ -5994,7 +5992,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get travelMyEsimsDescription => 'Active and previous data packages';
 
   @override
-  String get travelNoBookings => 'You do not have any travel bookings yet.';
+  String get travelNoBookings => '你还没有旅行预订。';
 
   @override
   String get travelNoHotels => 'You do not have any hotel bookings yet.';
@@ -6082,35 +6080,31 @@ class AppLocalizationsZh extends AppLocalizations {
   String get travelSaveTraveler => 'Save traveler';
 
   @override
-  String get travelAccount => 'Travel account';
+  String get travelAccount => '旅行账户';
 
   @override
-  String get travelAccountHolder => 'eCardo member';
+  String get travelAccountHolder => 'eCardo 会员';
 
   @override
-  String get travelMemberDescription =>
-      'Shared profile, wallet and traveler information';
+  String get travelMemberDescription => '共享的资料、钱包和旅客信息';
 
   @override
-  String get travelMyBookingsDescription => 'Hotels, flights and active eSIMs';
+  String get travelMyBookingsDescription => '酒店、航班和有效 eSIM';
 
   @override
-  String get travelSavedTravelersDescription =>
-      'Reuse passenger details securely';
+  String get travelSavedTravelersDescription => '安全复用旅客信息';
 
   @override
-  String get travelPersonalInformation => 'Personal information';
+  String get travelPersonalInformation => '个人信息';
 
   @override
-  String get travelPersonalInformationDescription =>
-      'Manage details shared with Travel';
+  String get travelPersonalInformationDescription => '管理与 etrip 共享的信息';
 
   @override
-  String get travelHistory => 'Travel and wallet history';
+  String get travelHistory => '历史';
 
   @override
-  String get travelHistoryDescription =>
-      'View purchases and wallet activity together';
+  String get travelHistoryDescription => '一起查看旅行消费和钱包记录';
 
   @override
   String get travelNoActivity => 'No travel or wallet activity is available.';
@@ -6465,7 +6459,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get travelPaymentReceivedDescription =>
-      'Payment was received. eCardo Travel is completing supplier confirmation before issuing the final document.';
+      '已收到付款。etrip 正在完成供应商确认，然后签发最终文件。';
 
   @override
   String get travelSearchFailedDescription =>
@@ -6571,4 +6565,10 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get drawerSupport => '支持';
+
+  @override
+  String get travelFlightHeroSubtitle => '比较路线、选择乘客，并使用 eCardo 钱包安全支付。';
+
+  @override
+  String get travelHotelHeroSubtitle => '以 etrip 的高级体验寻找精选住宿。';
 }

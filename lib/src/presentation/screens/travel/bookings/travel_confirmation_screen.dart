@@ -618,7 +618,7 @@ Future<void> downloadTravelVoucher(
           crossAxisAlignment: pw.CrossAxisAlignment.stretch,
           children: [
             pw.Text(
-              'eCardo Travel',
+              'etrip',
               style: pw.TextStyle(
                 fontSize: 24,
                 fontWeight: pw.FontWeight.bold,
