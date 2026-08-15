@@ -75,8 +75,19 @@ class SignUpStatusController extends GetxController {
   Future<void> postFcmNotification() async {
     isFcmTokenLoading.value = true;
     try {
-      final deviceInfoPlugin = DeviceInfoPlugin();
       final savedFcmToken = await SettingsService.getFcmToken();
+      if (savedFcmToken == null || savedFcmToken.trim().isEmpty) {
+        debugPrint('ℹ️ FCM token is not available; skipping setup-fcm.');
+        Get.offAllNamed(
+          BaseRoute.navigation,
+          arguments: {
+            "bonus": Get.find<SettingsService>().getSetting("referral_bonus"),
+          },
+        );
+        return;
+      }
+
+      final deviceInfoPlugin = DeviceInfoPlugin();
       String deviceId = '';
       String deviceType = '';
 
@@ -96,7 +107,7 @@ class SignUpStatusController extends GetxController {
       final Map<String, String> requestBody = {
         'device_id': deviceId,
         'device_type': deviceType,
-        'fcm_token': savedFcmToken ?? '',
+        'fcm_token': savedFcmToken.trim(),
       };
 
       final response = await Get.find<NetworkService>().post(

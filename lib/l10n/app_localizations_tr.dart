@@ -33,7 +33,8 @@ class AppLocalizationsTr extends AppLocalizations {
       '==== All Controller Load Error ====';
 
   @override
-  String get allControllerLoadError => 'Bir hata oluştu!';
+  String get allControllerLoadError =>
+      'Bir sorun oluştu. Lütfen tekrar deneyin.';
 
   @override
   String get comment_common_exit_application => '==== Exit Application ====';
@@ -111,10 +112,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get signInBiometricErrorFirstTime =>
-      'First Sign In with Email and Password';
+      'Önce e-posta ve şifre ile giriş yap, sonra Ayarlar’dan biyometrik girişi etkinleştir.';
 
   @override
-  String get signInBiometricErrorNotEnabled => 'Your biometric is not enabled';
+  String get signInBiometricErrorNotEnabled =>
+      'Biyometrik giriş etkin değil. Önce Ayarlar’dan etkinleştir.';
 
   @override
   String get signInRegistrationDisabled => 'Registration is disabled';
@@ -2641,25 +2643,25 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsScreenTitle => 'Ayarlar';
 
   @override
-  String get settingsProfileSettings => 'Profile Settings';
+  String get settingsProfileSettings => 'Profil ayarları';
 
   @override
-  String get settingsChangePassword => 'Change Password';
+  String get settingsChangePassword => 'Şifre değiştir';
 
   @override
-  String get settingsAllNotification => 'All Notification';
+  String get settingsAllNotification => 'Bildirimler';
 
   @override
-  String get settingsTwoFactorAuthentication => '2FA Authentication';
+  String get settingsTwoFactorAuthentication => 'İki faktörlü doğrulama';
 
   @override
-  String get settingsIdVerification => 'ID Verification';
+  String get settingsIdVerification => 'Kimlik doğrulama';
 
   @override
-  String get settingsSupport => 'Support';
+  String get settingsSupport => 'Destek';
 
   @override
-  String get settingsSignOut => 'Sign Out';
+  String get settingsSignOut => 'Çıkış yap';
 
   @override
   String get settingsKycVerified => 'Verified';
@@ -3500,31 +3502,32 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get homeBiometricDeviceNotSupported =>
-      'This device does not support biometrics.';
+      'Bu cihaz biyometrik girişi desteklemiyor.';
 
   @override
   String get homeBiometricAuthenticationFailed =>
-      'Authentication failed. Biometric setting not changed.';
+      'Kimlik doğrulama başarısız. Biyometrik ayar değiştirilmedi.';
 
   @override
-  String get homeBiometricEnabledSuccess => 'Biometric enabled successfully';
+  String get homeBiometricEnabledSuccess => 'Biyometrik giriş etkinleştirildi.';
 
   @override
-  String get homeBiometricDisabledSuccess => 'Biometric disabled successfully';
+  String get homeBiometricDisabledSuccess =>
+      'Biyometrik giriş devre dışı bırakıldı.';
 
   @override
-  String get homeBiometricNotFoundTitle => 'Biometric Not Found';
+  String get homeBiometricNotFoundTitle => 'Biyometri bulunamadı';
 
   @override
   String get homeBiometricNotFoundDescription =>
-      'No fingerprint or biometric is enrolled on this device. You can set it up from the system settings.';
+      'Bu cihazda parmak izi veya yüz tanıma kayıtlı değil. Güvenlik ayarlarından ekleyip etrip’e geri dön.';
 
   @override
-  String get homeBiometricOpenSettings => 'Open Security Settings';
+  String get homeBiometricOpenSettings => 'Güvenlik ayarlarını aç';
 
   @override
   String get homeIosBiometricSetup =>
-      'Please go to Settings > Face ID & Passcode to set up biometrics.';
+      'iOS ayarlarından Face ID veya Touch ID ekle, sonra etrip’e dön.';
 
   @override
   String get comment_create_invoice_controller =>
@@ -5606,7 +5609,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get travelHeroEyebrow => 'Lüks seyahat deneyimi';
 
   @override
-  String get travelHeroTitle => 'Sonraki yolculuğunu etrip ile rezerve et';
+  String get travelHeroTitle =>
+      'Uçuş, konaklama ve küresel bağlantı tek bir deneyimde';
 
   @override
   String get travelFlights => 'Uçuşlar';

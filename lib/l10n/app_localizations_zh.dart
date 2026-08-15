@@ -32,7 +32,7 @@ class AppLocalizationsZh extends AppLocalizations {
       '==== All Controller Load Error ====';
 
   @override
-  String get allControllerLoadError => '出错了！';
+  String get allControllerLoadError => '出现问题，请重试。';
 
   @override
   String get comment_common_exit_application => '==== Exit Application ====';
@@ -108,11 +108,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get signInCreateAccount => '创建账户';
 
   @override
-  String get signInBiometricErrorFirstTime =>
-      'First Sign In with Email and Password';
+  String get signInBiometricErrorFirstTime => '请先使用邮箱和密码登录，然后在设置中开启生物识别登录。';
 
   @override
-  String get signInBiometricErrorNotEnabled => 'Your biometric is not enabled';
+  String get signInBiometricErrorNotEnabled => '生物识别登录未开启。请先在设置中开启。';
 
   @override
   String get signInRegistrationDisabled => 'Registration is disabled';
@@ -2639,25 +2638,25 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settingsScreenTitle => '设置';
 
   @override
-  String get settingsProfileSettings => 'Profile Settings';
+  String get settingsProfileSettings => '资料设置';
 
   @override
-  String get settingsChangePassword => 'Change Password';
+  String get settingsChangePassword => '修改密码';
 
   @override
-  String get settingsAllNotification => 'All Notification';
+  String get settingsAllNotification => '通知';
 
   @override
-  String get settingsTwoFactorAuthentication => '2FA Authentication';
+  String get settingsTwoFactorAuthentication => '双重验证';
 
   @override
-  String get settingsIdVerification => 'ID Verification';
+  String get settingsIdVerification => '身份验证';
 
   @override
-  String get settingsSupport => 'Support';
+  String get settingsSupport => '支持';
 
   @override
-  String get settingsSignOut => 'Sign Out';
+  String get settingsSignOut => '退出登录';
 
   @override
   String get settingsKycVerified => 'Verified';
@@ -3497,32 +3496,30 @@ class AppLocalizationsZh extends AppLocalizations {
   String get homeLanguageChangeFailed => 'Failed to change language';
 
   @override
-  String get homeBiometricDeviceNotSupported =>
-      'This device does not support biometrics.';
+  String get homeBiometricDeviceNotSupported => '此设备不支持生物识别登录。';
 
   @override
-  String get homeBiometricAuthenticationFailed =>
-      'Authentication failed. Biometric setting not changed.';
+  String get homeBiometricAuthenticationFailed => '验证失败，生物识别设置未更改。';
 
   @override
-  String get homeBiometricEnabledSuccess => 'Biometric enabled successfully';
+  String get homeBiometricEnabledSuccess => '生物识别登录已开启。';
 
   @override
-  String get homeBiometricDisabledSuccess => 'Biometric disabled successfully';
+  String get homeBiometricDisabledSuccess => '生物识别登录已关闭。';
 
   @override
-  String get homeBiometricNotFoundTitle => 'Biometric Not Found';
+  String get homeBiometricNotFoundTitle => '未找到生物识别';
 
   @override
   String get homeBiometricNotFoundDescription =>
-      'No fingerprint or biometric is enrolled on this device. You can set it up from the system settings.';
+      '此设备尚未录入指纹或面容。请在系统安全设置中添加后再返回 etrip。';
 
   @override
-  String get homeBiometricOpenSettings => 'Open Security Settings';
+  String get homeBiometricOpenSettings => '打开安全设置';
 
   @override
   String get homeIosBiometricSetup =>
-      'Please go to Settings > Face ID & Passcode to set up biometrics.';
+      '请在 iOS 设置中添加 Face ID 或 Touch ID，然后返回 etrip。';
 
   @override
   String get comment_create_invoice_controller =>
@@ -5604,7 +5601,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get travelHeroEyebrow => '奢华旅行体验';
 
   @override
-  String get travelHeroTitle => '用 etrip 预订下一段旅程';
+  String get travelHeroTitle => '航班、住宿与全球连接，一站式无缝体验';
 
   @override
   String get travelFlights => '机票';

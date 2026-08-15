@@ -151,7 +151,7 @@ abstract class AppLocalizations {
   /// No description provided for @allControllerLoadError.
   ///
   /// In en, this message translates to:
-  /// **'Something went wrong!'**
+  /// **'Something went wrong. Please try again.'**
   String get allControllerLoadError;
 
   /// No description provided for @comment_common_exit_application.
@@ -301,13 +301,13 @@ abstract class AppLocalizations {
   /// No description provided for @signInBiometricErrorFirstTime.
   ///
   /// In en, this message translates to:
-  /// **'First Sign In with Email and Password'**
+  /// **'First sign in with email and password, then enable biometric login in Settings.'**
   String get signInBiometricErrorFirstTime;
 
   /// No description provided for @signInBiometricErrorNotEnabled.
   ///
   /// In en, this message translates to:
-  /// **'Your biometric is not enabled'**
+  /// **'Biometric login is not enabled. Enable it from Settings first.'**
   String get signInBiometricErrorNotEnabled;
 
   /// No description provided for @signInRegistrationDisabled.
@@ -5173,31 +5173,31 @@ abstract class AppLocalizations {
   /// No description provided for @settingsProfileSettings.
   ///
   /// In en, this message translates to:
-  /// **'Profile Settings'**
+  /// **'Profile settings'**
   String get settingsProfileSettings;
 
   /// No description provided for @settingsChangePassword.
   ///
   /// In en, this message translates to:
-  /// **'Change Password'**
+  /// **'Change password'**
   String get settingsChangePassword;
 
   /// No description provided for @settingsAllNotification.
   ///
   /// In en, this message translates to:
-  /// **'All Notification'**
+  /// **'Notifications'**
   String get settingsAllNotification;
 
   /// No description provided for @settingsTwoFactorAuthentication.
   ///
   /// In en, this message translates to:
-  /// **'2FA Authentication'**
+  /// **'Two-factor authentication'**
   String get settingsTwoFactorAuthentication;
 
   /// No description provided for @settingsIdVerification.
   ///
   /// In en, this message translates to:
-  /// **'ID Verification'**
+  /// **'ID verification'**
   String get settingsIdVerification;
 
   /// No description provided for @settingsSupport.
@@ -5209,7 +5209,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsSignOut.
   ///
   /// In en, this message translates to:
-  /// **'Sign Out'**
+  /// **'Sign out'**
   String get settingsSignOut;
 
   /// No description provided for @settingsKycVerified.
@@ -6733,49 +6733,49 @@ abstract class AppLocalizations {
   /// No description provided for @homeBiometricDeviceNotSupported.
   ///
   /// In en, this message translates to:
-  /// **'This device does not support biometrics.'**
+  /// **'This device does not support biometric login.'**
   String get homeBiometricDeviceNotSupported;
 
   /// No description provided for @homeBiometricAuthenticationFailed.
   ///
   /// In en, this message translates to:
-  /// **'Authentication failed. Biometric setting not changed.'**
+  /// **'Authentication failed. Biometric setting was not changed.'**
   String get homeBiometricAuthenticationFailed;
 
   /// No description provided for @homeBiometricEnabledSuccess.
   ///
   /// In en, this message translates to:
-  /// **'Biometric enabled successfully'**
+  /// **'Biometric login enabled successfully.'**
   String get homeBiometricEnabledSuccess;
 
   /// No description provided for @homeBiometricDisabledSuccess.
   ///
   /// In en, this message translates to:
-  /// **'Biometric disabled successfully'**
+  /// **'Biometric login disabled successfully.'**
   String get homeBiometricDisabledSuccess;
 
   /// No description provided for @homeBiometricNotFoundTitle.
   ///
   /// In en, this message translates to:
-  /// **'Biometric Not Found'**
+  /// **'No biometric found'**
   String get homeBiometricNotFoundTitle;
 
   /// No description provided for @homeBiometricNotFoundDescription.
   ///
   /// In en, this message translates to:
-  /// **'No fingerprint or biometric is enrolled on this device. You can set it up from the system settings.'**
+  /// **'No fingerprint or face unlock is enrolled on this device. Add one in your device security settings, then return to etrip.'**
   String get homeBiometricNotFoundDescription;
 
   /// No description provided for @homeBiometricOpenSettings.
   ///
   /// In en, this message translates to:
-  /// **'Open Security Settings'**
+  /// **'Open security settings'**
   String get homeBiometricOpenSettings;
 
   /// No description provided for @homeIosBiometricSetup.
   ///
   /// In en, this message translates to:
-  /// **'Please go to Settings > Face ID & Passcode to set up biometrics.'**
+  /// **'Open iOS Settings and add Face ID or Touch ID, then return to etrip.'**
   String get homeIosBiometricSetup;
 
   /// No description provided for @comment_create_invoice_controller.
@@ -10609,7 +10609,7 @@ abstract class AppLocalizations {
   /// No description provided for @travelHeroTitle.
   ///
   /// In en, this message translates to:
-  /// **'Book your next journey with etrip'**
+  /// **'Flights, stays and global connectivity in one seamless experience'**
   String get travelHeroTitle;
 
   /// No description provided for @travelFlights.
@@ -10999,7 +10999,7 @@ abstract class AppLocalizations {
   /// No description provided for @travelEsimIntroDescription.
   ///
   /// In en, this message translates to:
-  /// **'Choose a digital data package, pay from your main eCardo wallet and activate it without replacing your physical SIM.'**
+  /// **'Choose an eSIM data package, pay from your eCardo wallet and activate it without changing your physical SIM.'**
   String get travelEsimIntroDescription;
 
   /// No description provided for @travelEsimInstantTitle.
@@ -12307,37 +12307,37 @@ abstract class AppLocalizations {
   /// No description provided for @travelHotelSearchGuidance.
   ///
   /// In en, this message translates to:
-  /// **'Choose the destination, dates, and occupancy. Results and availability always come from the Travel backend.'**
+  /// **'Choose destination, dates and guests. Next you will compare hotels, review rooms and pay securely.'**
   String get travelHotelSearchGuidance;
 
   /// No description provided for @travelHotelResultsGuidance.
   ///
   /// In en, this message translates to:
-  /// **'Compare backend-provided price, rating, facilities, location, rooms, and policies before opening an option.'**
+  /// **'Compare hotels and rooms. Open a hotel to review details, policies and available rooms.'**
   String get travelHotelResultsGuidance;
 
   /// No description provided for @travelHotelDetailsGuidance.
   ///
   /// In en, this message translates to:
-  /// **'Review the property, room facts, occupancy, price, and cancellation rules before continuing.'**
+  /// **'Review rooms, price, rules and cancellation details before continuing to checkout.'**
   String get travelHotelDetailsGuidance;
 
   /// No description provided for @travelFlightSearchGuidance.
   ///
   /// In en, this message translates to:
-  /// **'Choose the route, date, and passenger count. Flight availability and fares always come from the Travel backend.'**
+  /// **'Start with route, dates and passengers. Next you will compare offers, review details and pay securely.'**
   String get travelFlightSearchGuidance;
 
   /// No description provided for @travelFlightResultsGuidance.
   ///
   /// In en, this message translates to:
-  /// **'Compare backend-provided times, airline, cabin, baggage, fare, and refundability before selecting.'**
+  /// **'Compare the available flights, choose the best route and continue to review before payment.'**
   String get travelFlightResultsGuidance;
 
   /// No description provided for @travelFlightDetailsGuidance.
   ///
   /// In en, this message translates to:
-  /// **'Review the flight, fare components, baggage, passenger count, and cancellation rules before continuing.'**
+  /// **'Review passenger and fare details carefully. Payment is the final step.'**
   String get travelFlightDetailsGuidance;
 
   /// No description provided for @travelSelectedForComparison.
@@ -12439,7 +12439,7 @@ abstract class AppLocalizations {
   /// No description provided for @travelHotelHeroSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Find stays with the same premium travel feel as etrip.'**
+  /// **'Find premium stays with the same seamless etrip experience.'**
   String get travelHotelHeroSubtitle;
 
   /// No description provided for @settingsCheckForUpdates.

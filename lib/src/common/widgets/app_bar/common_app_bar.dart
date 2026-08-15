@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ecardo_etrip/src/app/constants/app_colors.dart';
 import 'package:ecardo_etrip/src/app/constants/assets_path/png/png_assets.dart';
+import 'package:ecardo_etrip/src/app/routes/routes.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/controller/home_controller.dart';
 
 class CommonAppBar extends StatelessWidget {
@@ -40,12 +41,19 @@ class CommonAppBar extends StatelessWidget {
                 visualDensity: VisualDensity.compact,
                 onPressed: () async {
                   if (selectedIndex != null) {
-                    Get.find<HomeController>().selectedIndex.value = 0;
-                    if (Navigator.canPop(context)) Get.back();
-                  } else if (isBackLogicApply == true) {
-                    backLogicFunction?.call();
-                  } else {
-                    if (Navigator.canPop(context)) Get.back();
+                    Get.find<HomeController>().selectedIndex.value =
+                        selectedIndex!;
+                  }
+                  if (backLogicFunction != null) {
+                    backLogicFunction!.call();
+                    return;
+                  }
+                  if (Navigator.canPop(context)) {
+                    Get.back();
+                    return;
+                  }
+                  if (Get.currentRoute != BaseRoute.navigation) {
+                    Get.offAllNamed(BaseRoute.navigation);
                   }
                 },
                 icon: Image.asset(

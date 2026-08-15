@@ -129,9 +129,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (_, _) async {
-        await Future.delayed(Duration(milliseconds: 50));
-        if (homeController.selectedIndex.value == 3) {
-          homeController.selectedIndex.value = 0;
+        if (!Navigator.canPop(context)) {
+          Get.offNamed(BaseRoute.travel);
         }
       },
       child: Scaffold(
@@ -154,15 +153,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             const SizedBox(height: 16),
                             CommonAppBar(
                               title: localization.settingsScreenTitle,
-                              isBackLogicApply: true,
-                              backLogicFunction: () async {
-                                await Future.delayed(
-                                  Duration(milliseconds: 50),
-                                );
-                                if (homeController.selectedIndex.value == 3) {
-                                  homeController.selectedIndex.value = 0;
-                                }
-                              },
+                              backLogicFunction: () =>
+                                  Get.offNamed(BaseRoute.travel),
                             ),
                             const SizedBox(height: 30),
                             Container(

@@ -30,23 +30,30 @@ class BiometricAuthService {
       final available = await auth.getAvailableBiometrics();
 
       if (!isSupported) {
-        ToastHelper().showErrorToast('دستگاه شما از احراز هویت بیومتریک پشتیبانی نمی‌کند.');
+        ToastHelper().showErrorToast(
+          localization!.homeBiometricDeviceNotSupported,
+        );
         return false;
       }
 
       if (canCheck && available.isEmpty) {
-        ToastHelper().showErrorToast('هیچ بیومتریک ثبت نشده است. لطفاً ابتدا اثر انگشت یا چهره را در تنظیمات دستگاه ثبت کنید.');
+        ToastHelper().showErrorToast(
+          localization!.homeBiometricNotFoundDescription,
+        );
         return false;
       }
 
       if (!canCheck) {
-        ToastHelper().showErrorToast('احراز هویت بیومتریک در دسترس نیست.');
+        ToastHelper().showErrorToast(
+          localization!.homeBiometricNotFoundDescription,
+        );
         return false;
       }
 
       // شروع احراز هویت
       final success = await auth.authenticate(
-        localizedReason: 'برای ورود به eCardo احراز هویت کنید',
+        localizedReason:
+            localization?.endDrawerBiometric ?? 'Authenticate to continue',
         biometricOnly: true,
       );
 
@@ -59,13 +66,14 @@ class BiometricAuthService {
 
         if (remaining > 0) {
           ToastHelper().showErrorToast(
-            'احراز هویت ناموفق بود. $remaining تلاش باقی مانده است.',
+            '${localization?.homeBiometricAuthenticationFailed ?? 'Authentication failed.'} $remaining',
           );
           return false;
         } else {
           // حداکثر تلاش رسید — fallback
           ToastHelper().showErrorToast(
-            'حداکثر تلاش بیومتریک reached. لطفاً با رمز عبور وارد شوید.',
+            localization?.homeBiometricAuthenticationFailed ??
+                'Authentication failed. Please use password login.',
           );
           _currentAttempts = 0;
           return false;
@@ -73,7 +81,10 @@ class BiometricAuthService {
       }
     } catch (e) {
       _currentAttempts++;
-      ToastHelper().showErrorToast('خطا در احراز هویت بیومتریک. لطفاً دوباره تلاش کنید.');
+      ToastHelper().showErrorToast(
+        localization?.homeBiometricAuthenticationFailed ??
+            'Authentication failed.',
+      );
       return false;
     }
   }

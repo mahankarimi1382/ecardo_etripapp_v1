@@ -33,7 +33,7 @@ class AppLocalizationsAr extends AppLocalizations {
       '==== All Controller Load Error ====';
 
   @override
-  String get allControllerLoadError => 'حدث خطأ ما!';
+  String get allControllerLoadError => 'حدث خطأ. يرجى المحاولة مرة أخرى.';
 
   @override
   String get comment_common_exit_application => '==== Exit Application ====';
@@ -5574,7 +5574,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get travelHeroEyebrow => 'تجربة سفر فاخرة';
 
   @override
-  String get travelHeroTitle => 'احجز رحلتك القادمة مع etrip';
+  String get travelHeroTitle =>
+      'الرحلات والإقامة والاتصال العالمي في تجربة واحدة متكاملة';
 
   @override
   String get travelFlights => 'الرحلات';

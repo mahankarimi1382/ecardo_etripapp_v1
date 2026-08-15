@@ -49,22 +49,11 @@ class TravelHomeScreen extends StatelessWidget {
             Obx(() {
               final bootstrap = controller.bootstrap.value;
               final services = bootstrap?.services ?? const [];
-              final homeHero = _homeHero(services);
-
               return Column(
                 children: [
                   _Hero(
-                    eyebrow:
-                        travelBackendText(
-                          context,
-                          homeHero['subtitle'],
-                        ).isNotEmpty
-                        ? travelBackendText(context, homeHero['subtitle'])
-                        : localization.travelHeroEyebrow,
-                    title:
-                        travelBackendText(context, homeHero['title']).isNotEmpty
-                        ? travelBackendText(context, homeHero['title'])
-                        : localization.travelHeroTitle,
+                    eyebrow: localization.travelHeroEyebrow,
+                    title: localization.travelHeroTitle,
                   ),
                   SizedBox(height: 22.h),
                   _Services(
@@ -109,17 +98,6 @@ class TravelHomeScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Map<String, dynamic> _homeHero(List<TravelServiceConfig> services) {
-    for (final service in services) {
-      final items = service.presentation['home_hero'];
-      if (items is! List || items.isEmpty) continue;
-      final first = items.first;
-      if (first is Map<String, dynamic>) return first;
-      if (first is Map) return Map<String, dynamic>.from(first);
-    }
-    return const {};
   }
 }
 

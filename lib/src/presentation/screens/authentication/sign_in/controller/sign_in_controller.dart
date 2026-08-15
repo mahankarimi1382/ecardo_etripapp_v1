@@ -170,8 +170,13 @@ class SignInController extends GetxController {
     required bool useBiometric,
   }) async {
     try {
-      final deviceInfoPlugin = DeviceInfoPlugin();
       final savedFcmToken = await SettingsService.getFcmToken();
+      if (savedFcmToken == null || savedFcmToken.trim().isEmpty) {
+        debugPrint('ℹ️ FCM token is not available; skipping setup-fcm.');
+        return;
+      }
+
+      final deviceInfoPlugin = DeviceInfoPlugin();
 
       String deviceId = '';
       String deviceType = '';
@@ -194,7 +199,7 @@ class SignInController extends GetxController {
         data: {
           'device_id': deviceId,
           'device_type': deviceType,
-          'fcm_token': savedFcmToken,
+          'fcm_token': savedFcmToken.trim(),
         },
       );
     } catch (e, s) {

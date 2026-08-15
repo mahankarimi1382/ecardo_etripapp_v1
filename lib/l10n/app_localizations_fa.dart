@@ -33,7 +33,7 @@ class AppLocalizationsFa extends AppLocalizations {
       '==== All Controller Load Error ====';
 
   @override
-  String get allControllerLoadError => 'خطایی رخ داد!';
+  String get allControllerLoadError => 'مشکلی پیش آمد. لطفاً دوباره تلاش کنید.';
 
   @override
   String get comment_common_exit_application => '==== Exit Application ====';
@@ -110,10 +110,11 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get signInBiometricErrorFirstTime =>
-      'First Sign In with Email and Password';
+      'ابتدا با ایمیل و رمز عبور وارد شو، سپس ورود با اثر انگشت را از تنظیمات فعال کن.';
 
   @override
-  String get signInBiometricErrorNotEnabled => 'Your biometric is not enabled';
+  String get signInBiometricErrorNotEnabled =>
+      'ورود با اثر انگشت فعال نیست. ابتدا آن را از تنظیمات فعال کن.';
 
   @override
   String get signInRegistrationDisabled => 'Registration is disabled';
@@ -2640,25 +2641,25 @@ class AppLocalizationsFa extends AppLocalizations {
   String get settingsScreenTitle => 'تنظیمات';
 
   @override
-  String get settingsProfileSettings => 'Profile Settings';
+  String get settingsProfileSettings => 'تنظیمات پروفایل';
 
   @override
-  String get settingsChangePassword => 'Change Password';
+  String get settingsChangePassword => 'تغییر رمز عبور';
 
   @override
-  String get settingsAllNotification => 'All Notification';
+  String get settingsAllNotification => 'اعلان‌ها';
 
   @override
-  String get settingsTwoFactorAuthentication => '2FA Authentication';
+  String get settingsTwoFactorAuthentication => 'احراز هویت دو مرحله‌ای';
 
   @override
-  String get settingsIdVerification => 'ID Verification';
+  String get settingsIdVerification => 'احراز هویت';
 
   @override
-  String get settingsSupport => 'Support';
+  String get settingsSupport => 'پشتیبانی';
 
   @override
-  String get settingsSignOut => 'Sign Out';
+  String get settingsSignOut => 'خروج از حساب';
 
   @override
   String get settingsKycVerified => 'Verified';
@@ -3499,31 +3500,31 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get homeBiometricDeviceNotSupported =>
-      'This device does not support biometrics.';
+      'این دستگاه از ورود بیومتریک پشتیبانی نمی‌کند.';
 
   @override
   String get homeBiometricAuthenticationFailed =>
-      'Authentication failed. Biometric setting not changed.';
+      'احراز هویت ناموفق بود. تنظیم ورود بیومتریک تغییر نکرد.';
 
   @override
-  String get homeBiometricEnabledSuccess => 'Biometric enabled successfully';
+  String get homeBiometricEnabledSuccess => 'ورود با اثر انگشت فعال شد.';
 
   @override
-  String get homeBiometricDisabledSuccess => 'Biometric disabled successfully';
+  String get homeBiometricDisabledSuccess => 'ورود با اثر انگشت غیرفعال شد.';
 
   @override
-  String get homeBiometricNotFoundTitle => 'Biometric Not Found';
+  String get homeBiometricNotFoundTitle => 'اثر انگشت یا چهره ثبت نشده است';
 
   @override
   String get homeBiometricNotFoundDescription =>
-      'No fingerprint or biometric is enrolled on this device. You can set it up from the system settings.';
+      'روی این دستگاه اثر انگشت یا چهره‌ای ثبت نشده است. ابتدا از تنظیمات امنیتی دستگاه آن را اضافه کن و سپس به etrip برگرد.';
 
   @override
-  String get homeBiometricOpenSettings => 'Open Security Settings';
+  String get homeBiometricOpenSettings => 'باز کردن تنظیمات امنیتی';
 
   @override
   String get homeIosBiometricSetup =>
-      'Please go to Settings > Face ID & Passcode to set up biometrics.';
+      'در تنظیمات iOS، Face ID یا Touch ID را فعال کن و سپس به etrip برگرد.';
 
   @override
   String get comment_create_invoice_controller =>
@@ -5605,7 +5606,8 @@ class AppLocalizationsFa extends AppLocalizations {
   String get travelHeroEyebrow => 'تجربهٔ مجلل سفر';
 
   @override
-  String get travelHeroTitle => 'سفر بعدی‌ات را با etrip رزرو کن';
+  String get travelHeroTitle =>
+      'پرواز، اقامت و اتصال جهانی در یک تجربه یکپارچه';
 
   @override
   String get travelFlights => 'پروازها';
@@ -5806,7 +5808,7 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get travelEsimIntroDescription =>
-      'بسته اینترنت دیجیتال را انتخاب کن، از کیف پول eCardo پرداخت کن و بدون تعویض سیم‌کارت فعالش کن.';
+      'بسته اینترنت eSIM را انتخاب کن، از کیف پول eCardo پرداخت کن و بدون تعویض سیم‌کارت فعالش کن.';
 
   @override
   String get travelEsimInstantTitle => 'Instant delivery';
@@ -6489,40 +6491,40 @@ class AppLocalizationsFa extends AppLocalizations {
   String get travelLastUpdated => 'Last updated';
 
   @override
-  String get travelJourneySearch => 'Search';
+  String get travelJourneySearch => 'جستجو';
 
   @override
-  String get travelJourneyCompare => 'Compare';
+  String get travelJourneyCompare => 'مقایسه';
 
   @override
-  String get travelJourneyReview => 'Review';
+  String get travelJourneyReview => 'بررسی';
 
   @override
-  String get travelJourneyPay => 'Pay';
+  String get travelJourneyPay => 'پرداخت';
 
   @override
   String get travelHotelSearchGuidance =>
-      'Choose the destination, dates, and occupancy. Results and availability always come from the Travel backend.';
+      'مقصد، تاریخ و مهمانان را انتخاب کن. بعد هتل‌ها را مقایسه می‌کنی، اتاق‌ها را بررسی می‌کنی و امن پرداخت می‌کنی.';
 
   @override
   String get travelHotelResultsGuidance =>
-      'Compare backend-provided price, rating, facilities, location, rooms, and policies before opening an option.';
+      'هتل‌ها و اتاق‌ها را مقایسه کن. برای بررسی جزئیات، قوانین و اتاق‌های موجود وارد صفحه هتل شو.';
 
   @override
   String get travelHotelDetailsGuidance =>
-      'Review the property, room facts, occupancy, price, and cancellation rules before continuing.';
+      'قبل از ادامه به پرداخت، اتاق‌ها، قیمت، قوانین و شرایط لغو را بررسی کن.';
 
   @override
   String get travelFlightSearchGuidance =>
-      'Choose the route, date, and passenger count. Flight availability and fares always come from the Travel backend.';
+      'از مسیر، تاریخ و مسافران شروع کن. بعد پیشنهادها را مقایسه می‌کنی، جزئیات را بررسی می‌کنی و امن پرداخت می‌کنی.';
 
   @override
   String get travelFlightResultsGuidance =>
-      'Compare backend-provided times, airline, cabin, baggage, fare, and refundability before selecting.';
+      'پروازهای موجود را مقایسه کن، بهترین مسیر را انتخاب کن و قبل از پرداخت جزئیات را بررسی کن.';
 
   @override
   String get travelFlightDetailsGuidance =>
-      'Review the flight, fare components, baggage, passenger count, and cancellation rules before continuing.';
+      'اطلاعات مسافر و هزینه‌ها را با دقت بررسی کن. مرحله بعد پرداخت نهایی است.';
 
   @override
   String travelSelectedForComparison(int count) {
@@ -6580,7 +6582,7 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get travelHotelHeroSubtitle =>
-      'اقامتگاه‌های منتخب را با حس لوکس و یکپارچهٔ etrip پیدا کن.';
+      'اقامتگاه‌های ممتاز را با تجربه یکپارچه etrip پیدا کن.';
 
   @override
   String get settingsCheckForUpdates => 'بررسی به‌روزرسانی';

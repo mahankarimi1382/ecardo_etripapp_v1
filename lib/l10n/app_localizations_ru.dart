@@ -33,7 +33,8 @@ class AppLocalizationsRu extends AppLocalizations {
       '==== All Controller Load Error ====';
 
   @override
-  String get allControllerLoadError => 'Произошла ошибка!';
+  String get allControllerLoadError =>
+      'Что-то пошло не так. Попробуйте еще раз.';
 
   @override
   String get comment_common_exit_application => '==== Exit Application ====';
@@ -111,10 +112,11 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get signInBiometricErrorFirstTime =>
-      'First Sign In with Email and Password';
+      'Сначала войдите по email и паролю, затем включите биометрию в настройках.';
 
   @override
-  String get signInBiometricErrorNotEnabled => 'Your biometric is not enabled';
+  String get signInBiometricErrorNotEnabled =>
+      'Биометрический вход не включен. Сначала включите его в настройках.';
 
   @override
   String get signInRegistrationDisabled => 'Registration is disabled';
@@ -2641,25 +2643,25 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settingsScreenTitle => 'Настройки';
 
   @override
-  String get settingsProfileSettings => 'Profile Settings';
+  String get settingsProfileSettings => 'Настройки профиля';
 
   @override
-  String get settingsChangePassword => 'Change Password';
+  String get settingsChangePassword => 'Сменить пароль';
 
   @override
-  String get settingsAllNotification => 'All Notification';
+  String get settingsAllNotification => 'Уведомления';
 
   @override
-  String get settingsTwoFactorAuthentication => '2FA Authentication';
+  String get settingsTwoFactorAuthentication => 'Двухфакторная аутентификация';
 
   @override
-  String get settingsIdVerification => 'ID Verification';
+  String get settingsIdVerification => 'Проверка личности';
 
   @override
-  String get settingsSupport => 'Support';
+  String get settingsSupport => 'Поддержка';
 
   @override
-  String get settingsSignOut => 'Sign Out';
+  String get settingsSignOut => 'Выйти';
 
   @override
   String get settingsKycVerified => 'Verified';
@@ -3500,31 +3502,31 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get homeBiometricDeviceNotSupported =>
-      'This device does not support biometrics.';
+      'Это устройство не поддерживает биометрический вход.';
 
   @override
   String get homeBiometricAuthenticationFailed =>
-      'Authentication failed. Biometric setting not changed.';
+      'Аутентификация не удалась. Настройка не изменена.';
 
   @override
-  String get homeBiometricEnabledSuccess => 'Biometric enabled successfully';
+  String get homeBiometricEnabledSuccess => 'Биометрический вход включен.';
 
   @override
-  String get homeBiometricDisabledSuccess => 'Biometric disabled successfully';
+  String get homeBiometricDisabledSuccess => 'Биометрический вход отключен.';
 
   @override
-  String get homeBiometricNotFoundTitle => 'Biometric Not Found';
+  String get homeBiometricNotFoundTitle => 'Биометрия не найдена';
 
   @override
   String get homeBiometricNotFoundDescription =>
-      'No fingerprint or biometric is enrolled on this device. You can set it up from the system settings.';
+      'На устройстве не настроены отпечаток пальца или распознавание лица. Добавьте их в настройках безопасности и вернитесь в etrip.';
 
   @override
-  String get homeBiometricOpenSettings => 'Open Security Settings';
+  String get homeBiometricOpenSettings => 'Открыть настройки безопасности';
 
   @override
   String get homeIosBiometricSetup =>
-      'Please go to Settings > Face ID & Passcode to set up biometrics.';
+      'Откройте настройки iOS и добавьте Face ID или Touch ID, затем вернитесь в etrip.';
 
   @override
   String get comment_create_invoice_controller =>
@@ -5606,7 +5608,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get travelHeroEyebrow => 'Премиальный опыт путешествий';
 
   @override
-  String get travelHeroTitle => 'Забронируйте следующую поездку с etrip';
+  String get travelHeroTitle =>
+      'Авиабилеты, проживание и связь по миру в одном цельном опыте';
 
   @override
   String get travelFlights => 'Авиабилеты';

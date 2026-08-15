@@ -33,7 +33,8 @@ class AppLocalizationsEn extends AppLocalizations {
       '==== All Controller Load Error ====';
 
   @override
-  String get allControllerLoadError => 'Something went wrong!';
+  String get allControllerLoadError =>
+      'Something went wrong. Please try again.';
 
   @override
   String get comment_common_exit_application => '==== Exit Application ====';
@@ -111,10 +112,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get signInBiometricErrorFirstTime =>
-      'First Sign In with Email and Password';
+      'First sign in with email and password, then enable biometric login in Settings.';
 
   @override
-  String get signInBiometricErrorNotEnabled => 'Your biometric is not enabled';
+  String get signInBiometricErrorNotEnabled =>
+      'Biometric login is not enabled. Enable it from Settings first.';
 
   @override
   String get signInRegistrationDisabled => 'Registration is disabled';
@@ -2641,25 +2643,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsScreenTitle => 'Settings';
 
   @override
-  String get settingsProfileSettings => 'Profile Settings';
+  String get settingsProfileSettings => 'Profile settings';
 
   @override
-  String get settingsChangePassword => 'Change Password';
+  String get settingsChangePassword => 'Change password';
 
   @override
-  String get settingsAllNotification => 'All Notification';
+  String get settingsAllNotification => 'Notifications';
 
   @override
-  String get settingsTwoFactorAuthentication => '2FA Authentication';
+  String get settingsTwoFactorAuthentication => 'Two-factor authentication';
 
   @override
-  String get settingsIdVerification => 'ID Verification';
+  String get settingsIdVerification => 'ID verification';
 
   @override
   String get settingsSupport => 'Support';
 
   @override
-  String get settingsSignOut => 'Sign Out';
+  String get settingsSignOut => 'Sign out';
 
   @override
   String get settingsKycVerified => 'Verified';
@@ -3502,31 +3504,33 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeBiometricDeviceNotSupported =>
-      'This device does not support biometrics.';
+      'This device does not support biometric login.';
 
   @override
   String get homeBiometricAuthenticationFailed =>
-      'Authentication failed. Biometric setting not changed.';
+      'Authentication failed. Biometric setting was not changed.';
 
   @override
-  String get homeBiometricEnabledSuccess => 'Biometric enabled successfully';
+  String get homeBiometricEnabledSuccess =>
+      'Biometric login enabled successfully.';
 
   @override
-  String get homeBiometricDisabledSuccess => 'Biometric disabled successfully';
+  String get homeBiometricDisabledSuccess =>
+      'Biometric login disabled successfully.';
 
   @override
-  String get homeBiometricNotFoundTitle => 'Biometric Not Found';
+  String get homeBiometricNotFoundTitle => 'No biometric found';
 
   @override
   String get homeBiometricNotFoundDescription =>
-      'No fingerprint or biometric is enrolled on this device. You can set it up from the system settings.';
+      'No fingerprint or face unlock is enrolled on this device. Add one in your device security settings, then return to etrip.';
 
   @override
-  String get homeBiometricOpenSettings => 'Open Security Settings';
+  String get homeBiometricOpenSettings => 'Open security settings';
 
   @override
   String get homeIosBiometricSetup =>
-      'Please go to Settings > Face ID & Passcode to set up biometrics.';
+      'Open iOS Settings and add Face ID or Touch ID, then return to etrip.';
 
   @override
   String get comment_create_invoice_controller =>
@@ -5608,7 +5612,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get travelHeroEyebrow => 'Luxury travel experience';
 
   @override
-  String get travelHeroTitle => 'Book your next journey with etrip';
+  String get travelHeroTitle =>
+      'Flights, stays and global connectivity in one seamless experience';
 
   @override
   String get travelFlights => 'Flights';
@@ -5809,7 +5814,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get travelEsimIntroDescription =>
-      'Choose a digital data package, pay from your main eCardo wallet and activate it without replacing your physical SIM.';
+      'Choose an eSIM data package, pay from your eCardo wallet and activate it without changing your physical SIM.';
 
   @override
   String get travelEsimInstantTitle => 'Instant delivery';
@@ -6504,27 +6509,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get travelHotelSearchGuidance =>
-      'Choose the destination, dates, and occupancy. Results and availability always come from the Travel backend.';
+      'Choose destination, dates and guests. Next you will compare hotels, review rooms and pay securely.';
 
   @override
   String get travelHotelResultsGuidance =>
-      'Compare backend-provided price, rating, facilities, location, rooms, and policies before opening an option.';
+      'Compare hotels and rooms. Open a hotel to review details, policies and available rooms.';
 
   @override
   String get travelHotelDetailsGuidance =>
-      'Review the property, room facts, occupancy, price, and cancellation rules before continuing.';
+      'Review rooms, price, rules and cancellation details before continuing to checkout.';
 
   @override
   String get travelFlightSearchGuidance =>
-      'Choose the route, date, and passenger count. Flight availability and fares always come from the Travel backend.';
+      'Start with route, dates and passengers. Next you will compare offers, review details and pay securely.';
 
   @override
   String get travelFlightResultsGuidance =>
-      'Compare backend-provided times, airline, cabin, baggage, fare, and refundability before selecting.';
+      'Compare the available flights, choose the best route and continue to review before payment.';
 
   @override
   String get travelFlightDetailsGuidance =>
-      'Review the flight, fare components, baggage, passenger count, and cancellation rules before continuing.';
+      'Review passenger and fare details carefully. Payment is the final step.';
 
   @override
   String travelSelectedForComparison(int count) {
@@ -6582,7 +6587,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get travelHotelHeroSubtitle =>
-      'Find stays with the same premium travel feel as etrip.';
+      'Find premium stays with the same seamless etrip experience.';
 
   @override
   String get settingsCheckForUpdates => 'Check for updates';
