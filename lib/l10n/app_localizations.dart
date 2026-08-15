@@ -2575,7 +2575,7 @@ abstract class AppLocalizations {
   /// No description provided for @endDrawerBiometric.
   ///
   /// In en, this message translates to:
-  /// **'Biometric'**
+  /// **'Biometric login'**
   String get endDrawerBiometric;
 
   /// No description provided for @endDrawerSignOut.
@@ -12441,6 +12441,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Find stays with the same premium travel feel as etrip.'**
   String get travelHotelHeroSubtitle;
+
+  /// No description provided for @settingsCheckForUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Check for updates'**
+  String get settingsCheckForUpdates;
 }
 
 class _AppLocalizationsDelegate

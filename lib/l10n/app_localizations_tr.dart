@@ -1288,7 +1288,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get endDrawerLanguage => 'Language';
 
   @override
-  String get endDrawerBiometric => 'Biometric';
+  String get endDrawerBiometric => 'Biyometrik giriş';
 
   @override
   String get endDrawerSignOut => 'Sign Out';
@@ -5975,25 +5975,27 @@ class AppLocalizationsTr extends AppLocalizations {
   String get travelMyBookings => 'Rezervasyonlarım';
 
   @override
-  String get travelAllBookings => 'All bookings';
+  String get travelAllBookings => 'Tüm rezervasyonlar';
 
   @override
-  String get travelMyHotels => 'My hotels';
+  String get travelMyHotels => 'Otellerim';
 
   @override
-  String get travelMyFlights => 'My flights';
+  String get travelMyFlights => 'Uçuşlarım';
 
   @override
-  String get travelMyEsims => 'My eSIMs';
+  String get travelMyEsims => 'eSIM’lerim';
 
   @override
-  String get travelMyHotelsDescription => 'Confirmed stays and hotel vouchers';
+  String get travelMyHotelsDescription =>
+      'Onaylı konaklamalar ve otel kuponları';
 
   @override
-  String get travelMyFlightsDescription => 'Booked flights and issued tickets';
+  String get travelMyFlightsDescription =>
+      'Rezerve uçuşlar ve düzenlenen biletler';
 
   @override
-  String get travelMyEsimsDescription => 'Active and previous data packages';
+  String get travelMyEsimsDescription => 'Aktif ve geçmiş veri paketleri';
 
   @override
   String get travelNoBookings => 'Henüz seyahat rezervasyonun yok.';
@@ -6582,4 +6584,7 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get travelHotelHeroSubtitle =>
       'etrip’in premium hissiyle seçili konaklamaları bul.';
+
+  @override
+  String get settingsCheckForUpdates => 'Güncellemeleri kontrol et';
 }

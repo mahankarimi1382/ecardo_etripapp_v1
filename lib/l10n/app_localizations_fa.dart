@@ -1287,7 +1287,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get endDrawerLanguage => 'Language';
 
   @override
-  String get endDrawerBiometric => 'Biometric';
+  String get endDrawerBiometric => 'ورود با اثر انگشت';
 
   @override
   String get endDrawerSignOut => 'Sign Out';
@@ -5974,25 +5974,26 @@ class AppLocalizationsFa extends AppLocalizations {
   String get travelMyBookings => 'رزروهای من';
 
   @override
-  String get travelAllBookings => 'All bookings';
+  String get travelAllBookings => 'همه رزروها';
 
   @override
-  String get travelMyHotels => 'My hotels';
+  String get travelMyHotels => 'هتل‌های من';
 
   @override
-  String get travelMyFlights => 'My flights';
+  String get travelMyFlights => 'پروازهای من';
 
   @override
-  String get travelMyEsims => 'My eSIMs';
+  String get travelMyEsims => 'eSIMهای من';
 
   @override
-  String get travelMyHotelsDescription => 'Confirmed stays and hotel vouchers';
+  String get travelMyHotelsDescription => 'اقامت‌های تأییدشده و واچرهای هتل';
 
   @override
-  String get travelMyFlightsDescription => 'Booked flights and issued tickets';
+  String get travelMyFlightsDescription =>
+      'پروازهای رزروشده و بلیت‌های صادرشده';
 
   @override
-  String get travelMyEsimsDescription => 'Active and previous data packages';
+  String get travelMyEsimsDescription => 'بسته‌های اینترنت فعال و قبلی';
 
   @override
   String get travelNoBookings => 'هنوز رزرو سفری نداری.';
@@ -6580,4 +6581,7 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get travelHotelHeroSubtitle =>
       'اقامتگاه‌های منتخب را با حس لوکس و یکپارچهٔ etrip پیدا کن.';
+
+  @override
+  String get settingsCheckForUpdates => 'بررسی به‌روزرسانی';
 }

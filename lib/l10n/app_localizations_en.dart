@@ -1288,7 +1288,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get endDrawerLanguage => 'Language';
 
   @override
-  String get endDrawerBiometric => 'Biometric';
+  String get endDrawerBiometric => 'Biometric login';
 
   @override
   String get endDrawerSignOut => 'Sign Out';
@@ -6583,4 +6583,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get travelHotelHeroSubtitle =>
       'Find stays with the same premium travel feel as etrip.';
+
+  @override
+  String get settingsCheckForUpdates => 'Check for updates';
 }

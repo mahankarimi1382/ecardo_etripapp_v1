@@ -1286,7 +1286,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get endDrawerLanguage => 'Language';
 
   @override
-  String get endDrawerBiometric => 'Biometric';
+  String get endDrawerBiometric => '生物识别登录';
 
   @override
   String get endDrawerSignOut => 'Sign Out';
@@ -5971,25 +5971,25 @@ class AppLocalizationsZh extends AppLocalizations {
   String get travelMyBookings => '我的预订';
 
   @override
-  String get travelAllBookings => 'All bookings';
+  String get travelAllBookings => '全部预订';
 
   @override
-  String get travelMyHotels => 'My hotels';
+  String get travelMyHotels => '我的酒店';
 
   @override
-  String get travelMyFlights => 'My flights';
+  String get travelMyFlights => '我的航班';
 
   @override
-  String get travelMyEsims => 'My eSIMs';
+  String get travelMyEsims => '我的 eSIM';
 
   @override
-  String get travelMyHotelsDescription => 'Confirmed stays and hotel vouchers';
+  String get travelMyHotelsDescription => '已确认住宿和酒店凭证';
 
   @override
-  String get travelMyFlightsDescription => 'Booked flights and issued tickets';
+  String get travelMyFlightsDescription => '已预订航班和已出票机票';
 
   @override
-  String get travelMyEsimsDescription => 'Active and previous data packages';
+  String get travelMyEsimsDescription => '当前和历史数据套餐';
 
   @override
   String get travelNoBookings => '你还没有旅行预订。';
@@ -6571,4 +6571,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get travelHotelHeroSubtitle => '以 etrip 的高级体验寻找精选住宿。';
+
+  @override
+  String get settingsCheckForUpdates => '检查更新';
 }

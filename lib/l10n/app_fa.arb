@@ -410,7 +410,7 @@
   "endDrawerAllNotification": "All Notification",
   "endDrawerHelpSupport": "Help & Support",
   "endDrawerLanguage": "Language",
-  "endDrawerBiometric": "Biometric",
+  "endDrawerBiometric": "ورود با اثر انگشت",
   "endDrawerSignOut": "Sign Out",
   "endDrawerLanguageNotFound": "Language not found",
   "endDrawerChooseLanguage": "Choose Language",
@@ -1866,13 +1866,13 @@
   "travelActivationInstructions": "Open your device cellular settings, add an eSIM and use the secure installation details returned by the eCardo backend.",
   "travelViewMyBookings": "مشاهده رزروهای من",
   "travelMyBookings": "رزروهای من",
-  "travelAllBookings": "All bookings",
-  "travelMyHotels": "My hotels",
-  "travelMyFlights": "My flights",
-  "travelMyEsims": "My eSIMs",
-  "travelMyHotelsDescription": "Confirmed stays and hotel vouchers",
-  "travelMyFlightsDescription": "Booked flights and issued tickets",
-  "travelMyEsimsDescription": "Active and previous data packages",
+  "travelAllBookings": "همه رزروها",
+  "travelMyHotels": "هتل‌های من",
+  "travelMyFlights": "پروازهای من",
+  "travelMyEsims": "eSIMهای من",
+  "travelMyHotelsDescription": "اقامت‌های تأییدشده و واچرهای هتل",
+  "travelMyFlightsDescription": "پروازهای رزروشده و بلیت‌های صادرشده",
+  "travelMyEsimsDescription": "بسته‌های اینترنت فعال و قبلی",
   "travelNoBookings": "هنوز رزرو سفری نداری.",
   "travelNoHotels": "You do not have any hotel bookings yet.",
   "travelNoFlights": "You do not have any flight bookings yet.",
@@ -2090,5 +2090,6 @@
     }
   },
   "travelFlightHeroSubtitle": "مسیرها را مقایسه کن، مسافران را انتخاب کن و امن از کیف پول eCardo پرداخت کن.",
-  "travelHotelHeroSubtitle": "اقامتگاه‌های منتخب را با حس لوکس و یکپارچهٔ etrip پیدا کن."
+  "travelHotelHeroSubtitle": "اقامتگاه‌های منتخب را با حس لوکس و یکپارچهٔ etrip پیدا کن.",
+  "settingsCheckForUpdates": "بررسی به‌روزرسانی"
 }

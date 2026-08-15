@@ -21,7 +21,6 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   final HomeController homeController = Get.find();
-  final localization = AppLocalizations.of(Get.context!)!;
 
   @override
   void initState() {
@@ -34,6 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     final List<Map<String, dynamic>> settingsList = [
       {
         "icon": PngAssets.profileSettingsEndDrawerIcon,
@@ -46,6 +46,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         "title": localization.settingsChangePassword,
         "is_status": false,
         "navigate": BaseRoute.changePassword,
+      },
+      {
+        "icon": PngAssets.biometricCommonIcon,
+        "title": localization.endDrawerBiometric,
+        "is_status": false,
+        "is_switch": true,
+        "navigate": "biometric",
       },
       {
         "icon": PngAssets.allNotificationEndDrawerIcon,
@@ -104,7 +111,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       settingsList.add({
         "icon": PngAssets.arrowRightCommonIcon,
 
-        "title": "Check for Updates",
+        "title": localization.settingsCheckForUpdates,
 
         "is_status": false,
 
@@ -176,6 +183,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   return InkWell(
                                     borderRadius: BorderRadius.circular(12),
                                     onTap: () async {
+                                      if (item["navigate"] == "biometric") {
+                                        await homeController.toggleBiometric();
+                                        return;
+                                      }
                                       if (item["title"] ==
                                           localization.settingsSignOut) {
                                         await homeController.submitLogout();
@@ -305,17 +316,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                 ),
                                               if (item["is_status"])
                                                 const SizedBox(width: 10),
-                                              Image.asset(
-                                                PngAssets.arrowRightCommonIcon,
-                                                width: 24,
-                                                color:
-                                                    item["title"] ==
-                                                        localization
-                                                            .settingsSignOut
-                                                    ? AppColors.error
-                                                    : AppColors
-                                                          .lightTextTertiary,
-                                              ),
+                                              if (item["is_switch"] == true)
+                                                Obx(
+                                                  () => Switch.adaptive(
+                                                    value: homeController
+                                                        .isBiometricEnable
+                                                        .value,
+                                                    activeColor:
+                                                        AppColors.lightPrimary,
+                                                    onChanged: (_) async =>
+                                                        homeController
+                                                            .toggleBiometric(),
+                                                  ),
+                                                )
+                                              else
+                                                Image.asset(
+                                                  PngAssets
+                                                      .arrowRightCommonIcon,
+                                                  width: 24,
+                                                  color:
+                                                      item["title"] ==
+                                                          localization
+                                                              .settingsSignOut
+                                                      ? AppColors.error
+                                                      : AppColors
+                                                            .lightTextTertiary,
+                                                ),
                                             ],
                                           ),
                                         ],

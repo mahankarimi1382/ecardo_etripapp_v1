@@ -190,13 +190,7 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
     final cityField = service?.searchFields.firstWhereOrNull(
       (field) => field.key == 'city',
     );
-    final serviceHeroTitle = travelBackendText(
-      context,
-      service?.presentation['hero_title'],
-    );
-    final heroTitle = serviceHeroTitle.isNotEmpty
-        ? serviceHeroTitle
-        : localization.travelHotelHero;
+    final heroTitle = localization.travelHotelHero;
     return TravelPage(
       title: localization.travelHotelSearch,
       child: ListView(

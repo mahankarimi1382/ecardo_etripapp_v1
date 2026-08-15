@@ -19,20 +19,8 @@ class EsimIntroScreen extends StatelessWidget {
     final localization = AppLocalizations.of(context)!;
     final controller = ensureTravelController();
     final service = controller.serviceFor(TravelProductType.esim);
-    final serviceHeroTitle = travelBackendText(
-      context,
-      service?.presentation['hero_title'],
-    );
-    final serviceHeroSubtitle = travelBackendText(
-      context,
-      service?.presentation['hero_subtitle'],
-    );
-    final heroTitle = serviceHeroTitle.isNotEmpty
-        ? serviceHeroTitle
-        : localization.travelEsimIntroTitle;
-    final heroSubtitle = serviceHeroSubtitle.isNotEmpty
-        ? serviceHeroSubtitle
-        : localization.travelEsimIntroDescription;
+    final heroTitle = localization.travelEsimIntroTitle;
+    final heroSubtitle = localization.travelEsimIntroDescription;
     return TravelPage(
       title: localization.travelEsim,
       bottomNavigationBar: SafeArea(
@@ -51,7 +39,7 @@ class EsimIntroScreen extends StatelessWidget {
         padding: EdgeInsets.all(20.r),
         children: [
           TravelPosterHero(
-            assetPath: 'assets/images/etrip/hero-worldmap.jpg',
+            assetPath: 'assets/images/etrip/hero-esim.jpg',
             eyebrow: localization.travelEsim,
             title: heroTitle,
             subtitle: heroSubtitle,

@@ -1288,7 +1288,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get endDrawerLanguage => 'Language';
 
   @override
-  String get endDrawerBiometric => 'Biometric';
+  String get endDrawerBiometric => 'Вход по биометрии';
 
   @override
   String get endDrawerSignOut => 'Sign Out';
@@ -5975,25 +5975,27 @@ class AppLocalizationsRu extends AppLocalizations {
   String get travelMyBookings => 'Мои бронирования';
 
   @override
-  String get travelAllBookings => 'All bookings';
+  String get travelAllBookings => 'Все бронирования';
 
   @override
-  String get travelMyHotels => 'My hotels';
+  String get travelMyHotels => 'Мои отели';
 
   @override
-  String get travelMyFlights => 'My flights';
+  String get travelMyFlights => 'Мои рейсы';
 
   @override
-  String get travelMyEsims => 'My eSIMs';
+  String get travelMyEsims => 'Мои eSIM';
 
   @override
-  String get travelMyHotelsDescription => 'Confirmed stays and hotel vouchers';
+  String get travelMyHotelsDescription =>
+      'Подтвержденные проживания и ваучеры отелей';
 
   @override
-  String get travelMyFlightsDescription => 'Booked flights and issued tickets';
+  String get travelMyFlightsDescription =>
+      'Забронированные рейсы и выпущенные билеты';
 
   @override
-  String get travelMyEsimsDescription => 'Active and previous data packages';
+  String get travelMyEsimsDescription => 'Активные и прошлые пакеты данных';
 
   @override
   String get travelNoBookings => 'У вас пока нет бронирований.';
@@ -6581,4 +6583,7 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get travelHotelHeroSubtitle =>
       'Найдите отели с премиальным ощущением etrip.';
+
+  @override
+  String get settingsCheckForUpdates => 'Проверить обновления';
 }

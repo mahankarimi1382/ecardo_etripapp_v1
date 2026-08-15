@@ -410,7 +410,7 @@
   "endDrawerAllNotification": "All Notification",
   "endDrawerHelpSupport": "Help & Support",
   "endDrawerLanguage": "Language",
-  "endDrawerBiometric": "Biometric",
+  "endDrawerBiometric": "Вход по биометрии",
   "endDrawerSignOut": "Sign Out",
   "endDrawerLanguageNotFound": "Language not found",
   "endDrawerChooseLanguage": "Choose Language",
@@ -1866,13 +1866,13 @@
   "travelActivationInstructions": "Open your device cellular settings, add an eSIM and use the secure installation details returned by the eCardo backend.",
   "travelViewMyBookings": "Мои бронирования",
   "travelMyBookings": "Мои бронирования",
-  "travelAllBookings": "All bookings",
-  "travelMyHotels": "My hotels",
-  "travelMyFlights": "My flights",
-  "travelMyEsims": "My eSIMs",
-  "travelMyHotelsDescription": "Confirmed stays and hotel vouchers",
-  "travelMyFlightsDescription": "Booked flights and issued tickets",
-  "travelMyEsimsDescription": "Active and previous data packages",
+  "travelAllBookings": "Все бронирования",
+  "travelMyHotels": "Мои отели",
+  "travelMyFlights": "Мои рейсы",
+  "travelMyEsims": "Мои eSIM",
+  "travelMyHotelsDescription": "Подтвержденные проживания и ваучеры отелей",
+  "travelMyFlightsDescription": "Забронированные рейсы и выпущенные билеты",
+  "travelMyEsimsDescription": "Активные и прошлые пакеты данных",
   "travelNoBookings": "У вас пока нет бронирований.",
   "travelNoHotels": "You do not have any hotel bookings yet.",
   "travelNoFlights": "You do not have any flight bookings yet.",
@@ -2079,5 +2079,6 @@
     }
   },
   "travelFlightHeroSubtitle": "Сравните маршруты, выберите пассажиров и оплатите безопасно кошельком eCardo.",
-  "travelHotelHeroSubtitle": "Найдите отели с премиальным ощущением etrip."
+  "travelHotelHeroSubtitle": "Найдите отели с премиальным ощущением etrip.",
+  "settingsCheckForUpdates": "Проверить обновления"
 }

@@ -413,7 +413,7 @@
   "endDrawerAllNotification": "جميع الإشعارات",
   "endDrawerHelpSupport": "المساعدة والدعم",
   "endDrawerLanguage": "اللغة",
-  "endDrawerBiometric": "التحقق البيومتري",
+  "endDrawerBiometric": "تسجيل الدخول بالبصمة",
   "endDrawerSignOut": "تسجيل الخروج",
   "endDrawerLanguageNotFound": "اللغة غير موجودة",
   "endDrawerChooseLanguage": "اختر اللغة",
@@ -2079,5 +2079,6 @@
     }
   },
   "travelFlightHeroSubtitle": "قارن المسارات واختر المسافرين وادفع بأمان من محفظة eCardo.",
-  "travelHotelHeroSubtitle": "اعثر على إقامات مختارة بنفس إحساس etrip الفاخر."
+  "travelHotelHeroSubtitle": "اعثر على إقامات مختارة بنفس إحساس etrip الفاخر.",
+  "settingsCheckForUpdates": "التحقق من التحديثات"
 }

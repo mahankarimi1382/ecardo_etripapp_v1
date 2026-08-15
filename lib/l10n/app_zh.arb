@@ -410,7 +410,7 @@
   "endDrawerAllNotification": "All Notification",
   "endDrawerHelpSupport": "Help & Support",
   "endDrawerLanguage": "Language",
-  "endDrawerBiometric": "Biometric",
+  "endDrawerBiometric": "生物识别登录",
   "endDrawerSignOut": "Sign Out",
   "endDrawerLanguageNotFound": "Language not found",
   "endDrawerChooseLanguage": "Choose Language",
@@ -1866,13 +1866,13 @@
   "travelActivationInstructions": "Open your device cellular settings, add an eSIM and use the secure installation details returned by the eCardo backend.",
   "travelViewMyBookings": "查看我的预订",
   "travelMyBookings": "我的预订",
-  "travelAllBookings": "All bookings",
-  "travelMyHotels": "My hotels",
-  "travelMyFlights": "My flights",
-  "travelMyEsims": "My eSIMs",
-  "travelMyHotelsDescription": "Confirmed stays and hotel vouchers",
-  "travelMyFlightsDescription": "Booked flights and issued tickets",
-  "travelMyEsimsDescription": "Active and previous data packages",
+  "travelAllBookings": "全部预订",
+  "travelMyHotels": "我的酒店",
+  "travelMyFlights": "我的航班",
+  "travelMyEsims": "我的 eSIM",
+  "travelMyHotelsDescription": "已确认住宿和酒店凭证",
+  "travelMyFlightsDescription": "已预订航班和已出票机票",
+  "travelMyEsimsDescription": "当前和历史数据套餐",
   "travelNoBookings": "你还没有旅行预订。",
   "travelNoHotels": "You do not have any hotel bookings yet.",
   "travelNoFlights": "You do not have any flight bookings yet.",
@@ -2079,5 +2079,6 @@
     }
   },
   "travelFlightHeroSubtitle": "比较路线、选择乘客，并使用 eCardo 钱包安全支付。",
-  "travelHotelHeroSubtitle": "以 etrip 的高级体验寻找精选住宿。"
+  "travelHotelHeroSubtitle": "以 etrip 的高级体验寻找精选住宿。",
+  "settingsCheckForUpdates": "检查更新"
 }

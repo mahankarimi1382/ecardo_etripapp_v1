@@ -67,20 +67,14 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
     final destinationField = service?.searchFields.firstWhereOrNull(
       (field) => field.key == 'destination',
     );
-    final serviceHeroTitle = travelBackendText(
-      context,
-      service?.presentation['hero_title'],
-    );
-    final heroTitle = serviceHeroTitle.isNotEmpty
-        ? serviceHeroTitle
-        : localization.travelFlightHero;
+    final heroTitle = localization.travelFlightHero;
     return TravelPage(
       title: localization.travelFlightSearch,
       child: ListView(
         padding: EdgeInsets.all(20.r),
         children: [
           TravelPosterHero(
-            assetPath: 'assets/images/etrip/hero-plane.jpg',
+            assetPath: 'assets/images/etrip/hero-flight.jpg',
             eyebrow: localization.travelFlights,
             title: heroTitle,
             subtitle: localization.travelFlightHeroSubtitle,

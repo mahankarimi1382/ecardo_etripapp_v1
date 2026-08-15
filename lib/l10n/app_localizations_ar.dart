@@ -1281,7 +1281,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get endDrawerLanguage => 'اللغة';
 
   @override
-  String get endDrawerBiometric => 'التحقق البيومتري';
+  String get endDrawerBiometric => 'تسجيل الدخول بالبصمة';
 
   @override
   String get endDrawerSignOut => 'تسجيل الخروج';
@@ -6546,4 +6546,7 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get travelHotelHeroSubtitle =>
       'اعثر على إقامات مختارة بنفس إحساس etrip الفاخر.';
+
+  @override
+  String get settingsCheckForUpdates => 'التحقق من التحديثات';
 }
