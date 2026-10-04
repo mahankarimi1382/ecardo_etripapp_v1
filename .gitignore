@@ -49,6 +49,7 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+graphify-out/
 
 # Android Studio will place build artifacts here
 /android/app/debug

@@ -71,4 +71,12 @@ class BaseRoute {
   static const String travel = "/travel_route";
   static const String travelHistory = "/travel_history_route";
   static const String travelAccount = "/travel_account_route";
+  static const String flightSearch = "/travel_flight_search_route";
+  static const String flightResults = "/travel_flight_results_route";
+  static const String hotelSearch = "/travel_hotel_search_route";
+  static const String hotelResults = "/travel_hotel_results_route";
+  static const String esimIntro = "/travel_esim_intro_route";
+  static const String esimPackages = "/travel_esim_packages_route";
+  static const String travelOrders = "/travel_orders_route";
+  static const String travelers = "/travelers_route";
 }

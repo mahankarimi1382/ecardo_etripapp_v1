@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ecardo_etrip/src/app/constants/app_colors.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/view/sub_sections/action_button_section.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/view/sub_sections/user_profile_section.dart';
+import 'package:ecardo_etrip/src/presentation/screens/travel/shared/travel_theme.dart';
 
 class TopHeaderSection extends StatelessWidget {
   const TopHeaderSection({super.key});
@@ -15,23 +16,23 @@ class TopHeaderSection extends StatelessWidget {
         Column(
           children: [
             Container(
-              padding: EdgeInsetsDirectional.symmetric(horizontal: 18),
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 18),
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.lightPrimary,
                 borderRadius: BorderRadiusDirectional.only(
                   bottomStart: Radius.circular(20),
                   bottomEnd: Radius.circular(20),
                 ),
               ),
-              child: UserProfileSection(),
+              child: const UserProfileSection(),
             ),
             Container(
-              margin: EdgeInsetsDirectional.symmetric(horizontal: 18),
+              margin: const EdgeInsetsDirectional.symmetric(horizontal: 18),
               height: 43,
               decoration: BoxDecoration(
-                color: AppColors.lightBackground,
-                borderRadius: BorderRadiusDirectional.only(
+                color: TravelTheme.backgroundFor(context),
+                borderRadius: const BorderRadiusDirectional.only(
                   bottomStart: Radius.circular(20),
                   bottomEnd: Radius.circular(20),
                 ),
@@ -39,7 +40,7 @@ class TopHeaderSection extends StatelessWidget {
             ),
           ],
         ),
-        ActionButtonSection(),
+        const ActionButtonSection(),
       ],
     );
   }

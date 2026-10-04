@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
+import 'package:ecardo_etrip/src/app/constants/app_colors.dart';
 import 'package:ecardo_etrip/src/app/routes/routes.dart';
 import 'package:ecardo_etrip/src/common/widgets/app_bar/common_app_bar.dart';
 import 'package:ecardo_etrip/src/common/widgets/app_bar/common_default_app_bar.dart';
@@ -82,7 +83,7 @@ class TravelPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: TravelTheme.background,
+      backgroundColor: TravelTheme.backgroundFor(context),
       appBar: const CommonDefaultAppBar(),
       body: Column(
         children: [
@@ -142,15 +143,9 @@ class TravelBottomNavigation extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.fromLTRB(18.w, 8.h, 18.w, 10.h),
         decoration: BoxDecoration(
-          color: Colors.white,
-          border: const Border(top: BorderSide(color: TravelTheme.border)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: .06),
-              blurRadius: 22,
-              offset: const Offset(0, -6),
-            ),
-          ],
+          color: TravelTheme.cardSurfaceFor(context),
+          border: Border(top: BorderSide(color: TravelTheme.borderFor(context))),
+          boxShadow: TravelTheme.shadowFor(context),
         ),
         child: Row(
           children: [
@@ -428,21 +423,24 @@ class _TravelNavigationItem extends StatelessWidget {
 class TravelCard extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry? padding;
-  final Color color;
+  final Color? color;
   final VoidCallback? onTap;
 
   const TravelCard({
     super.key,
     required this.child,
     this.padding,
-    this.color = Colors.white,
+    this.color,
     this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final effectiveColor = (color == null || color == Colors.white)
+        ? TravelTheme.cardSurfaceFor(context)
+        : color!;
     return Material(
-      color: color,
+      color: effectiveColor,
       borderRadius: TravelTheme.radius,
       child: InkWell(
         borderRadius: TravelTheme.radius,
@@ -451,8 +449,8 @@ class TravelCard extends StatelessWidget {
           padding: padding ?? EdgeInsets.all(18.r),
           decoration: BoxDecoration(
             borderRadius: TravelTheme.radius,
-            border: Border.all(color: TravelTheme.border),
-            boxShadow: onTap == null ? null : TravelTheme.shadow,
+            border: Border.all(color: TravelTheme.borderFor(context)),
+            boxShadow: onTap == null ? null : TravelTheme.shadowFor(context),
           ),
           child: child,
         ),
@@ -477,6 +475,7 @@ class TravelFieldTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = TravelTheme.isDark(context);
     return InkWell(
       borderRadius: BorderRadius.circular(18.r),
       onTap: onTap,
@@ -484,8 +483,9 @@ class TravelFieldTile extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
         decoration: BoxDecoration(
-          color: const Color(0xFFF1F2F4),
+          color: isDark ? const Color(0xFF262625) : const Color(0xFFF1F2F4),
           borderRadius: BorderRadius.circular(18.r),
+          border: Border.all(color: TravelTheme.borderFor(context)),
         ),
         child: Row(
           children: [
@@ -497,7 +497,10 @@ class TravelFieldTile extends StatelessWidget {
                 children: [
                   Text(
                     label,
-                    style: TextStyle(color: TravelTheme.muted, fontSize: 11.sp),
+                    style: TextStyle(
+                      color: TravelTheme.textSecondaryFor(context),
+                      fontSize: 11.sp,
+                    ),
                   ),
                   SizedBox(height: 4.h),
                   Text(
@@ -505,14 +508,15 @@ class TravelFieldTile extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 14.sp,
+                      color: TravelTheme.textPrimaryFor(context),
                     ),
                   ),
                 ],
               ),
             ),
-            const Icon(
+            Icon(
               Icons.keyboard_arrow_down_rounded,
-              color: TravelTheme.muted,
+              color: TravelTheme.textSecondaryFor(context),
             ),
           ],
         ),
@@ -541,7 +545,7 @@ class TravelSectionHeader extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              color: TravelTheme.ink,
+              color: TravelTheme.textPrimaryFor(context),
               fontSize: 20.sp,
               fontWeight: FontWeight.w900,
             ),
@@ -798,18 +802,243 @@ Color travelProductColor(TravelProductType type) => switch (type) {
 
 class TravelEmptyState extends StatelessWidget {
   final String message;
+  final IconData? icon;
+  final String? actionText;
+  final VoidCallback? onAction;
 
-  const TravelEmptyState({super.key, required this.message});
+  const TravelEmptyState({
+    super.key,
+    required this.message,
+    this.icon,
+    this.actionText,
+    this.onAction,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.all(28.r),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircleAvatar(
+              radius: 30.r,
+              backgroundColor: TravelTheme.blue.withValues(alpha: 0.12),
+              child: Icon(
+                icon ?? Icons.inbox_outlined,
+                size: 30.r,
+                color: TravelTheme.blue,
+              ),
+            ),
+            SizedBox(height: 14.h),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: TravelTheme.textSecondaryFor(context),
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            if (actionText != null && onAction != null) ...[
+              SizedBox(height: 16.h),
+              TextButton.icon(
+                onPressed: onAction,
+                icon: const Icon(Icons.refresh_rounded, size: 18),
+                label: Text(actionText!),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Rich empty state for travel screens with title, subtitle, themed icon, and CTA.
+class TravelEmptyView extends StatelessWidget {
+  final String title;
+  final String? subtitle;
+  final IconData icon;
+  final String? actionLabel;
+  final VoidCallback? onAction;
+
+  const TravelEmptyView({
+    super.key,
+    required this.title,
+    this.subtitle,
+    this.icon = Icons.search_off_rounded,
+    this.actionLabel,
+    this.onAction,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
         padding: EdgeInsets.all(32.r),
-        child: Text(
-          message,
-          textAlign: TextAlign.center,
-          style: TextStyle(color: TravelTheme.muted, fontSize: 14.sp),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircleAvatar(
+              radius: 36.r,
+              backgroundColor: TravelTheme.blue.withValues(alpha: 0.12),
+              child: Icon(icon, size: 36.r, color: TravelTheme.blue),
+            ),
+            SizedBox(height: 16.h),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: TravelTheme.textPrimaryFor(context),
+                fontWeight: FontWeight.w800,
+                fontSize: 16.sp,
+              ),
+            ),
+            if (subtitle != null && subtitle!.isNotEmpty) ...[
+              SizedBox(height: 6.h),
+              Text(
+                subtitle!,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: TravelTheme.textSecondaryFor(context),
+                  fontSize: 12.sp,
+                  height: 1.4,
+                ),
+              ),
+            ],
+            if (actionLabel != null && onAction != null) ...[
+              SizedBox(height: 18.h),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: TravelTheme.primaryFor(context),
+                  foregroundColor: TravelTheme.isDark(context)
+                      ? AppColors.deepBlack
+                      : AppColors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                ),
+                onPressed: onAction,
+                icon: const Icon(Icons.refresh_rounded, size: 18),
+                label: Text(actionLabel!),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Rich error state with themed icon, human-readable message, and Retry CTA.
+class TravelErrorView extends StatelessWidget {
+  final String message;
+  final String? title;
+  final VoidCallback? onRetry;
+  final String? retryLabel;
+
+  const TravelErrorView({
+    super.key,
+    required this.message,
+    this.title,
+    this.onRetry,
+    this.retryLabel,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context);
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.all(28.r),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircleAvatar(
+              radius: 34.r,
+              backgroundColor: AppColors.error.withValues(alpha: 0.12),
+              child: Icon(
+                Icons.error_outline_rounded,
+                size: 34.r,
+                color: AppColors.error,
+              ),
+            ),
+            SizedBox(height: 16.h),
+            Text(
+              title ?? localization?.allControllerLoadError ?? 'Error',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: TravelTheme.textPrimaryFor(context),
+                fontWeight: FontWeight.w800,
+                fontSize: 16.sp,
+              ),
+            ),
+            SizedBox(height: 6.h),
+            Text(
+              travelSafePresentationMessage(message),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: TravelTheme.textSecondaryFor(context),
+                fontSize: 12.sp,
+                height: 1.4,
+              ),
+            ),
+            if (onRetry != null) ...[
+              SizedBox(height: 18.h),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: TravelTheme.primaryFor(context),
+                  foregroundColor: TravelTheme.isDark(context)
+                      ? AppColors.deepBlack
+                      : AppColors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                ),
+                onPressed: onRetry,
+                icon: const Icon(Icons.refresh_rounded, size: 18),
+                label: Text(
+                  retryLabel ??
+                      localization?.noInternetConnectionRetryButton ??
+                      'Retry',
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Dark-mode safe skeleton loader for travel listings.
+class TravelLoadingSkeleton extends StatelessWidget {
+  final int count;
+  final double height;
+
+  const TravelLoadingSkeleton({
+    super.key,
+    this.count = 3,
+    this.height = 110,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = TravelTheme.isDark(context);
+    final baseColor = isDark ? const Color(0xFF262625) : const Color(0xFFE8E9EC);
+    return Column(
+      children: List.generate(
+        count,
+        (index) => Padding(
+          padding: EdgeInsets.only(bottom: 12.h),
+          child: Container(
+            height: height.h,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: baseColor,
+              borderRadius: TravelTheme.radius,
+              border: Border.all(color: TravelTheme.borderFor(context)),
+            ),
+          ),
         ),
       ),
     );

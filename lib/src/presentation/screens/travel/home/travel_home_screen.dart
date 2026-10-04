@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
+import 'package:ecardo_etrip/src/app/routes/routes.dart';
 import 'package:ecardo_etrip/src/common/widgets/button/common_button.dart';
 import 'package:ecardo_etrip/src/common/widgets/common_loading.dart';
 import 'package:ecardo_etrip/src/common/widgets/language_dropdown.dart';
 
-import '../account/travel_account_screen.dart';
-import '../bookings/travel_orders_screen.dart';
 import '../core/models/travel_models.dart';
-import '../esim/esim_intro_screen.dart';
-import '../flights/flight_search_screen.dart';
-import '../hotels/hotel_search_screen.dart';
 import '../shared/travel_theme.dart';
 import '../shared/travel_widgets.dart';
 
@@ -34,7 +30,7 @@ class TravelHomeScreen extends StatelessWidget {
           children: [
             const LanguageDropdown(),
             IconButton(
-              onPressed: () => Get.to(() => const TravelAccountScreen()),
+              onPressed: () => Get.toNamed(BaseRoute.travelAccount),
               icon: const Icon(Icons.account_circle_outlined),
             ),
           ],
@@ -72,7 +68,7 @@ class TravelHomeScreen extends StatelessWidget {
             TravelSectionHeader(
               title: localization.travelRecentActivity,
               action: localization.travelViewAll,
-              onAction: () => Get.to(() => const TravelOrdersScreen()),
+              onAction: () => Get.toNamed(BaseRoute.travelOrders),
             ),
             SizedBox(height: 8.h),
             Obx(
@@ -282,13 +278,13 @@ class _Services extends StatelessWidget {
   void _openService(TravelProductType type) {
     switch (type) {
       case TravelProductType.hotel:
-        Get.to(() => const HotelSearchScreen());
+        Get.toNamed(BaseRoute.hotelSearch);
         return;
       case TravelProductType.flight:
-        Get.to(() => const FlightSearchScreen());
+        Get.toNamed(BaseRoute.flightSearch);
         return;
       case TravelProductType.esim:
-        Get.to(() => const EsimIntroScreen());
+        Get.toNamed(BaseRoute.esimIntro);
         return;
     }
   }

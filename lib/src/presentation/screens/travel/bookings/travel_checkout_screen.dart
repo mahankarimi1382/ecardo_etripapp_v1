@@ -430,8 +430,13 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
               Container(
                 padding: EdgeInsets.all(14.r),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFFF3E0),
+                  color: TravelTheme.isDark(context)
+                      ? const Color(0xFF3B2B1E)
+                      : const Color(0xFFFFF3E0),
                   borderRadius: BorderRadius.circular(18.r),
+                  border: Border.all(
+                    color: TravelTheme.borderFor(context),
+                  ),
                 ),
                 child: Row(
                   children: [
@@ -443,7 +448,10 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
                     Expanded(
                       child: Text(
                         localization.travelOfferUnavailable,
-                        style: TextStyle(fontSize: 11.sp),
+                        style: TextStyle(
+                          fontSize: 11.sp,
+                          color: TravelTheme.textPrimaryFor(context),
+                        ),
                       ),
                     ),
                   ],
@@ -454,8 +462,12 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
             if (reservation != null) ...[
               TravelCard(
                 color: reservationExpired
-                    ? const Color(0xFFFFEBEE)
-                    : const Color(0xFFFFF8E1),
+                    ? (TravelTheme.isDark(context)
+                        ? const Color(0xFF3B1E1E)
+                        : const Color(0xFFFFEBEE))
+                    : (TravelTheme.isDark(context)
+                        ? const Color(0xFF382F19)
+                        : const Color(0xFFFFF8E1)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -940,9 +952,11 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
             TravelCard(
               child: Row(
                 children: [
-                  const CircleAvatar(
-                    backgroundColor: Color(0xFFEAF7EF),
-                    child: Icon(
+                  CircleAvatar(
+                    backgroundColor: TravelTheme.isDark(context)
+                        ? const Color(0xFF1E382A)
+                        : const Color(0xFFEAF7EF),
+                    child: const Icon(
                       Icons.account_balance_wallet_rounded,
                       color: TravelTheme.green,
                     ),

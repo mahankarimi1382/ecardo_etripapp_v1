@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
+import 'package:ecardo_etrip/src/app/constants/app_spacing.dart';
 import 'package:ecardo_etrip/src/app/routes/routes.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/controller/home_controller.dart';
 
@@ -9,7 +11,6 @@ import '../bookings/travel_orders_screen.dart';
 import '../core/models/travel_models.dart';
 import '../shared/travel_theme.dart';
 import '../shared/travel_widgets.dart';
-import 'travel_history_screen.dart';
 
 class TravelAccountScreen extends StatelessWidget {
   const TravelAccountScreen({super.key});
@@ -24,28 +25,29 @@ class TravelAccountScreen extends StatelessWidget {
       title: localization.travelAccount,
       activeSection: TravelNavigationSection.account,
       child: ListView(
-        padding: EdgeInsets.all(20.r),
+        padding: EdgeInsets.all(AppSpacing.xl.r),
         children: [
           Container(
-            padding: EdgeInsets.all(20.r),
+            padding: EdgeInsets.all(AppSpacing.xl.r),
             decoration: BoxDecoration(
               borderRadius: TravelTheme.radius,
               gradient: const LinearGradient(
                 colors: [Color(0xFF005AB6), TravelTheme.blue],
               ),
+              boxShadow: TravelTheme.shadowFor(context),
             ),
             child: Row(
               children: [
-                const CircleAvatar(
-                  radius: 34,
+                CircleAvatar(
+                  radius: 34.r,
                   backgroundColor: Colors.white,
-                  child: Icon(
+                  child: const Icon(
                     Icons.person_rounded,
                     size: 34,
                     color: TravelTheme.blue,
                   ),
                 ),
-                SizedBox(width: 16.w),
+                SizedBox(width: AppSpacing.lg.w),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,12 +62,12 @@ class TravelAccountScreen extends StatelessWidget {
                           fontWeight: FontWeight.w900,
                         ),
                       ),
-                      SizedBox(height: 5.h),
+                      SizedBox(height: AppSpacing.xs.h),
                       Text(
                         localization.travelMemberDescription,
                         style: TextStyle(
                           color: Colors.white.withValues(alpha: .8),
-                          fontSize: 10.sp,
+                          fontSize: 11.sp,
                         ),
                       ),
                     ],
@@ -74,63 +76,84 @@ class TravelAccountScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 24.h),
+          SizedBox(height: AppSpacing.xxl.h),
           _AccountTile(
             icon: Icons.hotel_rounded,
             title: localization.travelMyHotels,
             subtitle: localization.travelMyHotelsDescription,
-            onTap: () => Get.to(
-              () => const TravelOrdersScreen(
-                initialType: TravelProductType.hotel,
-              ),
-            ),
+            onTap: () {
+              HapticFeedback.lightImpact();
+              Get.to(
+                () => const TravelOrdersScreen(
+                  initialType: TravelProductType.hotel,
+                ),
+              );
+            },
           ),
           _AccountTile(
             icon: Icons.flight_rounded,
             title: localization.travelMyFlights,
             subtitle: localization.travelMyFlightsDescription,
-            onTap: () => Get.to(
-              () => const TravelOrdersScreen(
-                initialType: TravelProductType.flight,
-              ),
-            ),
+            onTap: () {
+              HapticFeedback.lightImpact();
+              Get.to(
+                () => const TravelOrdersScreen(
+                  initialType: TravelProductType.flight,
+                ),
+              );
+            },
           ),
           _AccountTile(
             icon: Icons.sim_card_rounded,
             title: localization.travelMyEsims,
             subtitle: localization.travelMyEsimsDescription,
-            onTap: () => Get.to(
-              () => const TravelOrdersScreen(
-                initialType: TravelProductType.esim,
-              ),
-            ),
+            onTap: () {
+              HapticFeedback.lightImpact();
+              Get.to(
+                () => const TravelOrdersScreen(
+                  initialType: TravelProductType.esim,
+                ),
+              );
+            },
           ),
           _AccountTile(
             icon: Icons.luggage_rounded,
             title: localization.travelAllBookings,
             subtitle: localization.travelMyBookingsDescription,
-            onTap: () => Get.to(() => const TravelOrdersScreen()),
+            onTap: () {
+              HapticFeedback.lightImpact();
+              Get.toNamed(BaseRoute.travelOrders);
+            },
           ),
           _AccountTile(
             icon: Icons.badge_outlined,
             title: localization.travelPersonalInformation,
             subtitle: localization.travelPersonalInformationDescription,
-            onTap: () => Get.toNamed(BaseRoute.profileSettings),
+            onTap: () {
+              HapticFeedback.lightImpact();
+              Get.toNamed(BaseRoute.profileSettings);
+            },
           ),
           _AccountTile(
             icon: Icons.history_rounded,
             title: localization.travelHistory,
             subtitle: localization.travelHistoryDescription,
-            onTap: () => Get.to(() => const TravelHistoryScreen()),
+            onTap: () {
+              HapticFeedback.lightImpact();
+              Get.toNamed(BaseRoute.travelHistory);
+            },
           ),
           _AccountTile(
             icon: Icons.account_balance_wallet_outlined,
             title: localization.travelMainWallet,
             subtitle: localization.travelWalletSharedDescription,
-            onTap: () => Get.toNamed(
-              BaseRoute.wallets,
-              arguments: {'returnRoute': BaseRoute.travelAccount},
-            ),
+            onTap: () {
+              HapticFeedback.lightImpact();
+              Get.toNamed(
+                BaseRoute.wallets,
+                arguments: {'returnRoute': BaseRoute.travelAccount},
+              );
+            },
           ),
         ],
       ),
@@ -154,34 +177,49 @@ class _AccountTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.only(bottom: AppSpacing.md.h),
       child: TravelCard(
         onTap: onTap,
         child: Row(
           children: [
             Container(
-              padding: EdgeInsets.all(11.r),
+              padding: EdgeInsets.all(AppSpacing.md.r),
               decoration: BoxDecoration(
-                color: const Color(0xFFEAF3FF),
-                borderRadius: BorderRadius.circular(15.r),
+                color: TravelTheme.isDark(context)
+                    ? const Color(0xFF1E2E42)
+                    : const Color(0xFFEAF3FF),
+                borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
               ),
               child: Icon(icon, color: TravelTheme.blue),
             ),
-            SizedBox(width: 14.w),
+            SizedBox(width: AppSpacing.md.w),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: const TextStyle(fontWeight: FontWeight.w900)),
-                  SizedBox(height: 4.h),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      color: TravelTheme.textPrimaryFor(context),
+                      fontSize: 14.sp,
+                    ),
+                  ),
+                  SizedBox(height: AppSpacing.xs.h),
                   Text(
                     subtitle,
-                    style: TextStyle(color: TravelTheme.muted, fontSize: 10.sp),
+                    style: TextStyle(
+                      color: TravelTheme.textSecondaryFor(context),
+                      fontSize: 11.sp,
+                    ),
                   ),
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right_rounded),
+            Icon(
+              Icons.chevron_right_rounded,
+              color: TravelTheme.textSecondaryFor(context),
+            ),
           ],
         ),
       ),

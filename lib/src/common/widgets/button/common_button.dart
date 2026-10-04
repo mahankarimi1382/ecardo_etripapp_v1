@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:ecardo_etrip/src/app/constants/app_colors.dart';
@@ -32,7 +33,7 @@ class CommonButton extends StatelessWidget {
     this.textColor = AppColors.white,
     this.borderColor,
     this.borderWidth = 0.0,
-    this.backgroundColor = AppColors.lightPrimary,
+    this.backgroundColor,
     this.isLoading,
     this.loadingColor,
     this.gradient,
@@ -41,9 +42,19 @@ class CommonButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final effectiveBgColor =
+        backgroundColor ?? Theme.of(context).colorScheme.primary;
+
     return InkWell(
       borderRadius: BorderRadius.circular(borderRadius.r),
-      onTap: isLoading == true ? null : onPressed,
+      onTap: isLoading == true
+          ? null
+          : (onPressed == null
+              ? null
+              : () {
+                  HapticFeedback.lightImpact();
+                  onPressed!();
+                }),
       child: Container(
         padding: EdgeInsetsGeometry.symmetric(horizontal: 8.w),
         width: width == double.infinity ? double.infinity : width?.w,
@@ -51,7 +62,7 @@ class CommonButton extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius.r),
-          color: gradient == null ? backgroundColor : null,
+          color: gradient == null ? effectiveBgColor : null,
           gradient: gradient,
           boxShadow: boxShadow,
           border: borderColor != null

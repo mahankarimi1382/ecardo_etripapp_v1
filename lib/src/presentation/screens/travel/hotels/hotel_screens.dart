@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
+import 'package:ecardo_etrip/src/app/constants/app_spacing.dart';
 import 'package:ecardo_etrip/src/common/widgets/button/common_button.dart';
 
 import '../bookings/travel_checkout_screen.dart';
@@ -313,7 +314,7 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
                       },
                       color: city.value == recommendedCity
                           ? TravelTheme.purple.withValues(alpha: .1)
-                          : Colors.white,
+                          : TravelTheme.cardSurfaceFor(context),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -485,9 +486,12 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
         return StatefulBuilder(
           builder: (context, setSheetState) => Container(
             padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 28.h),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+            decoration: BoxDecoration(
+              color: TravelTheme.cardSurfaceFor(context),
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(AppSpacing.radiusXl),
+              ),
+              border: Border.all(color: TravelTheme.borderFor(context)),
             ),
             child: SafeArea(
               top: false,
@@ -905,7 +909,7 @@ class _HotelResultsScreenState extends State<HotelResultsScreen> {
               SizedBox(height: 16.h),
             ],
             if (controller.isLoading.value)
-              const Center(child: CircularProgressIndicator())
+              const TravelLoadingSkeleton(count: 4, height: 160)
             else if (offers.isEmpty)
               _HotelResultsEmptyState(
                 hasError: controller.searchError.value != null,
@@ -1371,7 +1375,10 @@ Future<void> _showHotelComparison(
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    backgroundColor: Colors.white,
+    backgroundColor: TravelTheme.cardSurfaceFor(context),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+    ),
     builder: (context) => SafeArea(
       child: FractionallySizedBox(
         heightFactor: .86,

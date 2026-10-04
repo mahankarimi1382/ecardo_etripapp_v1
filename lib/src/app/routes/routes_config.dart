@@ -27,7 +27,12 @@ import 'package:ecardo_etrip/src/presentation/screens/settings/view/two_factor_a
 import 'package:ecardo_etrip/src/presentation/screens/transactions/view/transactions_screen.dart';
 import 'package:ecardo_etrip/src/presentation/screens/travel/account/travel_account_screen.dart';
 import 'package:ecardo_etrip/src/presentation/screens/travel/account/travel_history_screen.dart';
+import 'package:ecardo_etrip/src/presentation/screens/travel/bookings/travel_orders_screen.dart';
+import 'package:ecardo_etrip/src/presentation/screens/travel/esim/esim_screens.dart';
+import 'package:ecardo_etrip/src/presentation/screens/travel/flights/flight_screens.dart';
 import 'package:ecardo_etrip/src/presentation/screens/travel/home/travel_home_screen.dart';
+import 'package:ecardo_etrip/src/presentation/screens/travel/hotels/hotel_screens.dart';
+import 'package:ecardo_etrip/src/presentation/screens/travel/travelers/travelers_screen.dart';
 import 'package:ecardo_etrip/src/presentation/screens/wallets/view/create_new_wallet/create_new_wallet.dart';
 import 'package:ecardo_etrip/src/presentation/screens/wallets/view/wallets_screen.dart';
 import 'package:ecardo_etrip/src/presentation/widgets/maintenance_mode.dart';
@@ -105,4 +110,20 @@ class RoutesConfig {
   static const travelHistory = TravelHistoryScreen();
 
   static const travelAccount = TravelAccountScreen();
+
+  static const flightSearch = FlightSearchScreen();
+
+  static const flightResults = FlightResultsScreen();
+
+  static const hotelSearch = HotelSearchScreen();
+
+  static const hotelResults = HotelResultsScreen();
+
+  static const esimIntro = EsimIntroScreen();
+
+  static const esimPackages = EsimPackagesScreen();
+
+  static const travelOrders = TravelOrdersScreen();
+
+  static const travelers = TravelersScreen();
 }

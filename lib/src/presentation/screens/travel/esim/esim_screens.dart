@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
+import 'package:ecardo_etrip/src/app/constants/app_spacing.dart';
 import 'package:ecardo_etrip/src/common/widgets/button/common_button.dart';
-import 'package:ecardo_etrip/src/common/widgets/common_loading.dart';
 import 'package:ecardo_etrip/src/common/widgets/input_field/common_text_input_filed.dart';
 
 import '../bookings/travel_checkout_screen.dart';
@@ -17,26 +18,27 @@ class EsimIntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
-    final controller = ensureTravelController();
-    final service = controller.serviceFor(TravelProductType.esim);
     final heroTitle = localization.travelEsimIntroTitle;
     final heroSubtitle = localization.travelEsimIntroDescription;
     return TravelPage(
       title: localization.travelEsim,
       bottomNavigationBar: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(16.r),
+          padding: EdgeInsets.all(AppSpacing.lg.r),
           child: CommonButton(
             width: double.infinity,
             text: localization.travelBrowseEsimPackages,
             textColor: TravelTheme.ink,
             backgroundColor: TravelTheme.yellow,
-            onPressed: () => Get.to(() => const EsimPackagesScreen()),
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              Get.to(() => const EsimPackagesScreen());
+            },
           ),
         ),
       ),
       child: ListView(
-        padding: EdgeInsets.all(20.r),
+        padding: EdgeInsets.all(AppSpacing.xl.r),
         children: [
           TravelPosterHero(
             assetPath: 'assets/images/etrip/hero-esim.jpg',
@@ -47,7 +49,7 @@ class EsimIntroScreen extends StatelessWidget {
             accentColor: TravelTheme.yellow,
             height: 230,
           ),
-          SizedBox(height: 24.h),
+          SizedBox(height: AppSpacing.xxl.h),
           _Benefit(
             icon: Icons.phonelink_setup_rounded,
             title: localization.travelEsimDeviceReadinessTitle,
@@ -83,7 +85,7 @@ class _Benefit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.only(bottom: AppSpacing.md.h),
       child: TravelCard(
         child: Row(
           children: [
@@ -91,19 +93,25 @@ class _Benefit extends StatelessWidget {
               backgroundColor: TravelTheme.yellow.withValues(alpha: .25),
               child: Icon(icon, color: TravelTheme.ink),
             ),
-            SizedBox(width: 14.w),
+            SizedBox(width: AppSpacing.md.w),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(fontWeight: FontWeight.w800),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      color: TravelTheme.textPrimaryFor(context),
+                    ),
                   ),
-                  SizedBox(height: 3.h),
+                  SizedBox(height: AppSpacing.xs.h),
                   Text(
                     subtitle,
-                    style: TextStyle(color: TravelTheme.muted, fontSize: 10.sp),
+                    style: TextStyle(
+                      color: TravelTheme.textSecondaryFor(context),
+                      fontSize: 11.sp,
+                    ),
                   ),
                 ],
               ),
@@ -126,10 +134,39 @@ class _EsimPackagesScreenState extends State<EsimPackagesScreen> {
   final destinationController = TextEditingController();
   String searchedDestination = '';
 
+  static const List<String> popularDestinations = ['TR', 'AE', 'GE', 'TH', 'FR', 'US'];
+
   @override
   void dispose() {
     destinationController.dispose();
     super.dispose();
+  }
+
+  Future<void> _searchPackages(String destination) async {
+    final localization = AppLocalizations.of(context)!;
+    final code = destination.trim().toUpperCase();
+    if (code.isEmpty) {
+      showTravelMessage(
+        context,
+        title: localization.travelEsimPackages,
+        message: localization.travelDestination,
+      );
+      return;
+    }
+    destinationController.text = code;
+    HapticFeedback.lightImpact();
+    final controller = ensureTravelController();
+    final succeeded = await controller.loadEsimPackages(code);
+    if (!mounted) return;
+    if (succeeded) {
+      setState(() => searchedDestination = code);
+    } else {
+      showTravelMessage(
+        context,
+        title: localization.travelEsimPackages,
+        message: localization.allControllerLoadError,
+      );
+    }
   }
 
   @override
@@ -140,13 +177,23 @@ class _EsimPackagesScreenState extends State<EsimPackagesScreen> {
     final destinationField = service?.searchFields.firstWhereOrNull(
       (field) => field.key == 'country_code',
     );
+
     return TravelPage(
       title: localization.travelEsimPackages,
-      child: Obx(
-        () => controller.isLoading.value && controller.esimPackages.isEmpty
-            ? const CommonLoading()
-            : ListView(
-                padding: EdgeInsets.all(20.r),
+      child: RefreshIndicator(
+        color: TravelTheme.yellow,
+        onRefresh: () async {
+          if (searchedDestination.isNotEmpty) {
+            await controller.loadEsimPackages(searchedDestination);
+          }
+        },
+        child: ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: EdgeInsets.all(AppSpacing.xl.r),
+          children: [
+            TravelCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CommonTextInputField(
                     controller: destinationController,
@@ -159,87 +206,137 @@ class _EsimPackagesScreenState extends State<EsimPackagesScreen> {
                       color: TravelTheme.yellow,
                     ),
                   ),
-                  SizedBox(height: 10.h),
-                  TravelCard(
-                    color: TravelTheme.yellow.withValues(alpha: .1),
+                  SizedBox(height: AppSpacing.sm.h),
+                  Wrap(
+                    spacing: AppSpacing.sm.w,
+                    runSpacing: AppSpacing.xs.h,
+                    children: [
+                      for (final dest in popularDestinations)
+                        ActionChip(
+                          label: Text(
+                            dest,
+                            style: TextStyle(
+                              fontSize: 11.sp,
+                              fontWeight: dest == searchedDestination
+                                  ? FontWeight.w900
+                                  : FontWeight.w600,
+                            ),
+                          ),
+                          backgroundColor: dest == searchedDestination
+                              ? TravelTheme.yellow.withValues(alpha: 0.3)
+                              : TravelTheme.surfaceFor(context),
+                          side: BorderSide(
+                            color: dest == searchedDestination
+                                ? TravelTheme.yellow
+                                : TravelTheme.borderFor(context),
+                          ),
+                          onPressed: () => _searchPackages(dest),
+                        ),
+                    ],
+                  ),
+                  SizedBox(height: AppSpacing.md.h),
+                  Container(
+                    padding: EdgeInsets.all(AppSpacing.md.r),
+                    decoration: BoxDecoration(
+                      color: TravelTheme.yellow.withValues(alpha: .12),
+                      borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+                      border: Border.all(
+                        color: TravelTheme.yellow.withValues(alpha: 0.3),
+                      ),
+                    ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Icon(
                           Icons.info_outline_rounded,
                           color: TravelTheme.ink,
+                          size: 20,
                         ),
-                        SizedBox(width: 10.w),
+                        SizedBox(width: AppSpacing.sm.w),
                         Expanded(
                           child: Text(
                             localization.travelEsimCompatibilityNotice,
                             style: TextStyle(
-                              color: TravelTheme.muted,
+                              color: TravelTheme.textSecondaryFor(context),
                               fontSize: 11.sp,
-                              height: 1.5,
+                              height: 1.45,
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 12.h),
-                  CommonButton(
-                    width: double.infinity,
-                    text: localization.travelBrowseEsimPackages,
-                    textColor: TravelTheme.ink,
-                    backgroundColor: TravelTheme.yellow,
-                    isLoading: controller.isLoading.value,
-                    onPressed: () async {
-                      final destination = destinationController.text
-                          .trim()
-                          .toUpperCase();
-                      if (destination.isEmpty) {
-                        showTravelMessage(
-                          context,
-                          title: localization.travelEsimPackages,
-                          message: localization.travelDestination,
-                        );
-                        return;
-                      }
-                      final succeeded = await controller.loadEsimPackages(
-                        destination,
-                      );
-                      if (!context.mounted) return;
-                      if (succeeded) {
-                        setState(() => searchedDestination = destination);
-                      }
-                      if (!succeeded) {
-                        showTravelMessage(
-                          context,
-                          title: localization.travelEsimPackages,
-                          message: localization.allControllerLoadError,
-                        );
-                      }
-                    },
-                  ),
-                  SizedBox(height: 20.h),
-                  TravelSectionHeader(
-                    title: localization.travelChoosePackage,
-                    action: searchedDestination.isEmpty
-                        ? null
-                        : '$searchedDestination · '
-                              '${controller.esimPackages.length}',
-                  ),
-                  SizedBox(height: 10.h),
-                  if (searchedDestination.isNotEmpty &&
-                      controller.esimPackages.isEmpty)
-                    TravelEmptyState(
-                      message: localization.travelNoEsimPackages,
-                    ),
-                  ...controller.esimPackages.map(
-                    (package) => Padding(
-                      padding: EdgeInsets.only(bottom: 14.h),
-                      child: _PackageCard(package: package),
+                  SizedBox(height: AppSpacing.lg.h),
+                  Obx(
+                    () => CommonButton(
+                      width: double.infinity,
+                      text: localization.travelBrowseEsimPackages,
+                      textColor: TravelTheme.ink,
+                      backgroundColor: TravelTheme.yellow,
+                      isLoading: controller.isLoading.value,
+                      onPressed: () =>
+                          _searchPackages(destinationController.text),
                     ),
                   ),
                 ],
               ),
+            ),
+            SizedBox(height: AppSpacing.xl.h),
+            TravelSectionHeader(
+              title: localization.travelChoosePackage,
+              action: searchedDestination.isEmpty
+                  ? null
+                  : '$searchedDestination · ${controller.esimPackages.length}',
+            ),
+            SizedBox(height: AppSpacing.md.h),
+
+            // 4 States
+            Obx(() {
+              if (controller.isLoading.value && controller.esimPackages.isEmpty) {
+                return const TravelLoadingSkeleton(count: 3, height: 160);
+              }
+              if (controller.searchError.value != null && controller.esimPackages.isEmpty) {
+                return TravelErrorView(
+                  message: controller.searchError.value!,
+                  onRetry: () => _searchPackages(
+                    searchedDestination.isEmpty
+                        ? destinationController.text
+                        : searchedDestination,
+                  ),
+                );
+              }
+              if (controller.esimPackages.isEmpty) {
+                return TravelEmptyView(
+                  title: searchedDestination.isNotEmpty
+                      ? localization.travelNoEsimPackages
+                      : localization.travelChoosePackage,
+                  subtitle: searchedDestination.isNotEmpty
+                      ? localization.travelEsimCoverageDescription
+                      : localization.travelEsimIntroDescription,
+                  icon: Icons.sim_card_outlined,
+                  actionLabel: searchedDestination.isNotEmpty
+                      ? localization.reset
+                      : null,
+                  onAction: searchedDestination.isNotEmpty
+                      ? () {
+                          destinationController.clear();
+                          setState(() => searchedDestination = '');
+                        }
+                      : null,
+                );
+              }
+              return Column(
+                children: [
+                  for (final package in controller.esimPackages)
+                    Padding(
+                      padding: EdgeInsets.only(bottom: AppSpacing.md.h),
+                      child: _PackageCard(package: package),
+                    ),
+                ],
+              );
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -258,6 +355,7 @@ class _PackageCard extends StatelessWidget {
     return TravelCard(
       onTap: canPurchase
           ? () {
+              HapticFeedback.lightImpact();
               controller.selectedEsim.value = package;
               Get.to(
                 () => TravelCheckoutScreen(
@@ -279,14 +377,15 @@ class _PackageCard extends StatelessWidget {
                 height: 54.r,
                 decoration: BoxDecoration(
                   color: TravelTheme.yellow.withValues(alpha: .25),
-                  borderRadius: BorderRadius.circular(18.r),
+                  borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
                 ),
                 child: const Icon(
                   Icons.sim_card_rounded,
                   color: TravelTheme.ink,
+                  size: 26,
                 ),
               ),
-              SizedBox(width: 14.w),
+              SizedBox(width: AppSpacing.md.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -298,6 +397,7 @@ class _PackageCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w900,
+                          color: TravelTheme.textPrimaryFor(context),
                         ),
                       ),
                     ),
@@ -306,7 +406,7 @@ class _PackageCard extends StatelessWidget {
                       child: Text(
                         package.destinationCode,
                         style: TextStyle(
-                          color: TravelTheme.muted,
+                          color: TravelTheme.textSecondaryFor(context),
                           fontSize: 11.sp,
                           fontWeight: FontWeight.w700,
                         ),
@@ -318,11 +418,18 @@ class _PackageCard extends StatelessWidget {
               if (package.isPopular)
                 Chip(
                   backgroundColor: TravelTheme.yellow,
-                  label: Text(localization.travelMostPopular),
+                  label: Text(
+                    localization.travelMostPopular,
+                    style: const TextStyle(
+                      color: TravelTheme.ink,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                    ),
+                  ),
                 ),
             ],
           ),
-          const Divider(height: 28),
+          Divider(height: 28.h, color: TravelTheme.borderFor(context)),
           Row(
             children: [
               Expanded(
@@ -333,7 +440,7 @@ class _PackageCard extends StatelessWidget {
                   forceLtr: true,
                 ),
               ),
-              SizedBox(width: 10.w),
+              SizedBox(width: AppSpacing.sm.w),
               Expanded(
                 child: _PackageFact(
                   icon: Icons.calendar_today_rounded,
@@ -343,7 +450,7 @@ class _PackageCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 14.h),
+          SizedBox(height: AppSpacing.md.h),
           Row(
             children: [
               Expanded(
@@ -353,7 +460,7 @@ class _PackageCard extends StatelessWidget {
                     Text(
                       localization.travelTotal,
                       style: TextStyle(
-                        color: TravelTheme.muted,
+                        color: TravelTheme.textSecondaryFor(context),
                         fontSize: 10.sp,
                       ),
                     ),
@@ -365,6 +472,7 @@ class _PackageCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w900,
+                          color: TravelTheme.textPrimaryFor(context),
                         ),
                       ),
                     ),
@@ -378,13 +486,14 @@ class _PackageCard extends StatelessWidget {
                   text: canPurchase
                       ? localization.travelSelect
                       : localization.travelOfferUnavailable,
-                  fontSize: 10,
+                  fontSize: 11,
                   textColor: canPurchase ? TravelTheme.ink : Colors.white,
                   backgroundColor: canPurchase
                       ? TravelTheme.yellow
                       : TravelTheme.muted,
                   onPressed: canPurchase
                       ? () {
+                          HapticFeedback.lightImpact();
                           controller.selectedEsim.value = package;
                           Get.to(
                             () => TravelCheckoutScreen(
@@ -422,15 +531,16 @@ class _PackageFact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10.r),
+      padding: EdgeInsets.all(AppSpacing.sm.r),
       decoration: BoxDecoration(
-        color: TravelTheme.background,
-        borderRadius: BorderRadius.circular(12.r),
+        color: TravelTheme.surfaceFor(context),
+        borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+        border: Border.all(color: TravelTheme.borderFor(context)),
       ),
       child: Row(
         children: [
-          Icon(icon, size: 18.r, color: TravelTheme.muted),
-          SizedBox(width: 8.w),
+          Icon(icon, size: 18.r, color: TravelTheme.textSecondaryFor(context)),
+          SizedBox(width: AppSpacing.sm.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -439,7 +549,10 @@ class _PackageFact extends StatelessWidget {
                   label,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: TravelTheme.muted, fontSize: 9.sp),
+                  style: TextStyle(
+                    color: TravelTheme.textSecondaryFor(context),
+                    fontSize: 9.sp,
+                  ),
                 ),
                 SizedBox(height: 2.h),
                 Directionality(
@@ -453,6 +566,7 @@ class _PackageFact extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 11.sp,
                       fontWeight: FontWeight.w800,
+                      color: TravelTheme.textPrimaryFor(context),
                     ),
                   ),
                 ),

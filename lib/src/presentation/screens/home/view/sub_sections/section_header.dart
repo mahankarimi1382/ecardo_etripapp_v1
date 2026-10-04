@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
-import 'package:ecardo_etrip/src/app/constants/app_colors.dart';
+import 'package:ecardo_etrip/src/presentation/screens/travel/shared/travel_theme.dart';
 
 class SectionHeader extends StatelessWidget {
   final String sectionName;
@@ -19,7 +19,7 @@ class SectionHeader extends StatelessWidget {
     final localizations = AppLocalizations.of(context)!;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 18),
+      padding: const EdgeInsets.symmetric(horizontal: 18),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -28,7 +28,7 @@ class SectionHeader extends StatelessWidget {
             style: TextStyle(
               letterSpacing: 0,
               fontSize: 16,
-              color: AppColors.lightTextPrimary,
+              color: TravelTheme.textPrimaryFor(context),
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -41,7 +41,7 @@ class SectionHeader extends StatelessWidget {
                   letterSpacing: 0,
                   fontWeight: FontWeight.w700,
                   fontSize: 14,
-                  color: AppColors.lightPrimary,
+                  color: TravelTheme.primaryFor(context),
                 ),
               ),
             ),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
-import 'package:ecardo_etrip/src/app/constants/app_colors.dart';
+import 'package:ecardo_etrip/src/app/constants/app_spacing.dart';
 import 'package:ecardo_etrip/src/common/services/settings_service.dart';
 import 'package:ecardo_etrip/src/common/widgets/bottom_sheet/common_alert_bottom_sheet.dart';
 import 'package:ecardo_etrip/src/common/widgets/common_loading.dart';
@@ -15,6 +15,7 @@ import 'package:ecardo_etrip/src/presentation/screens/home/view/sub_sections/oth
 import 'package:ecardo_etrip/src/presentation/screens/home/view/sub_sections/recent_transactions_section.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/view/sub_sections/sign_up_bonus_pop_up.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/view/sub_sections/top_header_section.dart';
+import 'package:ecardo_etrip/src/presentation/screens/travel/shared/travel_theme.dart';
 
 class HomeScreen extends StatefulWidget {
   final String? signUpBonus;
@@ -66,25 +67,26 @@ class _HomeScreenState extends State<HomeScreen> {
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light),
         child: Scaffold(
+          backgroundColor: TravelTheme.backgroundFor(context),
           body: Stack(
             children: [
               Obx(
                 () => homeController.isLoading.value
                     ? const HomeSkeletonLoader()
                     : RefreshIndicator(
-                        color: AppColors.lightPrimary,
+                        color: TravelTheme.blue,
                         onRefresh: () => homeController.loadData(),
                         child: SingleChildScrollView(
                           child: Column(
-                            children: [
+                            children: const [
                               TopHeaderSection(),
-                              SizedBox(height: 30),
+                              SizedBox(height: AppSpacing.xxl),
                               MyWalletSection(),
-                              SizedBox(height: 30),
+                              SizedBox(height: AppSpacing.xxl),
                               OtherServicesSection(),
-                              SizedBox(height: 30),
+                              SizedBox(height: AppSpacing.xxl),
                               RecentTransactionsSection(),
-                              SizedBox(height: 50),
+                              SizedBox(height: AppSpacing.huge),
                             ],
                           ),
                         ),
@@ -93,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Obx(
                 () => Visibility(
                   visible: homeController.isSignOutLoading.value,
-                  child: CommonLoading(),
+                  child: const CommonLoading(),
                 ),
               ),
             ],

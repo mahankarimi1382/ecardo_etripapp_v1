@@ -28,9 +28,11 @@ class SettingsService extends GetxService {
   static const String currentPasswordKey = 'current_password';
   static const String currentLanguageLocaleKey = 'current_locale';
   static const String currentFcmTokenKey = 'current_fcm_token';
+  static const String themeModeKey = 'app_theme_mode';
 
   // Current Value Variable
   final Rx<String?> currentLanguageLocale = Rx<String?>(null);
+  final Rx<String> themeModeRx = 'system'.obs;
   final Rx<String?> currentEmail = Rx<String?>(null);
   final Rx<String?> currentPassword = Rx<String?>(null);
   final Rx<String?> logInCurrentState = Rx<String?>(null);
@@ -215,6 +217,17 @@ class SettingsService extends GetxService {
     } finally {
       isSettingsLoading.value = false;
     }
+  }
+
+  Future<String> getThemeModePref() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(themeModeKey) ?? 'light';
+  }
+
+  Future<void> setThemeModePref(String mode) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(themeModeKey, mode);
+    themeModeRx.value = mode;
   }
 
   // Get a specific setting by key

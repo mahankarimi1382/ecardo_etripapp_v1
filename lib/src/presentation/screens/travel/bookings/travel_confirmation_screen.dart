@@ -246,7 +246,7 @@ class TravelConfirmationScreen extends StatelessWidget {
                 text: order.effectiveRawStatus == 'voucher_generated'
                     ? localization.travelRequestRefund
                     : localization.travelCancelBooking,
-                backgroundColor: Colors.white,
+                backgroundColor: TravelTheme.cardSurfaceFor(context),
                 textColor: TravelTheme.red,
                 borderColor: TravelTheme.red,
                 borderWidth: 1,

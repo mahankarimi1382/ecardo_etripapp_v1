@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
+import 'package:ecardo_etrip/src/app/constants/app_spacing.dart';
 import 'package:ecardo_etrip/src/common/widgets/button/common_button.dart';
 import 'package:ecardo_etrip/src/common/widgets/input_field/common_text_input_filed.dart';
 
@@ -22,30 +24,41 @@ class TravelersScreen extends StatelessWidget {
       trailing: Padding(
         padding: EdgeInsetsDirectional.only(end: 14.w),
         child: IconButton(
-          onPressed: () => _showTravelerEditor(context, controller),
+          onPressed: () {
+            HapticFeedback.lightImpact();
+            _showTravelerEditor(context, controller);
+          },
           icon: const Icon(Icons.person_add_alt_1_rounded),
         ),
       ),
       child: Obx(
         () => controller.travelers.isEmpty
-            ? TravelEmptyState(message: localization.travelNoTravelers)
+            ? TravelEmptyView(
+                title: localization.travelNoTravelers,
+                subtitle: localization.travelPassengerReview,
+                icon: Icons.people_outline_rounded,
+                actionLabel: localization.travelAddTraveler,
+                onAction: () => _showTravelerEditor(context, controller),
+              )
             : ListView.separated(
-                padding: EdgeInsets.all(20.r),
+                padding: EdgeInsets.all(AppSpacing.xl.r),
                 itemCount: controller.travelers.length,
-                separatorBuilder: (_, _) => SizedBox(height: 12.h),
+                separatorBuilder: (_, _) => SizedBox(height: AppSpacing.md.h),
                 itemBuilder: (context, index) {
                   final traveler = controller.travelers[index];
                   return TravelCard(
                     child: Row(
                       children: [
-                        const CircleAvatar(
-                          backgroundColor: Color(0xFFEAF3FF),
-                          child: Icon(
+                        CircleAvatar(
+                          backgroundColor: TravelTheme.isDark(context)
+                              ? const Color(0xFF1E2E42)
+                              : const Color(0xFFEAF3FF),
+                          child: const Icon(
                             Icons.person_rounded,
                             color: TravelTheme.blue,
                           ),
                         ),
-                        SizedBox(width: 14.w),
+                        SizedBox(width: AppSpacing.md.w),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,19 +67,20 @@ class TravelersScreen extends StatelessWidget {
                                 textDirection: TextDirection.ltr,
                                 child: Text(
                                   traveler.fullName,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.w900,
+                                    color: TravelTheme.textPrimaryFor(context),
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 5.h),
+                              SizedBox(height: AppSpacing.xs.h),
                               Directionality(
                                 textDirection: TextDirection.ltr,
                                 child: Text(
                                   '${traveler.nationalityCode} • ${_maskedPassport(traveler.passportNumber)}',
                                   style: TextStyle(
-                                    color: TravelTheme.muted,
-                                    fontSize: 10.sp,
+                                    color: TravelTheme.textSecondaryFor(context),
+                                    fontSize: 11.sp,
                                   ),
                                 ),
                               ),
@@ -74,11 +88,14 @@ class TravelersScreen extends StatelessWidget {
                           ),
                         ),
                         IconButton(
-                          onPressed: () => _showTravelerEditor(
-                            context,
-                            controller,
-                            traveler: traveler,
-                          ),
+                          onPressed: () {
+                            HapticFeedback.lightImpact();
+                            _showTravelerEditor(
+                              context,
+                              controller,
+                              traveler: traveler,
+                            );
+                          },
                           icon: const Icon(Icons.edit_outlined),
                         ),
                       ],
@@ -113,9 +130,10 @@ class TravelersScreen extends StatelessWidget {
     await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.white,
+      backgroundColor: TravelTheme.cardSurfaceFor(context),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(28.r)),
+        side: BorderSide(color: TravelTheme.borderFor(context)),
       ),
       builder: (sheetContext) {
         return Padding(
@@ -131,6 +149,17 @@ class TravelersScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Center(
+                  child: Container(
+                    width: 40,
+                    height: 4,
+                    margin: const EdgeInsets.only(bottom: AppSpacing.md),
+                    decoration: BoxDecoration(
+                      color: TravelTheme.borderFor(context),
+                      borderRadius: BorderRadius.circular(AppSpacing.radiusFull),
+                    ),
+                  ),
+                ),
                 Text(
                   traveler == null
                       ? localization.travelAddTraveler
@@ -138,6 +167,7 @@ class TravelersScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w900,
+                    color: TravelTheme.textPrimaryFor(context),
                   ),
                 ),
                 SizedBox(height: 18.h),
@@ -155,8 +185,8 @@ class TravelersScreen extends StatelessWidget {
                     controller: passportController,
                     hintText: localization.travelPassportNumber,
                     validator: (value) => value?.trim().isEmpty == false
-                        ? null
-                        : localization.travelFieldRequired,
+                      ? null
+                      : localization.travelFieldRequired,
                   ),
                 ),
                 SizedBox(height: 12.h),
@@ -174,27 +204,24 @@ class TravelersScreen extends StatelessWidget {
                 Obx(
                   () => CommonButton(
                     width: double.infinity,
-                    text: localization.travelSaveTraveler,
+                    backgroundColor: TravelTheme.blue,
                     isLoading: controller.isLoading.value,
+                    text: localization.travelSaveTraveler,
                     onPressed: () async {
-                      if (formKey.currentState?.validate() != true) {
-                        return;
-                      }
-                      await controller.saveTraveler(
-                        TravelTraveler(
-                          id: traveler?.id ?? '',
-                          fullName: nameController.text.trim(),
-                          passportNumber: passportController.text
-                              .trim()
-                              .toUpperCase(),
-                          nationalityCode: nationalityController.text
-                              .trim()
-                              .toUpperCase(),
-                        ),
+                      if (!formKey.currentState!.validate()) return;
+                      HapticFeedback.lightImpact();
+                      final item = TravelTraveler(
+                        id: traveler?.id ??
+                            'traveler-${DateTime.now().millisecondsSinceEpoch}',
+                        fullName: nameController.text.trim(),
+                        passportNumber: passportController.text.trim(),
+                        nationalityCode: nationalityController.text
+                            .trim()
+                            .toUpperCase(),
                       );
-                      if (sheetContext.mounted) {
-                        Navigator.of(sheetContext).pop();
-                      }
+                      await controller.saveTraveler(item);
+                      if (!sheetContext.mounted) return;
+                      Navigator.of(sheetContext).pop();
                     },
                   ),
                 ),
@@ -204,9 +231,5 @@ class TravelersScreen extends StatelessWidget {
         );
       },
     );
-
-    nameController.dispose();
-    passportController.dispose();
-    nationalityController.dispose();
   }
 }

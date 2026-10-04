@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ecardo_etrip/src/app/app.dart';
+import 'package:ecardo_etrip/src/common/services/locale_theme_service.dart';
 import 'package:ecardo_etrip/src/common/services/settings_service.dart';
 import 'package:ecardo_etrip/src/network/service/network_service.dart';
 import 'package:ecardo_etrip/src/network/service/token_service.dart';
@@ -17,6 +18,7 @@ Future<void> _initializeServices() async {
   Get.put(SettingsService());
   Get.put<TokenService>(TokenService());
   Get.put(NetworkService());
+  await Get.putAsync(() => LocaleThemeService().init());
 }
 
 void _configureUI() {

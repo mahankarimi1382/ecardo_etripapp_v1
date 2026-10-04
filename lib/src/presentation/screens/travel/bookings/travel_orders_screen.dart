@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
+import 'package:ecardo_etrip/src/app/constants/app_spacing.dart';
 
 import '../core/models/travel_models.dart';
 import '../shared/travel_theme.dart';
@@ -85,14 +86,21 @@ class _TravelOrdersScreenState extends State<TravelOrdersScreen> {
                             icon: const Icon(Icons.close_rounded),
                           ),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: TravelTheme.cardSurfaceFor(context),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.r),
-                      borderSide: const BorderSide(color: TravelTheme.border),
+                      borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+                      borderSide: BorderSide(color: TravelTheme.borderFor(context)),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.r),
-                      borderSide: const BorderSide(color: TravelTheme.border),
+                      borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+                      borderSide: BorderSide(color: TravelTheme.borderFor(context)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+                      borderSide: BorderSide(
+                        color: TravelTheme.primaryFor(context),
+                        width: 1.5,
+                      ),
                     ),
                   ),
                 ),

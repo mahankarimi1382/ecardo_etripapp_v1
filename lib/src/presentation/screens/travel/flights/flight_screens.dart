@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
+import 'package:ecardo_etrip/src/app/constants/app_spacing.dart';
 import 'package:ecardo_etrip/src/common/widgets/button/common_button.dart';
 import 'package:ecardo_etrip/src/common/widgets/common_single_date_picker.dart';
 
@@ -391,10 +393,11 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
           SizedBox(height: 10.h),
           Obx(() {
             if (controller.isUpcomingFlightsLoading.value) {
-              return const Center(child: CircularProgressIndicator());
+              return const TravelLoadingSkeleton(count: 3, height: 140);
             }
             if (controller.upcomingFlightOffers.isEmpty) {
               return TravelEmptyState(
+                icon: Icons.flight_takeoff_rounded,
                 message: localization.travelNoFlightResults,
               );
             }
@@ -437,20 +440,33 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       builder: (context) => StatefulBuilder(
         builder: (context, setSheetState) => Container(
           padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 28.h),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+          decoration: BoxDecoration(
+            color: TravelTheme.cardSurfaceFor(context),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(AppSpacing.radiusXl)),
+            border: Border.all(color: TravelTheme.borderFor(context)),
           ),
           child: SafeArea(
             top: false,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                Center(
+                  child: Container(
+                    width: 40,
+                    height: 4,
+                    margin: const EdgeInsets.only(bottom: AppSpacing.md),
+                    decoration: BoxDecoration(
+                      color: TravelTheme.borderFor(context),
+                      borderRadius: BorderRadius.circular(AppSpacing.radiusFull),
+                    ),
+                  ),
+                ),
                 Text(
                   label,
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w900,
+                    color: TravelTheme.textPrimaryFor(context),
                   ),
                 ),
                 SizedBox(height: 18.h),
@@ -459,7 +475,10 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                   children: [
                     IconButton(
                       onPressed: selected > minimum
-                          ? () => setSheetState(() => selected--)
+                          ? () {
+                              HapticFeedback.lightImpact();
+                              setSheetState(() => selected--);
+                            }
                           : null,
                       icon: const Icon(Icons.remove_circle_outline_rounded),
                     ),
@@ -471,12 +490,16 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                         style: TextStyle(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w900,
+                          color: TravelTheme.textPrimaryFor(context),
                         ),
                       ),
                     ),
                     IconButton(
                       onPressed: selected < maximum
-                          ? () => setSheetState(() => selected++)
+                          ? () {
+                              HapticFeedback.lightImpact();
+                              setSheetState(() => selected++);
+                            }
                           : null,
                       icon: const Icon(Icons.add_circle_outline_rounded),
                     ),
@@ -488,6 +511,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                   text: AppLocalizations.of(context)!.travelSelect,
                   backgroundColor: TravelTheme.blue,
                   onPressed: () {
+                    HapticFeedback.lightImpact();
                     onSelected(selected);
                     Get.back();
                   },
@@ -601,7 +625,7 @@ class _FlightResultsScreenState extends State<FlightResultsScreen> {
               SizedBox(height: 16.h),
             ],
             if (controller.isLoading.value)
-              const Center(child: CircularProgressIndicator())
+              const TravelLoadingSkeleton(count: 4, height: 160)
             else if (offers.isEmpty) ...[
               _FlightResultsEmptyState(
                 hasError: controller.searchError.value != null,
@@ -770,7 +794,9 @@ class _FlightOfferCard extends StatelessWidget {
                 width: 48.r,
                 height: 48.r,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFEAF3FF),
+                  color: TravelTheme.isDark(context)
+                      ? const Color(0xFF1E2E42)
+                      : const Color(0xFFEAF3FF),
                   borderRadius: BorderRadius.circular(15.r),
                 ),
                 child: offer.imageUrl.isEmpty
@@ -924,7 +950,10 @@ Future<void> _showFlightComparison(
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    backgroundColor: Colors.white,
+    backgroundColor: TravelTheme.cardSurfaceFor(context),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+    ),
     builder: (context) => SafeArea(
       child: FractionallySizedBox(
         heightFactor: .86,

@@ -8,6 +8,7 @@ import 'package:ecardo_etrip/src/common/services/settings_service.dart';
 import 'package:ecardo_etrip/src/helper/toast_helper.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/controller/home_controller.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/view/sub_sections/section_header.dart';
+import 'package:ecardo_etrip/src/presentation/screens/travel/shared/travel_theme.dart';
 
 class OtherServicesSection extends StatefulWidget {
   const OtherServicesSection({super.key});
@@ -92,7 +93,8 @@ class _OtherServicesSectionState extends State<OtherServicesSection> {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: AppColors.white,
+            color: TravelTheme.cardSurfaceFor(context),
+            border: Border.all(color: TravelTheme.borderFor(context)),
           ),
           child: Column(
             children: [
@@ -188,9 +190,7 @@ class _OtherServicesSectionState extends State<OtherServicesSection> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: const Color(
-                                    0xFF2D2D2D,
-                                  ).withValues(alpha: 0.60),
+                                  color: TravelTheme.textSecondaryFor(context),
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),

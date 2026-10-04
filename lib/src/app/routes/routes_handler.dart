@@ -207,10 +207,60 @@ List<GetPage> routesHandler = [
   GetPage(
     name: BaseRoute.travelHistory,
     page: () => RoutesConfig.travelHistory,
+    binding: TravelBinding(),
   ),
 
   GetPage(
     name: BaseRoute.travelAccount,
     page: () => RoutesConfig.travelAccount,
+    binding: TravelBinding(),
+  ),
+
+  GetPage(
+    name: BaseRoute.flightSearch,
+    page: () => RoutesConfig.flightSearch,
+    binding: TravelBinding(),
+  ),
+
+  GetPage(
+    name: BaseRoute.flightResults,
+    page: () => RoutesConfig.flightResults,
+    binding: TravelBinding(),
+  ),
+
+  GetPage(
+    name: BaseRoute.hotelSearch,
+    page: () => RoutesConfig.hotelSearch,
+    binding: TravelBinding(),
+  ),
+
+  GetPage(
+    name: BaseRoute.hotelResults,
+    page: () => RoutesConfig.hotelResults,
+    binding: TravelBinding(),
+  ),
+
+  GetPage(
+    name: BaseRoute.esimIntro,
+    page: () => RoutesConfig.esimIntro,
+    binding: TravelBinding(),
+  ),
+
+  GetPage(
+    name: BaseRoute.esimPackages,
+    page: () => RoutesConfig.esimPackages,
+    binding: TravelBinding(),
+  ),
+
+  GetPage(
+    name: BaseRoute.travelOrders,
+    page: () => RoutesConfig.travelOrders,
+    binding: TravelBinding(),
+  ),
+
+  GetPage(
+    name: BaseRoute.travelers,
+    page: () => RoutesConfig.travelers,
+    binding: TravelBinding(),
   ),
 ];

@@ -6,6 +6,7 @@ import 'package:ecardo_etrip/src/app/routes/routes.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/controller/home_controller.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/view/sub_sections/drop_down/recent_transaction_details.dart';
 import 'package:ecardo_etrip/src/presentation/screens/home/view/sub_sections/section_header.dart';
+import 'package:ecardo_etrip/src/presentation/screens/travel/shared/travel_theme.dart';
 import 'package:ecardo_etrip/src/presentation/screens/transactions/model/transactions_model.dart';
 import 'package:ecardo_etrip/src/presentation/widgets/no_data_found.dart';
 import 'package:ecardo_etrip/src/presentation/widgets/transaction_dynamic_color.dart';
@@ -33,7 +34,8 @@ class RecentTransactionsSection extends StatelessWidget {
                   margin: const EdgeInsetsDirectional.symmetric(horizontal: 18),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: AppColors.white,
+                    color: TravelTheme.cardSurfaceFor(context),
+                    border: Border.all(color: TravelTheme.borderFor(context)),
                   ),
                   child: ListView.separated(
                     padding: const EdgeInsetsDirectional.symmetric(vertical: 12),
@@ -91,11 +93,11 @@ class RecentTransactionsSection extends StatelessWidget {
                                           Text(
                                             transaction.type ?? "",
                                             overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               letterSpacing: 0,
                                               fontWeight: FontWeight.w900,
                                               fontSize: 15.5,
-                                              color: AppColors.lightTextPrimary,
+                                              color: TravelTheme.textPrimaryFor(context),
                                             ),
                                           ),
                                           const SizedBox(height: 4),
@@ -107,8 +109,7 @@ class RecentTransactionsSection extends StatelessWidget {
                                             style: TextStyle(
                                               letterSpacing: 0,
                                               fontSize: 14,
-                                              color:
-                                                  AppColors.lightTextTertiary,
+                                              color: TravelTheme.textSecondaryFor(context),
                                               fontWeight: FontWeight.w700,
                                             ),
                                           ),
