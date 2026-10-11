@@ -90,13 +90,15 @@ class AppUpdateHelper {
 
   static Future<void> _downloadAndInstall(String url) async {
     try {
-      var status = await Permission.storage.request();
-      if (!status.isGranted) {
-        Get.snackbar(
-          'Permission Denied',
-          'Storage permission is required to download the update.',
-        );
-        return;
+      if (Platform.isAndroid) {
+        var installStatus = await Permission.requestInstallPackages.status;
+        if (!installStatus.isGranted) {
+          installStatus = await Permission.requestInstallPackages.request();
+        }
+        if (installStatus.isPermanentlyDenied) {
+          await openAppSettings();
+          return;
+        }
       }
 
       Get.dialog(
@@ -116,23 +118,36 @@ class AppUpdateHelper {
       Directory dir = await getApplicationDocumentsDirectory();
       String filePath = '${dir.path}/app_update.apk';
 
-      Dio dio = Dio();
+      Dio dio = Dio(
+        BaseOptions(
+          connectTimeout: const Duration(seconds: 15),
+          receiveTimeout: const Duration(minutes: 10),
+          followRedirects: true,
+        ),
+      );
       await dio.download(
         url,
         filePath,
         onReceiveProgress: (rec, total) {
-          // could update UI here if using a stateful widget
+          // Progress tracked
         },
       );
 
-      Get.back(); // close progress dialog
+      if (Get.isDialogOpen == true) {
+        Get.back(); // close progress dialog
+      }
 
-      final result = await OpenFilex.open(filePath);
+      final result = await OpenFilex.open(
+        filePath,
+        type: 'application/vnd.android.package-archive',
+      );
       if (result.type != ResultType.done) {
         Get.snackbar('Error', 'Failed to open APK: ${result.message}');
       }
     } catch (e) {
-      Get.back(); // close progress dialog
+      if (Get.isDialogOpen == true) {
+        Get.back(); // close progress dialog
+      }
       Get.snackbar('Download Error', 'Could not download the update.');
       debugPrint('Download error: $e');
     }

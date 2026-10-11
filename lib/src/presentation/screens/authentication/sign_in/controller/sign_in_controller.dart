@@ -11,7 +11,6 @@ import 'package:ecardo_etrip/src/helper/toast_helper.dart';
 import 'package:ecardo_etrip/src/network/api/api_path.dart';
 import 'package:ecardo_etrip/src/network/response/status.dart';
 import 'package:ecardo_etrip/src/network/service/network_service.dart';
-import 'package:ecardo_etrip/src/network/service/token_service.dart';
 
 class SignInController extends GetxController {
   final RxBool isLoading = false.obs;
@@ -38,8 +37,6 @@ class SignInController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    clearSignUpStatus();
-    setLogInState();
     loadSavedEmail();
     loadBiometricStatus();
 
@@ -59,7 +56,6 @@ class SignInController extends GetxController {
   Future<void> clearSignUpStatus() async {
     await Get.find<SettingsService>().saveEmailVerified(false);
     await Get.find<SettingsService>().saveSetUpPassword(false);
-    await Get.find<TokenService>().clearToken();
   }
 
   Future<void> setLogInState() async {
@@ -84,6 +80,13 @@ class SignInController extends GetxController {
 
   void _handlePasswordFocusChange() {
     isPasswordFocused.value = passwordFocusNode.hasFocus;
+  }
+
+  String get _loadErrorMessage {
+    final ctx = Get.context;
+    return ctx != null
+        ? AppLocalizations.of(ctx)?.allControllerLoadError ?? 'Error'
+        : 'Error';
   }
 
   Future<void> submitSignIn({bool useBiometric = false}) async {
@@ -113,9 +116,7 @@ class SignInController extends GetxController {
     } catch (e, s) {
       debugPrint('❌ submitSignIn() error: $e');
       debugPrint('📍 StackTrace: $s');
-      ToastHelper().showErrorToast(
-        AppLocalizations.of(Get.context!)!.allControllerLoadError,
-      );
+      ToastHelper().showErrorToast(_loadErrorMessage);
     } finally {
       isLoading.value = false;
     }
@@ -138,9 +139,7 @@ class SignInController extends GetxController {
           await Get.find<SettingsService>().saveLoggedInUserEmail(
             useBiometric ? biometricEmail.value : emailController.text,
           );
-          await Get.find<SettingsService>().saveLoggedInUserPassword(
-            useBiometric ? biometricPassword.value : passwordController.text,
-          );
+          await settingsService.saveLoginCurrentState("logged_in");
 
           if (userModel.value.data!.boardingSteps?.completed == true) {
             Get.offAllNamed(BaseRoute.navigation);
@@ -156,9 +155,7 @@ class SignInController extends GetxController {
     } catch (e, s) {
       debugPrint('❌ fetchUser() error: $e');
       debugPrint('📍 StackTrace: $s');
-      ToastHelper().showErrorToast(
-        AppLocalizations.of(Get.context!)!.allControllerLoadError,
-      );
+      ToastHelper().showErrorToast(_loadErrorMessage);
     } finally {
       isLoading.value = false;
     }

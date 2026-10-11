@@ -66,7 +66,7 @@ class NetworkService extends getx.GetxService {
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           String? accessToken = _tokenService.accessToken.value;
-          _log('🔑 Token: $accessToken');
+          _log('🔑 Token present: ${accessToken != null && accessToken.isNotEmpty}');
 
           if (accessToken != null && accessToken.isNotEmpty) {
             options.headers['Authorization'] = 'Bearer $accessToken';
@@ -137,7 +137,11 @@ class NetworkService extends getx.GetxService {
             // refresh ناموفق — logout
             _log("Token refresh failed — logging out.");
             await _tokenService.clearToken();
+            final pending = List<void Function(String)>.from(_pendingRequests);
             _pendingRequests.clear();
+            for (final cb in pending) {
+              cb('');
+            }
 
             // هدایت به صفحه‌ی login
             WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -196,13 +200,10 @@ class NetworkService extends getx.GetxService {
     required String email,
     required String password,
   }) async {
-    _dio.interceptors.clear();
     String url = '${_dio.options.baseUrl}${ApiPath.loginEndpoint}';
 
     _log('📤 Login POST Request URL: $url');
-    _log(
-      '📦 Login POST Request Body: {"email": $email, "password": $password}',
-    );
+    _log('📦 Login POST Request Body: {"email": $email, "password": ***}');
 
     try {
       final response = await _dio.post(
@@ -240,7 +241,12 @@ class NetworkService extends getx.GetxService {
     final stopwatch = Stopwatch()..start();
 
     _log('📤 Register POST Request URL: $url');
-    _log('📦 Register POST Request Body: ${jsonEncode(data)}');
+    final sanitizedData = Map<String, dynamic>.from(data);
+    if (sanitizedData.containsKey('password')) sanitizedData['password'] = '***';
+    if (sanitizedData.containsKey('password_confirmation')) {
+      sanitizedData['password_confirmation'] = '***';
+    }
+    _log('📦 Register POST Request Body: ${jsonEncode(sanitizedData)}');
 
     try {
       final response = await _dio.post(

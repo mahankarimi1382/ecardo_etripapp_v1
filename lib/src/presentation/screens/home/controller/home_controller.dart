@@ -269,21 +269,19 @@ class HomeController extends GetxController {
       final response = await Get.find<NetworkService>().post(
         endpoint: ApiPath.logoutEndpoint,
       );
-      isSignOutLoading.value = false;
-      if (response.status == Status.completed) {
-        await Get.find<TokenService>().clearToken();
-        Get.offAllNamed(BaseRoute.signIn);
+      if (response.status == Status.completed && response.data?["message"] != null) {
         Fluttertoast.showToast(
           msg: response.data?["message"],
           backgroundColor: AppColors.success,
         );
       }
-    } catch (e, stackTrace) {
-      debugPrint('❌ submitLogout() error: $e');
-      debugPrint('📍 StackTrace: $stackTrace');
-      ToastHelper().showErrorToast(localization.allControllerLoadError);
+    } catch (e) {
+      debugPrint('⚠️ submitLogout() backend call failed (proceeding with local logout): $e');
     } finally {
+      await Get.find<TokenService>().clearToken();
+      await Get.find<SettingsService>().saveLoginCurrentState("");
       isSignOutLoading.value = false;
+      Get.offAllNamed(BaseRoute.signIn);
     }
   }
 
