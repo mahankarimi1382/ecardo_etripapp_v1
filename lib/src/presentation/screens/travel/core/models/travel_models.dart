@@ -1,4 +1,4 @@
-enum TravelProductType { hotel, flight, esim }
+enum TravelProductType { hotel, flight, esim, tour, visa, carRental }
 
 class TravelBootstrap {
   final String currency;
@@ -134,6 +134,20 @@ class TravelHotelSearch {
           .toList(),
     );
   }
+
+  /// Validates date range invariant: check-in <= check-out
+  bool get hasValidDates => !checkOutDate.isBefore(checkInDate);
+
+  /// Number of nights between check-in and check-out (0 for same-day, 1+ for overnight).
+  int get nights => checkOutDate.difference(checkInDate).inDays.clamp(0, 365);
+
+  /// Date validation error message if invalid, or null if valid.
+  String? validateDates() {
+    if (checkOutDate.isBefore(checkInDate)) {
+      return 'Check-out date cannot be before check-in date.';
+    }
+    return null;
+  }
 }
 
 class TravelRoomOccupancy {
@@ -197,6 +211,32 @@ class TravelFlightSearch {
   }
 
   bool get isRoundTrip => returnDate != null;
+
+  /// Validates date range invariant: departure < return when round-trip
+  bool get hasValidDates {
+    if (departureDate == null) return false;
+    if (isRoundTrip) {
+      if (returnDate == null) return false;
+      return returnDate!.isAfter(departureDate!);
+    }
+    return true;
+  }
+
+  /// Date validation error message if invalid, or null if valid.
+  String? validateDates() {
+    if (departureDate == null) {
+      return 'Departure date is required.';
+    }
+    if (isRoundTrip) {
+      if (returnDate == null) {
+        return 'Return date is required for round-trip flights.';
+      }
+      if (!returnDate!.isAfter(departureDate!)) {
+        return 'Return date must be strictly after departure date.';
+      }
+    }
+    return null;
+  }
 }
 
 enum TravelOrderStatus {
@@ -338,6 +378,12 @@ class TravelBookingDetails {
       specialRequests: specialRequests ?? this.specialRequests,
     );
   }
+
+  /// Check whether hotel date range is valid: check-in <= check-out
+  bool get hasValidHotelDates {
+    if (checkInDate == null || checkOutDate == null) return false;
+    return !checkOutDate!.isBefore(checkInDate!);
+  }
 }
 
 class TravelSelectedRoom {
@@ -474,6 +520,206 @@ class TravelMoney {
   final String currency;
 
   const TravelMoney({required this.amount, required this.currency});
+
+  const TravelMoney.zero([this.currency = 'IRR']) : amount = 0.0;
+
+  /// Sum two travel money instances with accurate decimal rounding.
+  TravelMoney operator +(TravelMoney other) {
+    if (amount == 0) return other;
+    if (other.amount == 0) return this;
+    final effectiveCurrency = currency.isNotEmpty ? currency : other.currency;
+    return TravelMoney(
+      amount: TravelPriceCalculator.roundCurrency(amount + other.amount),
+      currency: effectiveCurrency,
+    );
+  }
+
+  /// Multiply travel money by a factor with accurate decimal rounding.
+  TravelMoney operator *(num factor) {
+    return TravelMoney(
+      amount: TravelPriceCalculator.roundCurrency(amount * factor),
+      currency: currency,
+    );
+  }
+
+  /// Returns a new instance rounded to [decimals] places.
+  TravelMoney rounded({int decimals = 2}) => TravelMoney(
+    amount: TravelPriceCalculator.roundCurrency(amount, decimals: decimals),
+    currency: currency,
+  );
+
+  bool get isPositive => amount > 0;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TravelMoney &&
+          runtimeType == other.runtimeType &&
+          (amount - other.amount).abs() < 0.000001 &&
+          currency.toUpperCase() == other.currency.toUpperCase();
+
+  @override
+  int get hashCode => amount.hashCode ^ currency.toUpperCase().hashCode;
+}
+
+/// Add-on service for travel bookings (baggage, travel insurance, seat, airport transfer, etc.)
+class TravelAddOnService {
+  final String id;
+  final String name;
+  final double unitPrice;
+  final int quantity;
+  final String currency;
+  final String category;
+
+  const TravelAddOnService({
+    required this.id,
+    required this.name,
+    required this.unitPrice,
+    this.quantity = 1,
+    required this.currency,
+    this.category = 'general',
+  });
+
+  double get totalAmount =>
+      TravelPriceCalculator.multiply(unitPrice, quantity);
+
+  TravelMoney get total =>
+      TravelMoney(amount: totalAmount, currency: currency);
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name': name,
+    'unit_price': unitPrice,
+    'quantity': quantity,
+    'currency': currency,
+    'category': category,
+    'total_amount': totalAmount,
+  };
+
+  factory TravelAddOnService.fromJson(Map<String, dynamic> json) =>
+      TravelAddOnService(
+        id: json['id']?.toString() ?? '',
+        name: json['name']?.toString() ?? '',
+        unitPrice:
+            double.tryParse(json['unit_price']?.toString() ?? '') ?? 0.0,
+        quantity: int.tryParse(json['quantity']?.toString() ?? '') ?? 1,
+        currency: json['currency']?.toString() ?? 'IRR',
+        category: json['category']?.toString() ?? 'general',
+      );
+}
+
+/// Price calculator ensuring multi-passenger, multi-room, and add-on
+/// calculations execute without floating-point precision loss.
+class TravelPriceCalculator {
+  const TravelPriceCalculator._();
+
+  /// Accurate rounding to prevent floating-point precision drift.
+  static double roundCurrency(double amount, {int decimals = 2}) {
+    if (!amount.isFinite) return 0.0;
+    return double.parse(amount.toStringAsFixed(decimals));
+  }
+
+  /// Multiply unit price by quantity with exact decimal rounding.
+  static double multiply(double unitPrice, int quantity, {int decimals = 2}) {
+    if (!unitPrice.isFinite || quantity <= 0) return 0.0;
+    return roundCurrency(unitPrice * quantity, decimals: decimals);
+  }
+
+  /// Sum multiple amounts with exact decimal rounding.
+  static double sum(Iterable<double> amounts, {int decimals = 2}) {
+    final total = amounts.fold<double>(
+      0.0,
+      (acc, val) => acc + (val.isFinite ? val : 0.0),
+    );
+    return roundCurrency(total, decimals: decimals);
+  }
+
+  /// Calculates total price for multi-room hotel booking without floating-point error.
+  static TravelMoney calculateHotelTotal({
+    required List<TravelSelectedRoom> selectedRooms,
+    required int nights,
+    List<TravelAddOnService> addOns = const [],
+    String fallbackCurrency = 'IRR',
+  }) {
+    final safeNights = nights.clamp(1, 365);
+    final roomAmounts = <double>[];
+    String? currency;
+
+    for (final room in selectedRooms) {
+      if (room.quantity <= 0 || room.unitPrice <= 0) continue;
+      currency ??= room.currency;
+      final roomSubtotal = roundCurrency(
+        room.unitPrice * room.quantity * safeNights,
+      );
+      roomAmounts.add(roomSubtotal);
+    }
+
+    for (final addOn in addOns) {
+      if (addOn.quantity <= 0 || addOn.unitPrice <= 0) continue;
+      currency ??= addOn.currency;
+      roomAmounts.add(addOn.totalAmount);
+    }
+
+    return TravelMoney(
+      amount: sum(roomAmounts),
+      currency: currency ?? fallbackCurrency,
+    );
+  }
+
+  /// Calculates total price for multi-passenger flight booking without floating-point error.
+  static TravelMoney calculateFlightTotal({
+    required TravelOffer offer,
+    required TravelBookingDetails bookingDetails,
+    TravelOffer? returnOffer,
+    List<TravelAddOnService> addOns = const [],
+  }) {
+    final outboundMoney = _calculateSingleFlightOfferTotal(offer, bookingDetails);
+    var totalAmount = outboundMoney.amount;
+    final currency = outboundMoney.currency;
+
+    if (returnOffer != null) {
+      final returnMoney = _calculateSingleFlightOfferTotal(
+        returnOffer,
+        bookingDetails,
+      );
+      totalAmount = roundCurrency(totalAmount + returnMoney.amount);
+    }
+
+    if (addOns.isNotEmpty) {
+      final addOnsTotal = sum(addOns.map((a) => a.totalAmount));
+      totalAmount = roundCurrency(totalAmount + addOnsTotal);
+    }
+
+    return TravelMoney(amount: totalAmount, currency: currency);
+  }
+
+  static TravelMoney _calculateSingleFlightOfferTotal(
+    TravelOffer offer,
+    TravelBookingDetails bookingDetails,
+  ) {
+    double fareFor(String type, double fallback) {
+      for (final component in offer.pricingComponents) {
+        if (component['type']?.toString().toLowerCase() == type) {
+          final raw = component['unit_amount'] ??
+              component['amount'] ??
+              component['price'];
+          return double.tryParse(raw?.toString() ?? '') ?? fallback;
+        }
+      }
+      return fallback;
+    }
+
+    final adultFare = fareFor('adult', offer.total.amount);
+    final childFare = fareFor('child', 0.0);
+    final infantFare = fareFor('infant', 0.0);
+
+    final adultTotal = multiply(adultFare, bookingDetails.adultCount);
+    final childTotal = multiply(childFare, bookingDetails.childCount);
+    final infantTotal = multiply(infantFare, bookingDetails.infantCount);
+
+    final total = sum([adultTotal, childTotal, infantTotal]);
+    return TravelMoney(amount: total, currency: offer.total.currency);
+  }
 }
 
 class TravelOffer {

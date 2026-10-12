@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
 
@@ -109,9 +110,12 @@ class _TravelSuggestionSheetState extends State<_TravelSuggestionSheet> {
     return Container(
       height: MediaQuery.sizeOf(context).height * 0.78,
       padding: EdgeInsets.fromLTRB(20.w, 18.h, 20.w, 0),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+      decoration: BoxDecoration(
+        color: TravelTheme.cardSurfaceFor(context),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+        border: Border(
+          top: BorderSide(color: TravelTheme.borderFor(context)),
+        ),
       ),
       child: SafeArea(
         top: false,
@@ -190,7 +194,10 @@ class _TravelSuggestionSheetState extends State<_TravelSuggestionSheet> {
                                   ),
                                 ),
                           trailing: const Icon(Icons.chevron_right_rounded),
-                          onTap: () => Navigator.of(context).pop(suggestion),
+                          onTap: () {
+                            HapticFeedback.lightImpact();
+                            Navigator.of(context).pop(suggestion);
+                          },
                         );
                       },
                     ),

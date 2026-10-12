@@ -33,11 +33,17 @@ class _EcardoEtripState extends State<EcardoEtrip> {
   Future<void> _loadSavedLanguage() async {
     final savedLocale = await SettingsService.getLanguageLocaleCurrentState();
 
-    if (savedLocale != null && mounted) {
+    // v1.0.125: normalize + validate the persisted code before building a
+    // Locale from it — a mixed-case ("Fa") or unsupported persisted value
+    // must fall back to the app default instead of breaking localization
+    // resolution for the whole session.
+    final normalized = savedLocale?.trim().toLowerCase();
+    const supported = {'en', 'ar', 'fa', 'zh', 'ru'};
+    if (normalized != null && supported.contains(normalized) && mounted) {
       setState(() {
-        _locale = Locale(savedLocale);
+        _locale = Locale(normalized);
       });
-      Get.updateLocale(Locale(savedLocale));
+      Get.updateLocale(Locale(normalized));
     }
   }
 

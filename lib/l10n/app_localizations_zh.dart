@@ -534,169 +534,169 @@ class AppLocalizationsZh extends AppLocalizations {
   String get comment_add_money_screen => '==== Add Money Screen ====';
 
   @override
-  String get addMoneyTitle => 'Add Money';
+  String get addMoneyTitle => '充值';
 
   @override
-  String get addMoneyBalance => 'Balance';
+  String get addMoneyBalance => '余额';
 
   @override
-  String get addMoneyHistory => 'Add Money History';
+  String get addMoneyHistory => '充值历史';
 
   @override
-  String get addMoneyWalletsNotFound => 'Wallets Not Found';
+  String get addMoneyWalletsNotFound => '未找到钱包';
 
   @override
   String get comment_add_money_amount_step => '==== Add Money Amount Step ====';
 
   @override
-  String get addMoneyGateway => 'Gateway';
+  String get addMoneyGateway => '支付网关';
 
   @override
-  String get addMoneyGatewayNotFound => 'Gateway not found';
+  String get addMoneyGatewayNotFound => '未找到支付网关';
 
   @override
-  String get addMoneySelectGateway => 'Select Gateway';
+  String get addMoneySelectGateway => '选择支付网关';
 
   @override
-  String get addMoneyCharge => 'Charge:';
+  String get addMoneyCharge => 'Комиссия:';
 
   @override
-  String get addMoneyAmount => 'Amount';
+  String get addMoneyAmount => '金额';
 
   @override
-  String get addMoneyMin => 'Minimum';
+  String get addMoneyMin => 'Минимум';
 
   @override
-  String get addMoneyMax => 'and Maximum';
+  String get addMoneyMax => 'и максимум';
 
   @override
-  String get addMoneyWriteHere => 'Write here...';
+  String get addMoneyWriteHere => 'Введите здесь...';
 
   @override
-  String get addMoneyAddMoneyButton => 'Add Money';
+  String get addMoneyAddMoneyButton => '充值';
 
   @override
   String get comment_add_money_pending_step =>
       '==== Add Money Pending Step ====';
 
   @override
-  String get addMoneyPendingTitle => 'Your Deposit Process Is\nPending';
+  String get addMoneyPendingTitle => 'Ваше пополнение ожидает обработки';
 
   @override
-  String get addMoneyPendingAmount => 'Amount';
+  String get addMoneyPendingAmount => 'Сумма';
 
   @override
-  String get addMoneyPendingTransactionId => 'Transaction ID';
+  String get addMoneyPendingTransactionId => 'ID транзакции';
 
   @override
-  String get addMoneyPendingWalletName => 'Wallet Name';
+  String get addMoneyPendingWalletName => 'Кошелек';
 
   @override
-  String get addMoneyPendingPaymentMethod => 'Payment Method';
+  String get addMoneyPendingPaymentMethod => 'Способ оплаты';
 
   @override
-  String get addMoneyPendingCharge => 'Charge';
+  String get addMoneyPendingCharge => 'Комиссия';
 
   @override
-  String get addMoneyPendingType => 'Type';
+  String get addMoneyPendingType => 'Тип';
 
   @override
-  String get addMoneyPendingFinalAmount => 'Final Amount';
+  String get addMoneyPendingFinalAmount => 'Итоговая сумма';
 
   @override
-  String get addMoneyPendingDepositAgain => 'Deposit Again';
+  String get addMoneyPendingDepositAgain => 'Пополнить снова';
 
   @override
-  String get addMoneyPendingBackHome => 'Back Home';
+  String get addMoneyPendingBackHome => 'На главную';
 
   @override
   String get comment_add_money_review_step => '==== Add Money Review Step ====';
 
   @override
-  String get addMoneyReviewTitle => 'Review Details';
+  String get addMoneyReviewTitle => 'Проверка деталей';
 
   @override
-  String get addMoneyReviewAmount => 'Amount';
+  String get addMoneyReviewAmount => 'Сумма';
 
   @override
-  String get addMoneyReviewWalletName => 'Wallet Name';
+  String get addMoneyReviewWalletName => 'Кошелек';
 
   @override
-  String get addMoneyReviewPaymentMethod => 'Payment Method';
+  String get addMoneyReviewPaymentMethod => 'Способ оплаты';
 
   @override
-  String get addMoneyReviewCharge => 'Charge';
+  String get addMoneyReviewCharge => 'Комиссия';
 
   @override
-  String get addMoneyReviewTotal => 'Total';
+  String get addMoneyReviewTotal => 'Итого';
 
   @override
-  String get addMoneyReviewBack => 'Back';
+  String get addMoneyReviewBack => 'Назад';
 
   @override
-  String get addMoneyReviewConfirm => 'Confirm';
+  String get addMoneyReviewConfirm => 'Подтвердить';
 
   @override
-  String get addMoneyReviewNoFileUploaded => 'No file uploaded';
+  String get addMoneyReviewNoFileUploaded => 'Файл не загружен';
 
   @override
   String get comment_add_money_success_step =>
       '==== Add Money Success Step ====';
 
   @override
-  String get addMoneySuccessTitle => 'Deposit Money Success!';
+  String get addMoneySuccessTitle => 'Пополнение успешно!';
 
   @override
-  String get addMoneySuccessAmount => 'Amount';
+  String get addMoneySuccessAmount => 'Сумма';
 
   @override
-  String get addMoneySuccessTransactionId => 'Transection ID';
+  String get addMoneySuccessTransactionId => 'ID транзакции';
 
   @override
-  String get addMoneySuccessCharge => 'Charge';
+  String get addMoneySuccessCharge => 'Комиссия';
 
   @override
-  String get addMoneySuccessTransactionType => 'Transaction Type';
+  String get addMoneySuccessTransactionType => 'Тип транзакции';
 
   @override
-  String get addMoneySuccessFinalAmount => 'Final Amount';
+  String get addMoneySuccessFinalAmount => 'Итоговая сумма';
 
   @override
-  String get addMoneySuccessAddMoneyAgain => 'Add Money Again';
+  String get addMoneySuccessAddMoneyAgain => 'Пополнить снова';
 
   @override
-  String get addMoneySuccessBackHome => 'Back Home';
+  String get addMoneySuccessBackHome => 'На главную';
 
   @override
   String get comment_add_money_history => '==== Add Money History ====';
 
   @override
-  String get addMoneyHistoryTitle => 'Add Money History';
+  String get addMoneyHistoryTitle => 'История пополнений';
 
   @override
   String get comment_add_money_filter_bottom_sheet =>
       '==== Add Money Filter Bottom Sheet ====';
 
   @override
-  String get addMoneyFilterTransactionId => 'Transactions ID';
+  String get addMoneyFilterTransactionId => 'ID транзакции';
 
   @override
-  String get addMoneyFilterStatus => 'Status';
+  String get addMoneyFilterStatus => 'Статус';
 
   @override
-  String get addMoneyFilterSuccess => 'Success';
+  String get addMoneyFilterSuccess => 'Успешно';
 
   @override
-  String get addMoneyFilterPending => 'Pending';
+  String get addMoneyFilterPending => 'Ожидает';
 
   @override
-  String get addMoneyFilterFailed => 'Failed';
+  String get addMoneyFilterFailed => 'Ошибка';
 
   @override
-  String get addMoneyFilterButton => 'Filter';
+  String get addMoneyFilterButton => '筛选';
 
   @override
-  String get addMoneyFilterReset => 'Reset';
+  String get addMoneyFilterReset => '重置';
 
   @override
   String get comment_create_beneficiary_screen =>
@@ -1301,61 +1301,61 @@ class AppLocalizationsZh extends AppLocalizations {
       '==== Recent Transaction Details ====';
 
   @override
-  String get transactionDetailsTitle => 'Transaction Details';
+  String get transactionDetailsTitle => '交易详情';
 
   @override
-  String get transactionDetailsWallet => 'Wallet';
+  String get transactionDetailsWallet => '钱包';
 
   @override
-  String get transactionDetailsCharge => 'Charge';
+  String get transactionDetailsCharge => 'Комиссия';
 
   @override
-  String get transactionDetailsTransactionId => 'Transaction ID';
+  String get transactionDetailsTransactionId => '交易ID';
 
   @override
-  String get transactionDetailsMethod => 'Method';
+  String get transactionDetailsMethod => 'Метод';
 
   @override
-  String get transactionDetailsTotalAmount => 'Total Amount';
+  String get transactionDetailsTotalAmount => 'Общая сумма';
 
   @override
-  String get transactionDetailsStatus => 'Status';
+  String get transactionDetailsStatus => '状态';
 
   @override
-  String get transactionDetailsDescription => 'Description';
+  String get transactionDetailsDescription => 'Описание';
 
   @override
-  String get transactionStatusSuccess => 'Success';
+  String get transactionStatusSuccess => '成功';
 
   @override
-  String get transactionStatusPending => 'Pending';
+  String get transactionStatusPending => '待处理';
 
   @override
-  String get transactionStatusFailed => 'Failed';
+  String get transactionStatusFailed => '失败';
 
   @override
   String get comment_wallet_details => '==== Wallet Details ====';
 
   @override
-  String get walletDetailsHistory => 'History';
+  String get walletDetailsHistory => '历史';
 
   @override
-  String get walletDetailsAvailableBalance => 'AVAILABLE BALANCE';
+  String get walletDetailsAvailableBalance => '可用余额';
 
   @override
-  String get walletDetailsTopUp => 'Top Up';
+  String get walletDetailsTopUp => '充值';
 
   @override
-  String get walletDetailsWithdraw => 'Withdraw';
+  String get walletDetailsWithdraw => '提现';
 
   @override
-  String get walletDetailsUserDepositNotEnabled => 'User Deposit Not Enabled';
+  String get walletDetailsUserDepositNotEnabled => 'Пополнение отключено';
 
   @override
-  String get walletDetailsUserWithdrawNotEnabled => 'User Withdraw Not Enabled';
+  String get walletDetailsUserWithdrawNotEnabled => 'Вывод отключен';
 
   @override
-  String get walletDetailsWalletsNotFound => 'Wallets Not Found';
+  String get walletDetailsWalletsNotFound => 'Кошельки не найдены';
 
   @override
   String get comment_action_button_section => '==== Action Button Section ====';
@@ -1388,19 +1388,19 @@ class AppLocalizationsZh extends AppLocalizations {
   String get comment_my_wallet_section => '==== My Wallet Section ====';
 
   @override
-  String get myWalletSectionTitle => 'My Wallets';
+  String get myWalletSectionTitle => '我的钱包';
 
   @override
-  String get myWalletTopUp => 'Top Up';
+  String get myWalletTopUp => '充值';
 
   @override
-  String get myWalletWithdraw => 'Withdraw';
+  String get myWalletWithdraw => '提现';
 
   @override
-  String get myWalletUserDepositNotEnabled => 'User Deposit Not Enabled';
+  String get myWalletUserDepositNotEnabled => 'Пополнение отключено';
 
   @override
-  String get myWalletUserWithdrawNotEnabled => 'User Withdraw Not Enabled';
+  String get myWalletUserWithdrawNotEnabled => 'Вывод отключен';
 
   @override
   String get comment_other_services_section =>
@@ -1428,7 +1428,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get otherServicesMakePayment => 'Make Payment';
 
   @override
-  String get otherServicesTransactions => 'Transactions';
+  String get otherServicesTransactions => '交易';
 
   @override
   String get otherServicesInvoice => 'Invoice';
@@ -1440,7 +1440,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get otherServicesGift => 'Gift';
 
   @override
-  String get otherServicesWallets => 'Wallets';
+  String get otherServicesWallets => '钱包';
 
   @override
   String get otherServicesWithdraw => 'Withdraw';
@@ -1497,7 +1497,7 @@ class AppLocalizationsZh extends AppLocalizations {
       '==== Recent Transactions Section ====';
 
   @override
-  String get recentTransactionsTitle => 'Recent';
+  String get recentTransactionsTitle => '最近';
 
   @override
   String get comment_section_header => '==== Section Header ====';
@@ -2659,62 +2659,62 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settingsSignOut => '退出登录';
 
   @override
-  String get settingsKycVerified => 'Verified';
+  String get settingsKycVerified => '已验证';
 
   @override
-  String get settingsKycPending => 'Pending';
+  String get settingsKycPending => '待处理';
 
   @override
-  String get settingsKycFailed => 'Failed';
+  String get settingsKycFailed => '失败';
 
   @override
-  String get settingsKycNotSubmitted => 'Not Submitted';
+  String get settingsKycNotSubmitted => '未提交';
 
   @override
   String get comment_transactions_screen => '==== Transactions Screen ====';
 
   @override
-  String get transactionsScreenTitle => 'My Transactions';
+  String get transactionsScreenTitle => '我的交易';
 
   @override
   String get comment_transactions_popup => '==== Transactions Popup ====';
 
   @override
-  String get transactionsPopupDate => 'Date';
+  String get transactionsPopupDate => 'Дата';
 
   @override
-  String get transactionsPopupTransactionId => 'Transaction ID';
+  String get transactionsPopupTransactionId => 'ID транзакции';
 
   @override
-  String get transactionsPopupWalletName => 'Wallet Name';
+  String get transactionsPopupWalletName => 'Кошелек';
 
   @override
-  String get transactionsPopupAmount => 'Amount';
+  String get transactionsPopupAmount => 'Сумма';
 
   @override
-  String get transactionsPopupCharge => 'Charge';
+  String get transactionsPopupCharge => 'Комиссия';
 
   @override
-  String get transactionsPopupFinalAmount => 'Final Amount';
+  String get transactionsPopupFinalAmount => 'Итоговая сумма';
 
   @override
-  String get transactionsPopupStatus => 'Status';
+  String get transactionsPopupStatus => 'Статус';
 
   @override
   String get comment_transaction_filter_bottom_sheet =>
       '==== Transaction Filter Bottom Sheet ====';
 
   @override
-  String get transactionFilterTransactionId => 'Transactions ID';
+  String get transactionFilterTransactionId => 'ID транзакции';
 
   @override
-  String get transactionFilterStatus => 'Status';
+  String get transactionFilterStatus => 'Статус';
 
   @override
-  String get transactionFilterApplyButton => 'Filter';
+  String get transactionFilterApplyButton => '筛选';
 
   @override
-  String get transactionFilterResetButton => 'Reset';
+  String get transactionFilterResetButton => '重置';
 
   @override
   String get comment_transfer_screen => '==== Transfer Screen ====';
@@ -2907,7 +2907,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get comment_wallets_screen => '==== Wallets Screen ====';
 
   @override
-  String get walletsScreenTitle => 'My Wallets';
+  String get walletsScreenTitle => '我的钱包';
 
   @override
   String get comment_delete_wallet_bottom_sheet =>
@@ -2930,18 +2930,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get comment_wallet_list_section => '==== Wallet List Section ====';
 
   @override
-  String get walletListSectionTopUpButton => 'Top Up';
+  String get walletListSectionTopUpButton => 'Пополнить';
 
   @override
-  String get walletListSectionWithdrawButton => 'Withdraw';
+  String get walletListSectionWithdrawButton => 'Вывести';
 
   @override
-  String get walletListSectionUserDepositNotEnabled =>
-      'User Deposit Not Enabled';
+  String get walletListSectionUserDepositNotEnabled => 'Пополнение отключено';
 
   @override
-  String get walletListSectionUserWithdrawNotEnabled =>
-      'User Withdraw Not Enabled';
+  String get walletListSectionUserWithdrawNotEnabled => 'Вывод отключен';
 
   @override
   String get comment_create_new_wallet_screen =>
@@ -3263,7 +3261,7 @@ class AppLocalizationsZh extends AppLocalizations {
       '==== Common Dropdown Wallet Bottom Sheet ====';
 
   @override
-  String get commonDropdownWalletTitle => 'Select Wallet';
+  String get commonDropdownWalletTitle => '选择钱包';
 
   @override
   String get comment_image_picker_dropdown_bottom_sheet =>
@@ -3389,39 +3387,38 @@ class AppLocalizationsZh extends AppLocalizations {
   String get comment_add_money_controller => '==== Add Money Controller ====';
 
   @override
-  String get addMoneySuccess => 'Money added successfully';
+  String get addMoneySuccess => '充值成功';
 
   @override
-  String get addMoneyValidationSelectWallet => 'Please select a wallet';
+  String get addMoneyValidationSelectWallet => '请选择钱包';
 
   @override
-  String get addMoneyValidationSelectGateway => 'Please select a gateway';
+  String get addMoneyValidationSelectGateway => '请选择支付网关';
 
   @override
-  String get addMoneyValidationEnterAmount => 'Please enter an amount';
+  String get addMoneyValidationEnterAmount => '请输入金额';
 
   @override
-  String get addMoneyValidationAmountGreaterThanZero =>
-      'Amount must be greater than 0';
+  String get addMoneyValidationAmountGreaterThanZero => '金额必须大于0';
 
   @override
   String addMoneyValidationAmountMinimum(Object amount) {
-    return 'Amount must not exceed $amount';
+    return 'Сумма не должна быть меньше $amount';
   }
 
   @override
   String addMoneyValidationAmountMaximum(Object amount) {
-    return 'Amount must not exceed $amount';
+    return 'Сумма не должна превышать $amount';
   }
 
   @override
   String addMoneyValidationUploadFile(Object fieldName) {
-    return 'Please upload a file for $fieldName';
+    return 'Загрузите файл для $fieldName';
   }
 
   @override
   String addMoneyValidationFillField(Object fieldName) {
-    return 'Please fill in the $fieldName field';
+    return 'Заполните поле $fieldName';
   }
 
   @override

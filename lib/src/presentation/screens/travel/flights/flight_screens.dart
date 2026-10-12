@@ -101,8 +101,10 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                     ),
                   ],
                   selected: {isRoundTrip},
-                  onSelectionChanged: (selection) =>
-                      setState(() => isRoundTrip = selection.first),
+                  onSelectionChanged: (selection) {
+                    HapticFeedback.lightImpact();
+                    setState(() => isRoundTrip = selection.first);
+                  },
                 ),
                 SizedBox(height: 16.h),
                 TravelSuggestionField(
@@ -119,6 +121,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                   padding: EdgeInsets.symmetric(vertical: 4.h),
                   child: IconButton(
                     onPressed: () {
+                      HapticFeedback.lightImpact();
                       final origin = originController.text;
                       originController.text = destinationController.text;
                       destinationController.text = origin;
@@ -253,15 +256,35 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                       final destination = destinationController.text
                           .trim()
                           .toUpperCase();
-                      if (origin.isEmpty ||
-                          destination.isEmpty ||
-                          origin == destination ||
-                          (isRoundTrip && !returnDate.isAfter(departureDate)) ||
-                          infantCount > adultCount) {
+                      if (origin.isEmpty || destination.isEmpty) {
                         showTravelMessage(
                           context,
                           title: localization.travelFlightSearch,
                           message: localization.travelOfferUnavailable,
+                        );
+                        return;
+                      }
+                      if (origin == destination) {
+                        showTravelMessage(
+                          context,
+                          title: localization.travelFlightSearch,
+                          message: 'Origin and destination cannot be the same.',
+                        );
+                        return;
+                      }
+                      if (isRoundTrip && !returnDate.isAfter(departureDate)) {
+                        showTravelMessage(
+                          context,
+                          title: localization.travelFlightSearch,
+                          message: 'Return date must be strictly after departure date.',
+                        );
+                        return;
+                      }
+                      if (infantCount > adultCount) {
+                        showTravelMessage(
+                          context,
+                          title: localization.travelFlightSearch,
+                          message: 'Each infant must be accompanied by an adult.',
                         );
                         return;
                       }
@@ -667,6 +690,11 @@ class _FlightResultsScreenState extends State<FlightResultsScreen> {
                     ),
               ],
             ] else ...[
+              if (controller.searchError.value != null && search != null)
+                TravelRetryBanner(
+                  message: controller.searchError.value!,
+                  onRetry: () => controller.searchFlights(search),
+                ),
               if (comparison.hasControls) ...[
                 _FlightComparisonControls(
                   comparison: comparison,
@@ -791,18 +819,23 @@ class _FlightOfferCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                width: 48.r,
-                height: 48.r,
+                width: 44.r,
+                height: 44.r,
                 decoration: BoxDecoration(
                   color: TravelTheme.isDark(context)
                       ? const Color(0xFF1E2E42)
                       : const Color(0xFFEAF3FF),
-                  borderRadius: BorderRadius.circular(15.r),
+                  borderRadius: BorderRadius.circular(14.r),
+                  border: Border.all(
+                    color: TravelTheme.blue.withValues(
+                      alpha: TravelTheme.isDark(context) ? 0.35 : 0.2,
+                    ),
+                  ),
                 ),
                 child: offer.imageUrl.isEmpty
                     ? const Icon(Icons.flight_rounded, color: TravelTheme.blue)
                     : ClipRRect(
-                        borderRadius: BorderRadius.circular(15.r),
+                        borderRadius: BorderRadius.circular(14.r),
                         child: Image.network(
                           offer.imageUrl,
                           fit: BoxFit.contain,
@@ -818,28 +851,89 @@ class _FlightOfferCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TravelBidiText(
-                      airline,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w800,
-                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TravelBidiText(
+                            airline,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w800,
+                              color: TravelTheme.textPrimaryFor(context),
+                            ),
+                          ),
+                        ),
+                        if (offer.badgeKey.isNotEmpty) ...[
+                          SizedBox(width: 6.w),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 7.w,
+                              vertical: 2.h,
+                            ),
+                            decoration: BoxDecoration(
+                              color: TravelTheme.blue.withValues(alpha: 0.14),
+                              borderRadius: BorderRadius.circular(6.r),
+                            ),
+                            child: Text(
+                              travelLocalizedKey(localization, offer.badgeKey),
+                              style: TextStyle(
+                                color: TravelTheme.blue,
+                                fontSize: 9.5.sp,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
                     ),
                     SizedBox(height: 3.h),
-                    TravelBidiText(
-                      [
-                        if (flightNumber.isNotEmpty) flightNumber,
-                        if (offer.badgeKey.isNotEmpty)
-                          travelLocalizedKey(localization, offer.badgeKey),
-                      ].join(' • '),
-                      style: TextStyle(
-                        color: TravelTheme.blue,
-                        fontSize: 10.sp,
-                      ),
+                    Row(
+                      children: [
+                        if (flightNumber.isNotEmpty)
+                          Text(
+                            flightNumber,
+                            style: TextStyle(
+                              color: TravelTheme.textSecondaryFor(context),
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        if (_flightExplicitValue(offer, 'cabin_class').isNotEmpty) ...[
+                          if (flightNumber.isNotEmpty)
+                            Text(
+                              ' • ',
+                              style: TextStyle(
+                                color: TravelTheme.muted,
+                                fontSize: 10.sp,
+                              ),
+                            ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 6.w,
+                              vertical: 1.h,
+                            ),
+                            decoration: BoxDecoration(
+                              color: TravelTheme.isDark(context)
+                                  ? const Color(0xFF262625)
+                                  : const Color(0xFFF1F2F4),
+                              borderRadius: BorderRadius.circular(4.r),
+                            ),
+                            child: Text(
+                              _flightExplicitValue(offer, 'cabin_class'),
+                              style: TextStyle(
+                                color: TravelTheme.textSecondaryFor(context),
+                                fontSize: 9.5.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
                     ),
                   ],
                 ),
               ),
+              SizedBox(width: 8.w),
               Directionality(
                 textDirection: TextDirection.ltr,
                 child: Text(
@@ -847,14 +941,17 @@ class _FlightOfferCard extends StatelessWidget {
                   style: TextStyle(
                     color: TravelTheme.blue,
                     fontWeight: FontWeight.w900,
-                    fontSize: 13.sp,
+                    fontSize: 15.sp,
                   ),
                 ),
               ),
               if (onCompare != null)
                 IconButton(
                   tooltip: localization.travelCompare,
-                  onPressed: onCompare,
+                  onPressed: () {
+                    HapticFeedback.lightImpact();
+                    onCompare!();
+                  },
                   icon: Icon(
                     isCompared
                         ? Icons.library_add_check_rounded
@@ -864,76 +961,52 @@ class _FlightOfferCard extends StatelessWidget {
                 ),
             ],
           ),
-          SizedBox(height: 20.h),
-          Directionality(
-            textDirection: TextDirection.ltr,
-            child: Row(
-              children: [
-                _FlightTime(
-                  code: origin,
-                  city: _flightValue(offer, 'origin_name'),
-                  time: _flightTime(departure),
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Text(
-                        duration,
-                        style: TextStyle(
-                          color: TravelTheme.muted,
-                          fontSize: 10.sp,
-                        ),
-                      ),
-                      const Divider(color: TravelTheme.blue),
-                      Text(
-                        localization.travelDirect,
-                        style: TextStyle(
-                          color: TravelTheme.muted,
-                          fontSize: 9.sp,
-                        ),
-                      ),
-                    ],
+          SizedBox(height: 18.h),
+          TravelRouteTimeline(
+            originCode: origin,
+            originCity: _flightValue(offer, 'origin_name'),
+            departureTime: _flightTime(departure),
+            destinationCode: destination,
+            destinationCity: _flightValue(offer, 'destination_name'),
+            arrivalTime: _flightTime(arrival),
+            duration: duration,
+            routeType: localization.travelDirect,
+          ),
+          SizedBox(height: 14.h),
+          Row(
+            children: [
+              Icon(
+                Icons.calendar_today_outlined,
+                size: 13.r,
+                color: TravelTheme.textSecondaryFor(context),
+              ),
+              SizedBox(width: 5.w),
+              Directionality(
+                textDirection: TextDirection.ltr,
+                child: Text(
+                  departure.split(' ').first,
+                  style: TextStyle(
+                    color: TravelTheme.textSecondaryFor(context),
+                    fontSize: 10.5.sp,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-                _FlightTime(
-                  code: destination,
-                  city: _flightValue(offer, 'destination_name'),
-                  time: _flightTime(arrival),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 16.h),
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: Directionality(
-              textDirection: TextDirection.ltr,
-              child: Text(
-                departure.split(' ').first,
-                style: TextStyle(
-                  color: TravelTheme.muted,
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w700,
+              ),
+              const Spacer(),
+              SizedBox(
+                width: 130.w,
+                child: CommonButton(
+                  height: 40,
+                  fontSize: 11,
+                  backgroundColor: TravelTheme.blue,
+                  text: controller.isSelectingReturnFlight.value
+                      ? localization.travelSelectReturnFlight
+                      : localization.travelSelectFlight,
+                  isLoading: isLoading,
+                  onPressed: isLoading ? null : onTap,
                 ),
               ),
-            ),
-          ),
-          SizedBox(height: 10.h),
-          Align(
-            alignment: AlignmentDirectional.centerEnd,
-            child: SizedBox(
-              width: 130.w,
-              child: CommonButton(
-                height: 42,
-                fontSize: 11,
-                backgroundColor: TravelTheme.blue,
-                text: controller.isSelectingReturnFlight.value
-                    ? localization.travelSelectReturnFlight
-                    : localization.travelSelectFlight,
-                isLoading: isLoading,
-                onPressed: isLoading ? null : onTap,
-              ),
-            ),
+            ],
           ),
         ],
       ),
@@ -1257,7 +1330,13 @@ class _FlightComparisonControls extends StatelessWidget {
                 ),
               ),
               if (hasActiveComparison)
-                TextButton(onPressed: onReset, child: Text(localization.reset)),
+                TextButton(
+                  onPressed: () {
+                    HapticFeedback.lightImpact();
+                    onReset();
+                  },
+                  child: Text(localization.reset),
+                ),
             ],
           ),
           Wrap(
@@ -1267,25 +1346,37 @@ class _FlightComparisonControls extends StatelessWidget {
               ChoiceChip(
                 label: Text(localization.travelRecommended),
                 selected: sort == _FlightSort.recommended,
-                onSelected: (_) => onSortSelected(_FlightSort.recommended),
+                onSelected: (_) {
+                  HapticFeedback.lightImpact();
+                  onSortSelected(_FlightSort.recommended);
+                },
               ),
               if (comparison.canSortByPrice)
                 ChoiceChip(
                   label: Text(localization.travelLowestPrice),
                   selected: sort == _FlightSort.price,
-                  onSelected: (_) => onSortSelected(_FlightSort.price),
+                  onSelected: (_) {
+                    HapticFeedback.lightImpact();
+                    onSortSelected(_FlightSort.price);
+                  },
                 ),
               if (comparison.canSortByDeparture)
                 ChoiceChip(
                   label: Text(localization.travelDeparture),
                   selected: sort == _FlightSort.departure,
-                  onSelected: (_) => onSortSelected(_FlightSort.departure),
+                  onSelected: (_) {
+                    HapticFeedback.lightImpact();
+                    onSortSelected(_FlightSort.departure);
+                  },
                 ),
               if (comparison.canSortByDuration)
                 ChoiceChip(
                   label: Text(localization.travelShortestDuration),
                   selected: sort == _FlightSort.duration,
-                  onSelected: (_) => onSortSelected(_FlightSort.duration),
+                  onSelected: (_) {
+                    HapticFeedback.lightImpact();
+                    onSortSelected(_FlightSort.duration);
+                  },
                 ),
             ],
           ),
@@ -1355,7 +1446,10 @@ class _FlightFilterChips extends StatelessWidget {
             (value) => FilterChip(
               label: TravelBidiText(value),
               selected: selectedValues.contains(value),
-              onSelected: (selected) => onSelected(value, selected),
+              onSelected: (selected) {
+                HapticFeedback.lightImpact();
+                onSelected(value, selected);
+              },
             ),
           )
           .toList(),
@@ -1403,35 +1497,6 @@ class _FlightResultsEmptyState extends StatelessWidget {
   }
 }
 
-class _FlightTime extends StatelessWidget {
-  final String code;
-  final String city;
-  final String time;
-
-  const _FlightTime({required this.code, required this.time, this.city = ''});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(time, style: const TextStyle(fontWeight: FontWeight.w900)),
-        Text(code, style: const TextStyle(color: TravelTheme.muted)),
-        if (city.isNotEmpty)
-          SizedBox(
-            width: 92.w,
-            child: TravelBidiText(
-              city,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: TravelTheme.muted, fontSize: 9.sp),
-            ),
-          ),
-      ],
-    );
-  }
-}
-
 class FlightDetailsScreen extends StatelessWidget {
   const FlightDetailsScreen({super.key});
 
@@ -1455,12 +1520,7 @@ class FlightDetailsScreen extends StatelessWidget {
     final currentTotal = _flightTotal(offer, bookingDetails);
     final total = outboundOffer == null
         ? currentTotal
-        : TravelMoney(
-            amount:
-                _flightTotal(outboundOffer, bookingDetails).amount +
-                currentTotal.amount,
-            currency: currentTotal.currency,
-          );
+        : currentTotal + _flightTotal(outboundOffer, bookingDetails);
     final departure = _flightDateTime(offer, 'departure');
     final arrival = _flightDateTime(offer, 'arrival');
     final segments = _flightMaps(offer.product['segments']);
@@ -1513,34 +1573,18 @@ class FlightDetailsScreen extends StatelessWidget {
         padding: EdgeInsets.all(20.r),
         children: [
           TravelCard(
-            color: const Color(0xFFEAF3FF),
-            child: Directionality(
-              textDirection: TextDirection.ltr,
-              child: Row(
-                children: [
-                  _FlightTime(
-                    code: _flightValue(offer, 'origin'),
-                    city: _flightValue(offer, 'origin_name'),
-                    time: _flightTime(departure),
-                  ),
-                  const Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 18),
-                      child: Column(
-                        children: [
-                          Icon(Icons.flight_rounded, color: TravelTheme.blue),
-                          Divider(color: TravelTheme.blue),
-                        ],
-                      ),
-                    ),
-                  ),
-                  _FlightTime(
-                    code: _flightValue(offer, 'destination'),
-                    city: _flightValue(offer, 'destination_name'),
-                    time: _flightTime(arrival),
-                  ),
-                ],
-              ),
+            color: TravelTheme.isDark(context)
+                ? const Color(0xFF1E2E42)
+                : const Color(0xFFEAF3FF),
+            child: TravelRouteTimeline(
+              originCode: _flightValue(offer, 'origin'),
+              originCity: _flightValue(offer, 'origin_name'),
+              departureTime: _flightTime(departure),
+              destinationCode: _flightValue(offer, 'destination'),
+              destinationCity: _flightValue(offer, 'destination_name'),
+              arrivalTime: _flightTime(arrival),
+              duration: _flightValue(offer, 'duration'),
+              routeType: localization.travelDirect,
             ),
           ),
           if (outboundOffer != null) ...[
@@ -1695,7 +1739,7 @@ List<(String, TravelMoney)> _pricedFlightComponents(
     result.add((
       '${component['label'] ?? _flightLabel(type)} × $quantity',
       TravelMoney(
-        amount: unit * quantity,
+        amount: TravelPriceCalculator.multiply(unit, quantity),
         currency: component['currency']?.toString() ?? offer.total.currency,
       ),
     ));
@@ -1704,7 +1748,10 @@ List<(String, TravelMoney)> _pricedFlightComponents(
     result.add((
       'Fare × ${bookingDetails.adultCount}',
       TravelMoney(
-        amount: offer.total.amount * bookingDetails.adultCount,
+        amount: TravelPriceCalculator.multiply(
+          offer.total.amount,
+          bookingDetails.adultCount,
+        ),
         currency: offer.total.currency,
       ),
     ));
@@ -1933,29 +1980,9 @@ TravelMoney _flightTotal(
   TravelOffer offer,
   TravelBookingDetails bookingDetails,
 ) {
-  double component(String type, double fallback) {
-    for (final item in offer.pricingComponents) {
-      final itemType = item['type']?.toString().toLowerCase() ?? '';
-      final label = item['label']?.toString().toLowerCase() ?? '';
-      if (itemType == type || label.startsWith(type)) {
-        return double.tryParse(
-              (item['unit_amount'] ?? item['amount'])?.toString() ?? '',
-            ) ??
-            fallback;
-      }
-    }
-    return fallback;
-  }
-
-  final adultFare = component('adult', offer.total.amount);
-  final childFare = component('child', 0);
-  final infantFare = component('infant', 0);
-  return TravelMoney(
-    amount:
-        adultFare * bookingDetails.adultCount +
-        childFare * bookingDetails.childCount +
-        infantFare * bookingDetails.infantCount,
-    currency: offer.total.currency,
+  return TravelPriceCalculator.calculateFlightTotal(
+    offer: offer,
+    bookingDetails: bookingDetails,
   );
 }
 

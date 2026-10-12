@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
@@ -41,7 +42,7 @@ class _TravelOrdersScreenState extends State<TravelOrdersScreen> {
       TravelProductType.hotel => localization.travelMyHotels,
       TravelProductType.flight => localization.travelMyFlights,
       TravelProductType.esim => localization.travelMyEsims,
-      null => localization.travelMyBookings,
+      _ => localization.travelMyBookings,
     };
     return TravelPage(
       title: title,
@@ -67,6 +68,11 @@ class _TravelOrdersScreenState extends State<TravelOrdersScreen> {
             physics: const AlwaysScrollableScrollPhysics(),
             padding: EdgeInsets.all(20.r),
             children: [
+              if (controller.ordersError.value != null)
+                TravelRetryBanner(
+                  message: controller.ordersError.value!,
+                  onRetry: controller.refreshOrders,
+                ),
               if (typedOrders.isNotEmpty) ...[
                 TextField(
                   controller: _searchController,
@@ -164,7 +170,7 @@ class _TravelOrdersScreenState extends State<TravelOrdersScreen> {
                           TravelProductType.flight =>
                             localization.travelNoFlights,
                           TravelProductType.esim => localization.travelNoEsims,
-                          null => localization.travelNoBookings,
+                          _ => localization.travelNoBookings,
                         },
                 ),
                 SizedBox(height: 12.h),
@@ -248,12 +254,17 @@ class _OrderGroupChip extends StatelessWidget {
     return FilterChip(
       label: Text(label),
       selected: selected,
-      onSelected: (_) => onSelected(),
+      onSelected: (_) {
+        HapticFeedback.lightImpact();
+        onSelected();
+      },
       showCheckmark: false,
       selectedColor: TravelTheme.blue.withValues(alpha: .14),
-      side: BorderSide(color: selected ? TravelTheme.blue : TravelTheme.border),
+      side: BorderSide(
+        color: selected ? TravelTheme.blue : TravelTheme.borderFor(context),
+      ),
       labelStyle: TextStyle(
-        color: selected ? TravelTheme.blue : TravelTheme.muted,
+        color: selected ? TravelTheme.blue : TravelTheme.textSecondaryFor(context),
         fontSize: 11.sp,
         fontWeight: FontWeight.w800,
       ),
@@ -274,20 +285,24 @@ class _OrderSectionTitle extends StatelessWidget {
         Expanded(
           child: Text(
             title,
-            style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w900),
+            style: TextStyle(
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w900,
+              color: TravelTheme.textPrimaryFor(context),
+            ),
           ),
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 4.h),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: TravelTheme.cardSurfaceFor(context),
             borderRadius: BorderRadius.circular(20.r),
-            border: Border.all(color: TravelTheme.border),
+            border: Border.all(color: TravelTheme.borderFor(context)),
           ),
           child: Text(
             count.toString(),
             style: TextStyle(
-              color: TravelTheme.muted,
+              color: TravelTheme.textSecondaryFor(context),
               fontSize: 10.sp,
               fontWeight: FontWeight.w800,
             ),
@@ -311,7 +326,10 @@ class _TravelOrderCard extends StatelessWidget {
       child: Column(
         children: [
           InkWell(
-            onTap: () => Get.to(() => TravelConfirmationScreen(order: order)),
+            onTap: () {
+              HapticFeedback.lightImpact();
+              Get.to(() => TravelConfirmationScreen(order: order));
+            },
             child: Row(
               children: [
                 Container(
@@ -398,7 +416,10 @@ class _TravelOrderCard extends StatelessWidget {
               ),
             ),
             TextButton.icon(
-              onPressed: () => downloadTravelVoucher(context, order),
+              onPressed: () {
+                HapticFeedback.lightImpact();
+                downloadTravelVoucher(context, order);
+              },
               icon: const Icon(Icons.download_rounded),
               label: Text(localization.qrCodeScreenDownloadButton),
             ),

@@ -537,169 +537,169 @@ class AppLocalizationsFa extends AppLocalizations {
   String get comment_add_money_screen => '==== Add Money Screen ====';
 
   @override
-  String get addMoneyTitle => 'Add Money';
+  String get addMoneyTitle => 'افزودن پول';
 
   @override
-  String get addMoneyBalance => 'Balance';
+  String get addMoneyBalance => 'موجودی';
 
   @override
-  String get addMoneyHistory => 'Add Money History';
+  String get addMoneyHistory => 'سوابق واریز';
 
   @override
-  String get addMoneyWalletsNotFound => 'Wallets Not Found';
+  String get addMoneyWalletsNotFound => 'کیف پولی پیدا نشد';
 
   @override
   String get comment_add_money_amount_step => '==== Add Money Amount Step ====';
 
   @override
-  String get addMoneyGateway => 'Gateway';
+  String get addMoneyGateway => 'درگاه';
 
   @override
-  String get addMoneyGatewayNotFound => 'Gateway not found';
+  String get addMoneyGatewayNotFound => 'درگاهی پیدا نشد';
 
   @override
-  String get addMoneySelectGateway => 'Select Gateway';
+  String get addMoneySelectGateway => 'انتخاب درگاه';
 
   @override
-  String get addMoneyCharge => 'Charge:';
+  String get addMoneyCharge => 'کارمزد:';
 
   @override
-  String get addMoneyAmount => 'Amount';
+  String get addMoneyAmount => 'مبلغ';
 
   @override
-  String get addMoneyMin => 'Minimum';
+  String get addMoneyMin => 'حداقل';
 
   @override
-  String get addMoneyMax => 'and Maximum';
+  String get addMoneyMax => 'و حداکثر';
 
   @override
-  String get addMoneyWriteHere => 'Write here...';
+  String get addMoneyWriteHere => 'اینجا بنویسید...';
 
   @override
-  String get addMoneyAddMoneyButton => 'Add Money';
+  String get addMoneyAddMoneyButton => 'افزودن پول';
 
   @override
   String get comment_add_money_pending_step =>
       '==== Add Money Pending Step ====';
 
   @override
-  String get addMoneyPendingTitle => 'Your Deposit Process Is\nPending';
+  String get addMoneyPendingTitle => 'فرآیند واریز شما در انتظار است';
 
   @override
-  String get addMoneyPendingAmount => 'Amount';
+  String get addMoneyPendingAmount => 'مبلغ';
 
   @override
-  String get addMoneyPendingTransactionId => 'Transaction ID';
+  String get addMoneyPendingTransactionId => 'شناسه تراکنش';
 
   @override
-  String get addMoneyPendingWalletName => 'Wallet Name';
+  String get addMoneyPendingWalletName => 'نام کیف پول';
 
   @override
-  String get addMoneyPendingPaymentMethod => 'Payment Method';
+  String get addMoneyPendingPaymentMethod => 'روش پرداخت';
 
   @override
-  String get addMoneyPendingCharge => 'Charge';
+  String get addMoneyPendingCharge => 'کارمزد';
 
   @override
-  String get addMoneyPendingType => 'Type';
+  String get addMoneyPendingType => 'نوع';
 
   @override
-  String get addMoneyPendingFinalAmount => 'Final Amount';
+  String get addMoneyPendingFinalAmount => 'مبلغ نهایی';
 
   @override
-  String get addMoneyPendingDepositAgain => 'Deposit Again';
+  String get addMoneyPendingDepositAgain => 'واریز دوباره';
 
   @override
-  String get addMoneyPendingBackHome => 'Back Home';
+  String get addMoneyPendingBackHome => 'بازگشت به خانه';
 
   @override
   String get comment_add_money_review_step => '==== Add Money Review Step ====';
 
   @override
-  String get addMoneyReviewTitle => 'Review Details';
+  String get addMoneyReviewTitle => 'بررسی جزئیات';
 
   @override
-  String get addMoneyReviewAmount => 'Amount';
+  String get addMoneyReviewAmount => 'مبلغ';
 
   @override
-  String get addMoneyReviewWalletName => 'Wallet Name';
+  String get addMoneyReviewWalletName => 'نام کیف پول';
 
   @override
-  String get addMoneyReviewPaymentMethod => 'Payment Method';
+  String get addMoneyReviewPaymentMethod => 'روش پرداخت';
 
   @override
-  String get addMoneyReviewCharge => 'Charge';
+  String get addMoneyReviewCharge => 'کارمزد';
 
   @override
-  String get addMoneyReviewTotal => 'Total';
+  String get addMoneyReviewTotal => 'مجموع';
 
   @override
-  String get addMoneyReviewBack => 'Back';
+  String get addMoneyReviewBack => 'بازگشت';
 
   @override
-  String get addMoneyReviewConfirm => 'Confirm';
+  String get addMoneyReviewConfirm => 'تأیید';
 
   @override
-  String get addMoneyReviewNoFileUploaded => 'No file uploaded';
+  String get addMoneyReviewNoFileUploaded => 'فایلی بارگذاری نشده است';
 
   @override
   String get comment_add_money_success_step =>
       '==== Add Money Success Step ====';
 
   @override
-  String get addMoneySuccessTitle => 'Deposit Money Success!';
+  String get addMoneySuccessTitle => 'واریز با موفقیت انجام شد!';
 
   @override
-  String get addMoneySuccessAmount => 'Amount';
+  String get addMoneySuccessAmount => 'مبلغ';
 
   @override
-  String get addMoneySuccessTransactionId => 'Transection ID';
+  String get addMoneySuccessTransactionId => 'شناسه تراکنش';
 
   @override
-  String get addMoneySuccessCharge => 'Charge';
+  String get addMoneySuccessCharge => 'کارمزد';
 
   @override
-  String get addMoneySuccessTransactionType => 'Transaction Type';
+  String get addMoneySuccessTransactionType => 'نوع تراکنش';
 
   @override
-  String get addMoneySuccessFinalAmount => 'Final Amount';
+  String get addMoneySuccessFinalAmount => 'مبلغ نهایی';
 
   @override
-  String get addMoneySuccessAddMoneyAgain => 'Add Money Again';
+  String get addMoneySuccessAddMoneyAgain => 'واریز دوباره';
 
   @override
-  String get addMoneySuccessBackHome => 'Back Home';
+  String get addMoneySuccessBackHome => 'بازگشت به خانه';
 
   @override
   String get comment_add_money_history => '==== Add Money History ====';
 
   @override
-  String get addMoneyHistoryTitle => 'Add Money History';
+  String get addMoneyHistoryTitle => 'سوابق واریز';
 
   @override
   String get comment_add_money_filter_bottom_sheet =>
       '==== Add Money Filter Bottom Sheet ====';
 
   @override
-  String get addMoneyFilterTransactionId => 'Transactions ID';
+  String get addMoneyFilterTransactionId => 'شناسه تراکنش';
 
   @override
-  String get addMoneyFilterStatus => 'Status';
+  String get addMoneyFilterStatus => 'وضعیت';
 
   @override
-  String get addMoneyFilterSuccess => 'Success';
+  String get addMoneyFilterSuccess => 'موفق';
 
   @override
-  String get addMoneyFilterPending => 'Pending';
+  String get addMoneyFilterPending => 'در انتظار';
 
   @override
-  String get addMoneyFilterFailed => 'Failed';
+  String get addMoneyFilterFailed => 'ناموفق';
 
   @override
-  String get addMoneyFilterButton => 'Filter';
+  String get addMoneyFilterButton => 'فیلتر';
 
   @override
-  String get addMoneyFilterReset => 'Reset';
+  String get addMoneyFilterReset => 'بازنشانی';
 
   @override
   String get comment_create_beneficiary_screen =>
@@ -1304,61 +1304,62 @@ class AppLocalizationsFa extends AppLocalizations {
       '==== Recent Transaction Details ====';
 
   @override
-  String get transactionDetailsTitle => 'Transaction Details';
+  String get transactionDetailsTitle => 'جزئیات تراکنش';
 
   @override
-  String get transactionDetailsWallet => 'Wallet';
+  String get transactionDetailsWallet => 'کیف پول';
 
   @override
-  String get transactionDetailsCharge => 'Charge';
+  String get transactionDetailsCharge => 'کارمزد';
 
   @override
-  String get transactionDetailsTransactionId => 'Transaction ID';
+  String get transactionDetailsTransactionId => 'شناسه تراکنش';
 
   @override
-  String get transactionDetailsMethod => 'Method';
+  String get transactionDetailsMethod => 'روش';
 
   @override
-  String get transactionDetailsTotalAmount => 'Total Amount';
+  String get transactionDetailsTotalAmount => 'مبلغ کل';
 
   @override
-  String get transactionDetailsStatus => 'Status';
+  String get transactionDetailsStatus => 'وضعیت';
 
   @override
-  String get transactionDetailsDescription => 'Description';
+  String get transactionDetailsDescription => 'توضیحات';
 
   @override
-  String get transactionStatusSuccess => 'Success';
+  String get transactionStatusSuccess => 'موفق';
 
   @override
-  String get transactionStatusPending => 'Pending';
+  String get transactionStatusPending => 'در انتظار';
 
   @override
-  String get transactionStatusFailed => 'Failed';
+  String get transactionStatusFailed => 'ناموفق';
 
   @override
   String get comment_wallet_details => '==== Wallet Details ====';
 
   @override
-  String get walletDetailsHistory => 'History';
+  String get walletDetailsHistory => 'سوابق';
 
   @override
-  String get walletDetailsAvailableBalance => 'AVAILABLE BALANCE';
+  String get walletDetailsAvailableBalance => 'موجودی قابل استفاده';
 
   @override
-  String get walletDetailsTopUp => 'Top Up';
+  String get walletDetailsTopUp => 'شارژ';
 
   @override
-  String get walletDetailsWithdraw => 'Withdraw';
+  String get walletDetailsWithdraw => 'برداشت';
 
   @override
-  String get walletDetailsUserDepositNotEnabled => 'User Deposit Not Enabled';
+  String get walletDetailsUserDepositNotEnabled => 'واریز برای کاربر فعال نیست';
 
   @override
-  String get walletDetailsUserWithdrawNotEnabled => 'User Withdraw Not Enabled';
+  String get walletDetailsUserWithdrawNotEnabled =>
+      'برداشت برای کاربر فعال نیست';
 
   @override
-  String get walletDetailsWalletsNotFound => 'Wallets Not Found';
+  String get walletDetailsWalletsNotFound => 'کیف پولی پیدا نشد';
 
   @override
   String get comment_action_button_section => '==== Action Button Section ====';
@@ -1391,19 +1392,19 @@ class AppLocalizationsFa extends AppLocalizations {
   String get comment_my_wallet_section => '==== My Wallet Section ====';
 
   @override
-  String get myWalletSectionTitle => 'My Wallets';
+  String get myWalletSectionTitle => 'کیف پول‌های من';
 
   @override
-  String get myWalletTopUp => 'Top Up';
+  String get myWalletTopUp => 'شارژ';
 
   @override
-  String get myWalletWithdraw => 'Withdraw';
+  String get myWalletWithdraw => 'برداشت';
 
   @override
-  String get myWalletUserDepositNotEnabled => 'User Deposit Not Enabled';
+  String get myWalletUserDepositNotEnabled => 'واریز برای کاربر فعال نیست';
 
   @override
-  String get myWalletUserWithdrawNotEnabled => 'User Withdraw Not Enabled';
+  String get myWalletUserWithdrawNotEnabled => 'برداشت برای کاربر فعال نیست';
 
   @override
   String get comment_other_services_section =>
@@ -1431,7 +1432,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get otherServicesMakePayment => 'Make Payment';
 
   @override
-  String get otherServicesTransactions => 'Transactions';
+  String get otherServicesTransactions => 'تراکنش‌ها';
 
   @override
   String get otherServicesInvoice => 'Invoice';
@@ -1443,7 +1444,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get otherServicesGift => 'Gift';
 
   @override
-  String get otherServicesWallets => 'Wallets';
+  String get otherServicesWallets => 'کیف پول‌ها';
 
   @override
   String get otherServicesWithdraw => 'Withdraw';
@@ -1500,7 +1501,7 @@ class AppLocalizationsFa extends AppLocalizations {
       '==== Recent Transactions Section ====';
 
   @override
-  String get recentTransactionsTitle => 'Recent';
+  String get recentTransactionsTitle => 'آخرین تراکنش‌ها';
 
   @override
   String get comment_section_header => '==== Section Header ====';
@@ -2662,62 +2663,62 @@ class AppLocalizationsFa extends AppLocalizations {
   String get settingsSignOut => 'خروج از حساب';
 
   @override
-  String get settingsKycVerified => 'Verified';
+  String get settingsKycVerified => 'تأیید شده';
 
   @override
-  String get settingsKycPending => 'Pending';
+  String get settingsKycPending => 'در انتظار';
 
   @override
-  String get settingsKycFailed => 'Failed';
+  String get settingsKycFailed => 'ناموفق';
 
   @override
-  String get settingsKycNotSubmitted => 'Not Submitted';
+  String get settingsKycNotSubmitted => 'ارسال نشده';
 
   @override
   String get comment_transactions_screen => '==== Transactions Screen ====';
 
   @override
-  String get transactionsScreenTitle => 'My Transactions';
+  String get transactionsScreenTitle => 'تراکنش‌های من';
 
   @override
   String get comment_transactions_popup => '==== Transactions Popup ====';
 
   @override
-  String get transactionsPopupDate => 'Date';
+  String get transactionsPopupDate => 'تاریخ';
 
   @override
-  String get transactionsPopupTransactionId => 'Transaction ID';
+  String get transactionsPopupTransactionId => 'شناسه تراکنش';
 
   @override
-  String get transactionsPopupWalletName => 'Wallet Name';
+  String get transactionsPopupWalletName => 'نام کیف پول';
 
   @override
-  String get transactionsPopupAmount => 'Amount';
+  String get transactionsPopupAmount => 'مبلغ';
 
   @override
-  String get transactionsPopupCharge => 'Charge';
+  String get transactionsPopupCharge => 'کارمزد';
 
   @override
-  String get transactionsPopupFinalAmount => 'Final Amount';
+  String get transactionsPopupFinalAmount => 'مبلغ نهایی';
 
   @override
-  String get transactionsPopupStatus => 'Status';
+  String get transactionsPopupStatus => 'وضعیت';
 
   @override
   String get comment_transaction_filter_bottom_sheet =>
       '==== Transaction Filter Bottom Sheet ====';
 
   @override
-  String get transactionFilterTransactionId => 'Transactions ID';
+  String get transactionFilterTransactionId => 'شناسه تراکنش';
 
   @override
-  String get transactionFilterStatus => 'Status';
+  String get transactionFilterStatus => 'وضعیت';
 
   @override
-  String get transactionFilterApplyButton => 'Filter';
+  String get transactionFilterApplyButton => 'فیلتر';
 
   @override
-  String get transactionFilterResetButton => 'Reset';
+  String get transactionFilterResetButton => 'بازنشانی';
 
   @override
   String get comment_transfer_screen => '==== Transfer Screen ====';
@@ -2910,7 +2911,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get comment_wallets_screen => '==== Wallets Screen ====';
 
   @override
-  String get walletsScreenTitle => 'My Wallets';
+  String get walletsScreenTitle => 'کیف پول‌های من';
 
   @override
   String get comment_delete_wallet_bottom_sheet =>
@@ -2933,18 +2934,18 @@ class AppLocalizationsFa extends AppLocalizations {
   String get comment_wallet_list_section => '==== Wallet List Section ====';
 
   @override
-  String get walletListSectionTopUpButton => 'Top Up';
+  String get walletListSectionTopUpButton => 'شارژ';
 
   @override
-  String get walletListSectionWithdrawButton => 'Withdraw';
+  String get walletListSectionWithdrawButton => 'برداشت';
 
   @override
   String get walletListSectionUserDepositNotEnabled =>
-      'User Deposit Not Enabled';
+      'واریز برای کاربر فعال نیست';
 
   @override
   String get walletListSectionUserWithdrawNotEnabled =>
-      'User Withdraw Not Enabled';
+      'برداشت برای کاربر فعال نیست';
 
   @override
   String get comment_create_new_wallet_screen =>
@@ -3266,7 +3267,7 @@ class AppLocalizationsFa extends AppLocalizations {
       '==== Common Dropdown Wallet Bottom Sheet ====';
 
   @override
-  String get commonDropdownWalletTitle => 'Select Wallet';
+  String get commonDropdownWalletTitle => 'انتخاب کیف پول';
 
   @override
   String get comment_image_picker_dropdown_bottom_sheet =>
@@ -3392,39 +3393,39 @@ class AppLocalizationsFa extends AppLocalizations {
   String get comment_add_money_controller => '==== Add Money Controller ====';
 
   @override
-  String get addMoneySuccess => 'Money added successfully';
+  String get addMoneySuccess => 'پول با موفقیت اضافه شد';
 
   @override
-  String get addMoneyValidationSelectWallet => 'Please select a wallet';
+  String get addMoneyValidationSelectWallet => 'لطفاً کیف پول را انتخاب کنید';
 
   @override
-  String get addMoneyValidationSelectGateway => 'Please select a gateway';
+  String get addMoneyValidationSelectGateway => 'لطفاً درگاه را انتخاب کنید';
 
   @override
-  String get addMoneyValidationEnterAmount => 'Please enter an amount';
+  String get addMoneyValidationEnterAmount => 'لطفاً مبلغ را وارد کنید';
 
   @override
   String get addMoneyValidationAmountGreaterThanZero =>
-      'Amount must be greater than 0';
+      'مبلغ باید بیشتر از صفر باشد';
 
   @override
   String addMoneyValidationAmountMinimum(Object amount) {
-    return 'Amount must not exceed $amount';
+    return 'مبلغ نباید کمتر از $amount باشد';
   }
 
   @override
   String addMoneyValidationAmountMaximum(Object amount) {
-    return 'Amount must not exceed $amount';
+    return 'مبلغ نباید بیشتر از $amount باشد';
   }
 
   @override
   String addMoneyValidationUploadFile(Object fieldName) {
-    return 'Please upload a file for $fieldName';
+    return 'لطفاً فایل $fieldName را بارگذاری کنید';
   }
 
   @override
   String addMoneyValidationFillField(Object fieldName) {
-    return 'Please fill in the $fieldName field';
+    return 'لطفاً فیلد $fieldName را تکمیل کنید';
   }
 
   @override

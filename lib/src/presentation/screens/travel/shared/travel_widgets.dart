@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' hide TextDirection;
@@ -444,7 +445,12 @@ class TravelCard extends StatelessWidget {
       borderRadius: TravelTheme.radius,
       child: InkWell(
         borderRadius: TravelTheme.radius,
-        onTap: onTap,
+        onTap: onTap == null
+            ? null
+            : () {
+                HapticFeedback.lightImpact();
+                onTap!();
+              },
         child: Container(
           padding: padding ?? EdgeInsets.all(18.r),
           decoration: BoxDecoration(
@@ -478,7 +484,12 @@ class TravelFieldTile extends StatelessWidget {
     final isDark = TravelTheme.isDark(context);
     return InkWell(
       borderRadius: BorderRadius.circular(18.r),
-      onTap: onTap,
+      onTap: onTap == null
+          ? null
+          : () {
+              HapticFeedback.lightImpact();
+              onTap!();
+            },
       child: Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
@@ -727,7 +738,9 @@ class TravelJourneyGuide extends StatelessWidget {
                         radius: 14.r,
                         backgroundColor: index <= currentStep
                             ? TravelTheme.blue
-                            : TravelTheme.border,
+                            : (TravelTheme.isDark(context)
+                                ? const Color(0xFF323230)
+                                : TravelTheme.borderFor(context)),
                         child: index < currentStep
                             ? const Icon(
                                 Icons.check_rounded,
@@ -739,7 +752,7 @@ class TravelJourneyGuide extends StatelessWidget {
                                 style: TextStyle(
                                   color: index == currentStep
                                       ? Colors.white
-                                      : TravelTheme.muted,
+                                      : TravelTheme.textSecondaryFor(context),
                                   fontWeight: FontWeight.w900,
                                   fontSize: 10.sp,
                                 ),
@@ -753,8 +766,8 @@ class TravelJourneyGuide extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: index == currentStep
-                              ? TravelTheme.ink
-                              : TravelTheme.muted,
+                              ? TravelTheme.textPrimaryFor(context)
+                              : TravelTheme.textSecondaryFor(context),
                           fontSize: 9.sp,
                           fontWeight: index == currentStep
                               ? FontWeight.w900
@@ -770,7 +783,7 @@ class TravelJourneyGuide extends StatelessWidget {
                     height: 2,
                     color: index < currentStep
                         ? TravelTheme.blue
-                        : TravelTheme.border,
+                        : TravelTheme.borderFor(context),
                   ),
               ],
             ],
@@ -792,12 +805,18 @@ IconData travelProductIcon(TravelProductType type) => switch (type) {
   TravelProductType.hotel => Icons.hotel_rounded,
   TravelProductType.flight => Icons.flight_rounded,
   TravelProductType.esim => Icons.sim_card_rounded,
+  TravelProductType.tour => Icons.tour_rounded,
+  TravelProductType.visa => Icons.card_membership_rounded,
+  TravelProductType.carRental => Icons.directions_car_rounded,
 };
 
 Color travelProductColor(TravelProductType type) => switch (type) {
   TravelProductType.hotel => TravelTheme.purple,
   TravelProductType.flight => TravelTheme.blue,
   TravelProductType.esim => TravelTheme.yellow,
+  TravelProductType.tour => const Color(0xFF14AE6F),
+  TravelProductType.visa => const Color(0xFF87624C),
+  TravelProductType.carRental => const Color(0xFFF2994A),
 };
 
 class TravelEmptyState extends StatelessWidget {
@@ -1044,3 +1063,531 @@ class TravelLoadingSkeleton extends StatelessWidget {
     );
   }
 }
+
+/// A non-intrusive, theme-aware inline banner that displays
+/// network and offline errors gracefully with a retry CTA.
+class TravelRetryBanner extends StatelessWidget {
+  final String message;
+  final String? title;
+  final VoidCallback onRetry;
+  final VoidCallback? onDismiss;
+  final bool isOffline;
+  final EdgeInsetsGeometry? margin;
+  final String? retryLabel;
+
+  const TravelRetryBanner({
+    super.key,
+    required this.message,
+    this.title,
+    required this.onRetry,
+    this.onDismiss,
+    this.isOffline = false,
+    this.margin,
+    this.retryLabel,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context);
+    final isDark = TravelTheme.isDark(context);
+    final safeMsg = travelSafePresentationMessage(message);
+
+    final bgColor = isDark
+        ? (isOffline ? const Color(0xFF2C2419) : const Color(0xFF2E1C1A))
+        : (isOffline ? const Color(0xFFFFF8E7) : const Color(0xFFFEECEC));
+
+    final accentColor = isOffline
+        ? (isDark ? const Color(0xFFF2C94C) : const Color(0xFFB78103))
+        : (isDark ? const Color(0xFFFF8B7B) : AppColors.error);
+
+    final borderColor = isDark
+        ? accentColor.withValues(alpha: 0.35)
+        : accentColor.withValues(alpha: 0.25);
+
+    return Container(
+      margin: margin ?? EdgeInsets.symmetric(vertical: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: borderColor, width: 1.2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            padding: EdgeInsets.all(8.r),
+            decoration: BoxDecoration(
+              color: accentColor.withValues(alpha: 0.15),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              isOffline ? Icons.wifi_off_rounded : Icons.cloud_off_rounded,
+              color: accentColor,
+              size: 20.r,
+            ),
+          ),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (title != null && title!.isNotEmpty)
+                  Text(
+                    title!,
+                    style: TextStyle(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w700,
+                      color: TravelTheme.textPrimaryFor(context),
+                    ),
+                  ),
+                Text(
+                  safeMsg,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 11.5.sp,
+                    fontWeight: FontWeight.w500,
+                    color: TravelTheme.textSecondaryFor(context),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(width: 8.w),
+          FilledButton.tonal(
+            style: FilledButton.styleFrom(
+              backgroundColor: accentColor.withValues(alpha: 0.2),
+              foregroundColor: accentColor,
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+              minimumSize: Size.zero,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+            ),
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              onRetry();
+            },
+            child: Text(
+              retryLabel ??
+                  localization?.noInternetConnectionRetryButton ??
+                  'Retry',
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          if (onDismiss != null) ...[
+            SizedBox(width: 4.w),
+            IconButton(
+              icon: Icon(
+                Icons.close_rounded,
+                size: 18.r,
+                color: TravelTheme.textSecondaryFor(context),
+              ),
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
+              onPressed: onDismiss,
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+/// A world-class star rating pill badge (Booking.com & Airbnb style)
+class TravelStarRatingBadge extends StatelessWidget {
+  final double rating;
+  final int? reviewCount;
+  final bool compact;
+
+  const TravelStarRatingBadge({
+    super.key,
+    required this.rating,
+    this.reviewCount,
+    this.compact = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (rating <= 0) return const SizedBox.shrink();
+    final isDark = TravelTheme.isDark(context);
+    final formatted = rating.toStringAsFixed(rating.truncateToDouble() == rating ? 0 : 1);
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: compact ? 6.w : 8.w,
+        vertical: compact ? 2.h : 4.h,
+      ),
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF362C18) : const Color(0xFFFFF7E6),
+        borderRadius: BorderRadius.circular(8.r),
+        border: Border.all(
+          color: const Color(0xFFF2C94C).withValues(alpha: isDark ? 0.45 : 0.65),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            Icons.star_rounded,
+            color: const Color(0xFFF2C94C),
+            size: compact ? 13.r : 15.r,
+          ),
+          SizedBox(width: 3.w),
+          Directionality(
+            textDirection: TextDirection.ltr,
+            child: Text(
+              formatted,
+              style: TextStyle(
+                color: isDark ? const Color(0xFFFFE082) : const Color(0xFF7A4F01),
+                fontSize: compact ? 10.sp : 11.5.sp,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+          ),
+          if (reviewCount != null && reviewCount! > 0) ...[
+            SizedBox(width: 3.w),
+            Text(
+              '($reviewCount)',
+              style: TextStyle(
+                color: TravelTheme.textSecondaryFor(context),
+                fontSize: 9.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+/// A world-class flight route timeline and diagram (Hopper / Skyscanner style)
+class TravelRouteTimeline extends StatelessWidget {
+  final String originCode;
+  final String originCity;
+  final String departureTime;
+  final String destinationCode;
+  final String destinationCity;
+  final String arrivalTime;
+  final String duration;
+  final String routeType;
+  final bool compact;
+
+  const TravelRouteTimeline({
+    super.key,
+    required this.originCode,
+    required this.originCity,
+    required this.departureTime,
+    required this.destinationCode,
+    required this.destinationCity,
+    required this.arrivalTime,
+    required this.duration,
+    required this.routeType,
+    this.compact = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = TravelTheme.isDark(context);
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Origin
+          SizedBox(
+            width: compact ? 70.w : 84.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  departureTime,
+                  style: TextStyle(
+                    fontSize: compact ? 15.sp : 18.sp,
+                    fontWeight: FontWeight.w900,
+                    color: TravelTheme.textPrimaryFor(context),
+                  ),
+                ),
+                SizedBox(height: 2.h),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 1.h),
+                  decoration: BoxDecoration(
+                    color: TravelTheme.blue.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(4.r),
+                  ),
+                  child: Text(
+                    originCode,
+                    style: TextStyle(
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w800,
+                      color: TravelTheme.blue,
+                    ),
+                  ),
+                ),
+                if (originCity.isNotEmpty) ...[
+                  SizedBox(height: 2.h),
+                  TravelBidiText(
+                    originCity,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 9.sp,
+                      color: TravelTheme.textSecondaryFor(context),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+
+          // Timeline Diagram
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (duration.isNotEmpty)
+                    Text(
+                      duration,
+                      style: TextStyle(
+                        fontSize: 9.5.sp,
+                        fontWeight: FontWeight.w700,
+                        color: TravelTheme.textSecondaryFor(context),
+                      ),
+                    ),
+                  SizedBox(height: 4.h),
+                  Row(
+                    children: [
+                      // Origin Node
+                      Container(
+                        width: 7.r,
+                        height: 7.r,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: TravelTheme.blue, width: 1.5),
+                          color: TravelTheme.cardSurfaceFor(context),
+                        ),
+                      ),
+                      // Flight Path Line
+                      Expanded(
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              height: 1.5.h,
+                              color: TravelTheme.blue.withValues(alpha: isDark ? 0.5 : 0.35),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(4.r),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: TravelTheme.cardSurfaceFor(context),
+                                border: Border.all(
+                                  color: TravelTheme.blue.withValues(alpha: 0.4),
+                                  width: 1,
+                                ),
+                              ),
+                              child: Icon(
+                                Icons.flight_takeoff_rounded,
+                                size: 12.r,
+                                color: TravelTheme.blue,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Destination Node
+                      Container(
+                        width: 7.r,
+                        height: 7.r,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: TravelTheme.blue,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 4.h),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.5.h),
+                    decoration: BoxDecoration(
+                      color: TravelTheme.blue.withValues(alpha: 0.08),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Text(
+                      routeType,
+                      style: TextStyle(
+                        fontSize: 8.5.sp,
+                        fontWeight: FontWeight.w700,
+                        color: TravelTheme.blue,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          // Destination
+          SizedBox(
+            width: compact ? 70.w : 84.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  arrivalTime,
+                  style: TextStyle(
+                    fontSize: compact ? 15.sp : 18.sp,
+                    fontWeight: FontWeight.w900,
+                    color: TravelTheme.textPrimaryFor(context),
+                  ),
+                ),
+                SizedBox(height: 2.h),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 1.h),
+                  decoration: BoxDecoration(
+                    color: TravelTheme.blue.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(4.r),
+                  ),
+                  child: Text(
+                    destinationCode,
+                    style: TextStyle(
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w800,
+                      color: TravelTheme.blue,
+                    ),
+                  ),
+                ),
+                if (destinationCity.isNotEmpty) ...[
+                  SizedBox(height: 2.h),
+                  TravelBidiText(
+                    destinationCity,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 9.sp,
+                      color: TravelTheme.textSecondaryFor(context),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// A theme-aware cancellation policy badge
+class TravelCancellationBadge extends StatelessWidget {
+  final String policyText;
+  final bool isRefundable;
+  final bool compact;
+
+  const TravelCancellationBadge({
+    super.key,
+    required this.policyText,
+    this.isRefundable = true,
+    this.compact = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (policyText.isEmpty) return const SizedBox.shrink();
+    final isDark = TravelTheme.isDark(context);
+    final accentColor = isRefundable ? AppColors.success : AppColors.error;
+    final bgColor = isDark
+        ? (isRefundable ? const Color(0xFF1E382A) : const Color(0xFF3B1E1E))
+        : (isRefundable ? const Color(0xFFEAF8F0) : const Color(0xFFFFEBEE));
+
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: compact ? 8.w : 10.w,
+        vertical: compact ? 4.h : 6.h,
+      ),
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(10.r),
+        border: Border.all(
+          color: accentColor.withValues(alpha: isDark ? 0.35 : 0.25),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            isRefundable ? Icons.verified_user_rounded : Icons.shield_outlined,
+            color: accentColor,
+            size: compact ? 13.r : 15.r,
+          ),
+          SizedBox(width: 5.w),
+          Flexible(
+            child: Text(
+              policyText,
+              style: TextStyle(
+                color: accentColor,
+                fontSize: compact ? 10.sp : 11.sp,
+                fontWeight: FontWeight.w800,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Converts ISO 3166-1 alpha-2 country code (e.g. "TR", "US", "FR") into flag emoji unicode
+String travelCountryCodeToEmoji(String countryCode) {
+  final clean = countryCode.trim().toUpperCase();
+  if (clean.length != 2) return '';
+  final first = clean.codeUnitAt(0);
+  final second = clean.codeUnitAt(1);
+  if (first < 0x41 || first > 0x5A || second < 0x41 || second > 0x5A) return '';
+  return String.fromCharCode(first - 0x41 + 0x1F1E6) +
+      String.fromCharCode(second - 0x41 + 0x1F1E6);
+}
+
+/// Returns localized country name if known, else falls back to code
+String travelCountryName(String code) {
+  return switch (code.toUpperCase().trim()) {
+    'TR' => 'Turkey',
+    'AE' => 'UAE',
+    'GE' => 'Georgia',
+    'TH' => 'Thailand',
+    'FR' => 'France',
+    'US' => 'USA',
+    'DE' => 'Germany',
+    'IT' => 'Italy',
+    'ES' => 'Spain',
+    'GB' || 'UK' => 'United Kingdom',
+    'CA' => 'Canada',
+    'QA' => 'Qatar',
+    'OM' => 'Oman',
+    'AM' => 'Armenia',
+    'AZ' => 'Azerbaijan',
+    _ => code,
+  };
+}
+

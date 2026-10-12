@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
 import 'package:ecardo_etrip/src/app/routes/routes.dart';
-import 'package:ecardo_etrip/src/common/widgets/button/common_button.dart';
 import 'package:ecardo_etrip/src/common/widgets/common_loading.dart';
 import 'package:ecardo_etrip/src/common/widgets/language_dropdown.dart';
 
@@ -219,15 +218,9 @@ class _Services extends StatelessWidget {
         return const SizedBox(height: 112, child: CommonLoading());
       }
       if (hasError) {
-        return Column(
-          children: [
-            TravelEmptyState(message: localization.allControllerLoadError),
-            CommonButton(
-              width: double.infinity,
-              text: localization.noInternetConnectionRetryButton,
-              onPressed: onRetry,
-            ),
-          ],
+        return TravelRetryBanner(
+          message: localization.allControllerLoadError,
+          onRetry: onRetry,
         );
       }
       return TravelEmptyState(message: localization.travelOfferUnavailable);
@@ -272,6 +265,9 @@ class _Services extends StatelessWidget {
       TravelProductType.flight => localization.travelFlights,
       TravelProductType.hotel => localization.travelHotels,
       TravelProductType.esim => localization.travelEsim,
+      TravelProductType.tour => 'Tours',
+      TravelProductType.visa => 'Visas',
+      TravelProductType.carRental => 'Car Rentals',
     };
   }
 
@@ -285,6 +281,11 @@ class _Services extends StatelessWidget {
         return;
       case TravelProductType.esim:
         Get.toNamed(BaseRoute.esimIntro);
+        return;
+      case TravelProductType.tour:
+      case TravelProductType.visa:
+      case TravelProductType.carRental:
+        Get.toNamed(BaseRoute.travelOrders);
         return;
     }
   }

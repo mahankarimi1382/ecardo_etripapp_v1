@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ecardo_etrip/l10n/app_localizations.dart';
@@ -42,6 +43,7 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
   bool purchaseForOther = false;
   bool reviewConfirmed = false;
   bool reservationExpired = false;
+  bool _isSubmitting = false;
   final beneficiaryNameController = TextEditingController();
   final notificationPhoneController = TextEditingController();
   final notificationEmailController = TextEditingController();
@@ -246,6 +248,9 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
       TravelProductType.hotel => localization.travelHotels,
       TravelProductType.flight => localization.travelFlights,
       TravelProductType.esim => localization.travelEsimPackages,
+      TravelProductType.tour => 'Tours',
+      TravelProductType.visa => 'Visas',
+      TravelProductType.carRental => 'Car Rentals',
     };
   }
 
@@ -299,8 +304,8 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
                       canPurchase
                   ? TravelTheme.ink
                   : Colors.white,
-              isLoading: controller.isCheckoutLoading.value,
-              onPressed: !canPurchase
+              isLoading: controller.isCheckoutLoading.value || _isSubmitting,
+              onPressed: !canPurchase || _isSubmitting
                   ? null
                   : reservationExpired
                   ? () => _restartAfterExpiry(controller)
@@ -308,68 +313,75 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
                   ? !reviewConfirmed
                         ? null
                         : () async {
-                            if (purchaseForOther &&
-                                beneficiaryNameController.text.trim().isEmpty) {
-                              showTravelMessage(
-                                context,
-                                title: localization.travelPassengerReview,
-                                message: localization.travelFieldRequired,
-                              );
-                              return;
-                            }
-                            if (!_hasValidFlightDetails) {
-                              showTravelMessage(
-                                context,
-                                title: localization.travelPassengerReview,
-                                message:
-                                    localization.travelPassengerDetailsRequired,
-                              );
-                              return;
-                            }
-                            if (!_hasValidHotelDetails) {
-                              showTravelMessage(
-                                context,
-                                title: hotelFlowText(
+                            if (_isSubmitting) return;
+                            _isSubmitting = true;
+                            if (mounted) setState(() {});
+                            try {
+                              if (purchaseForOther &&
+                                  beneficiaryNameController.text.trim().isEmpty) {
+                                showTravelMessage(
                                   context,
-                                  'اطلاعات رزروکننده',
-                                  'Reservator information',
-                                ),
-                                message: hotelFlowText(
-                                  context,
-                                  'اطلاعات رزروکننده و سرپرست هر اتاق را کامل کنید.',
-                                  'Complete the reservator and room caretaker information.',
-                                ),
-                              );
-                              return;
-                            }
-                            if (widget.type == TravelProductType.flight) {
-                              final primaryPassenger = passengerForms.first
-                                  .toPassenger();
-                              if (primaryPassenger != null) {
-                                await controller.updateTravelerProfile(
-                                  primaryPassenger,
-                                  phone: notificationPhoneController.text
-                                      .trim(),
+                                  title: localization.travelPassengerReview,
+                                  message: localization.travelFieldRequired,
                                 );
-                                if (!context.mounted) return;
+                                return;
                               }
-                            }
-                            final value = await controller.reserve(
-                              type: widget.type,
-                              productId: widget.productId,
-                              total: widget.total,
-                              bookingDetails: _bookingDetails,
-                            );
-                            if (!context.mounted) return;
-                            if (value != null) {
-                              _startReservationTimer(value);
-                            } else if (controller.checkoutFailed.value) {
-                              showTravelMessage(
-                                context,
-                                title: localization.travelPaymentFailed,
-                                message:
-                                    localization.travelPaymentFailedDescription,
+                              if (!_hasValidFlightDetails) {
+                                showTravelMessage(
+                                  context,
+                                  title: localization.travelPassengerReview,
+                                  message:
+                                      localization.travelPassengerDetailsRequired,
+                                );
+                                return;
+                              }
+                              if (!_hasValidHotelDetails) {
+                                showTravelMessage(
+                                  context,
+                                  title: hotelFlowText(
+                                    context,
+                                    'اطلاعات رزروکننده',
+                                    'Reservator information',
+                                  ),
+                                  message: hotelFlowText(
+                                    context,
+                                    'اطلاعات رزروکننده و سرپرست هر اتاق را کامل کنید.',
+                                    'Complete the reservator and room caretaker information.',
+                                  ),
+                                );
+                                return;
+                              }
+                              if (widget.type == TravelProductType.flight) {
+                                final primaryPassenger = passengerForms.first
+                                    .toPassenger();
+                                if (primaryPassenger != null) {
+                                  await controller.updateTravelerProfile(
+                                    primaryPassenger,
+                                    phone: notificationPhoneController.text
+                                        .trim(),
+                                  );
+                                  if (!context.mounted) return;
+                                }
+                              }
+                              final value = await controller.reserve(
+                                type: widget.type,
+                                productId: widget.productId,
+                                total: widget.total,
+                                bookingDetails: _bookingDetails,
                               );
+                              if (!context.mounted) return;
+                              if (value != null) {
+                                _startReservationTimer(value);
+                              } else if (controller.checkoutFailed.value) {
+                                showTravelMessage(
+                                  context,
+                                  title: localization.travelPaymentFailed,
+                                  message:
+                                      localization.travelPaymentFailedDescription,
+                                );
+                              }
+                            } finally {
+                              if (mounted) setState(() => _isSubmitting = false);
                             }
                           }
                   : !needsWallet
@@ -381,18 +393,25 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
                     )
                   : hasBalance
                   ? () async {
-                      final order = await controller.payReservation(
-                        reservation!,
-                      );
-                      if (!context.mounted) return;
-                      if (order != null) {
-                        Get.off(() => TravelConfirmationScreen(order: order));
-                      } else if (controller.checkoutFailed.value) {
-                        showTravelMessage(
-                          context,
-                          title: localization.travelPaymentFailed,
-                          message: localization.travelPaymentFailedDescription,
+                      if (_isSubmitting) return;
+                      _isSubmitting = true;
+                      if (mounted) setState(() {});
+                      try {
+                        final order = await controller.payReservation(
+                          reservation!,
                         );
+                        if (!context.mounted) return;
+                        if (order != null) {
+                          Get.off(() => TravelConfirmationScreen(order: order));
+                        } else if (controller.checkoutFailed.value) {
+                          showTravelMessage(
+                            context,
+                            title: localization.travelPaymentFailed,
+                            message: localization.travelPaymentFailedDescription,
+                          );
+                        }
+                      } finally {
+                        if (mounted) setState(() => _isSubmitting = false);
                       }
                     }
                   : () async {
@@ -742,6 +761,7 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
                   groupValue: purchaseForOther,
                   onChanged: (value) {
                     if (reservation != null || value == null) return;
+                    HapticFeedback.lightImpact();
                     setState(() {
                       purchaseForOther = value;
                       reviewConfirmed = false;
@@ -875,6 +895,27 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
                 ],
               ),
             ),
+            SizedBox(height: 12.h),
+            TravelCancellationBadge(
+              policyText: widget.type == TravelProductType.hotel
+                  ? hotelFlowText(
+                      context,
+                      'امکان لغو یا تغییر بر اساس قوانین هتل تا زمان ورود محفوظ است.',
+                      'Cancellation & modification subject to hotel policy before check-in.',
+                    )
+                  : widget.type == TravelProductType.flight
+                  ? hotelFlowText(
+                      context,
+                      'قوانین استرداد و جریمه تابع کلاس نرخی و ایرلاین صادرکننده است.',
+                      'Refund and penalty rules follow the airline fare class.',
+                    )
+                  : hotelFlowText(
+                      context,
+                      'بسته‌های eSIM قبل از فعال‌سازی قابلیت پیگیری و پشتیبانی دارند.',
+                      'Unactivated eSIM packages are eligible for customer support.',
+                    ),
+              isRefundable: true,
+            ),
             if (reservation == null) ...[
               SizedBox(height: 12.h),
               CheckboxListTile(
@@ -888,8 +929,10 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
                 subtitle: Text(
                   localization.travelReviewConfirmationDescription,
                 ),
-                onChanged: (value) =>
-                    setState(() => reviewConfirmed = value ?? false),
+                onChanged: (value) {
+                  HapticFeedback.lightImpact();
+                  setState(() => reviewConfirmed = value ?? false);
+                },
               ),
               Wrap(
                 alignment: WrapAlignment.center,
@@ -1007,8 +1050,15 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
               Container(
                 padding: EdgeInsets.all(14.r),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFFEBEE),
+                  color: TravelTheme.isDark(context)
+                      ? const Color(0xFF3B1E1E)
+                      : const Color(0xFFFFEBEE),
                   borderRadius: BorderRadius.circular(18.r),
+                  border: Border.all(
+                    color: TravelTheme.red.withValues(
+                      alpha: TravelTheme.isDark(context) ? 0.35 : 0.25,
+                    ),
+                  ),
                 ),
                 child: Row(
                   children: [
@@ -1020,7 +1070,13 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
                     Expanded(
                       child: Text(
                         localization.travelInsufficientBalance,
-                        style: TextStyle(fontSize: 11.sp),
+                        style: TextStyle(
+                          fontSize: 11.sp,
+                          color: TravelTheme.isDark(context)
+                              ? const Color(0xFFFF8B7B)
+                              : TravelTheme.red,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ],
@@ -1052,7 +1108,6 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
                             },
                     ),
                   ),
-                  // etrip: صرافی ارز در این نسخه حذف شده — پرداخت مستقیم از کیف پول
                 ],
               ),
             ],
@@ -1066,12 +1121,42 @@ class _TravelCheckoutScreenState extends State<TravelCheckoutScreen> {
                     label: localization.travelSubtotal,
                     value: travelMoney(context, widget.total),
                   ),
-                  const Divider(height: 26),
+                  if (widget.type == TravelProductType.hotel &&
+                      widget.bookingDetails.checkInDate != null &&
+                      widget.bookingDetails.checkOutDate != null) ...[
+                    const Divider(height: 22),
+                    _SummaryRow(
+                      label: hotelFlowText(
+                        context,
+                        'محاسبه اقامت',
+                        'Stay calculation',
+                      ),
+                      value: '${widget.bookingDetails.roomCount} '
+                          '${hotelFlowText(context, "اتاق", "rooms")} × '
+                          '${widget.bookingDetails.checkOutDate!.difference(widget.bookingDetails.checkInDate!).inDays} '
+                          '${hotelFlowText(context, "شب", "nights")}',
+                    ),
+                  ],
+                  if (widget.type == TravelProductType.flight &&
+                      widget.bookingDetails.adultCount > 0) ...[
+                    const Divider(height: 22),
+                    _SummaryRow(
+                      label: localization.travelPassengerReview,
+                      value: [
+                        '${localization.travelAdults}: ${widget.bookingDetails.adultCount}',
+                        if (widget.bookingDetails.childCount > 0)
+                          '${localization.travelChildren}: ${widget.bookingDetails.childCount}',
+                        if (widget.bookingDetails.infantCount > 0)
+                          '${localization.travelInfants}: ${widget.bookingDetails.infantCount}',
+                      ].join(' • '),
+                    ),
+                  ],
+                  const Divider(height: 22),
                   _SummaryRow(
                     label: localization.travelWalletPayment,
                     value: travelMoney(context, widget.total),
                   ),
-                  const Divider(height: 26),
+                  const Divider(height: 22),
                   _SummaryRow(
                     label: localization.travelTotal,
                     value: travelMoney(context, widget.total),
@@ -1134,7 +1219,9 @@ class _CheckoutProgress extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: index <= currentStep && !expired
                         ? TravelTheme.blue
-                        : const Color(0xFFE8F1FD),
+                        : (TravelTheme.isDark(context)
+                            ? const Color(0xFF262625)
+                            : const Color(0xFFE8F1FD)),
                     shape: BoxShape.circle,
                     border: expired && index == currentStep
                         ? Border.all(color: TravelTheme.red, width: 2)
@@ -1151,7 +1238,7 @@ class _CheckoutProgress extends StatelessWidget {
                           style: TextStyle(
                             color: index <= currentStep && !expired
                                 ? Colors.white
-                                : TravelTheme.muted,
+                                : TravelTheme.textSecondaryFor(context),
                             fontWeight: FontWeight.w900,
                           ),
                         ),
@@ -1162,8 +1249,8 @@ class _CheckoutProgress extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: index == currentStep
-                        ? TravelTheme.ink
-                        : TravelTheme.muted,
+                        ? TravelTheme.textPrimaryFor(context)
+                        : TravelTheme.textSecondaryFor(context),
                     fontSize: 9.sp,
                     fontWeight: index == currentStep
                         ? FontWeight.w900
@@ -1180,7 +1267,9 @@ class _CheckoutProgress extends StatelessWidget {
                 margin: EdgeInsets.only(top: 14.h),
                 color: index < currentStep && !expired
                     ? TravelTheme.blue
-                    : const Color(0xFFE8F1FD),
+                    : (TravelTheme.isDark(context)
+                        ? const Color(0xFF262625)
+                        : const Color(0xFFE8F1FD)),
               ),
             ),
         ],

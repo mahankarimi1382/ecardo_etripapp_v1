@@ -90,8 +90,15 @@ class _Benefit extends StatelessWidget {
         child: Row(
           children: [
             CircleAvatar(
-              backgroundColor: TravelTheme.yellow.withValues(alpha: .25),
-              child: Icon(icon, color: TravelTheme.ink),
+              backgroundColor: TravelTheme.yellow.withValues(
+                alpha: TravelTheme.isDark(context) ? .18 : .25,
+              ),
+              child: Icon(
+                icon,
+                color: TravelTheme.isDark(context)
+                    ? const Color(0xFFFFD54F)
+                    : TravelTheme.ink,
+              ),
             ),
             SizedBox(width: AppSpacing.md.w),
             Expanded(
@@ -213,6 +220,10 @@ class _EsimPackagesScreenState extends State<EsimPackagesScreen> {
                     children: [
                       for (final dest in popularDestinations)
                         ActionChip(
+                          avatar: Text(
+                            travelCountryCodeToEmoji(dest),
+                            style: TextStyle(fontSize: 14.sp),
+                          ),
                           label: Text(
                             dest,
                             style: TextStyle(
@@ -223,14 +234,19 @@ class _EsimPackagesScreenState extends State<EsimPackagesScreen> {
                             ),
                           ),
                           backgroundColor: dest == searchedDestination
-                              ? TravelTheme.yellow.withValues(alpha: 0.3)
+                              ? TravelTheme.yellow.withValues(
+                                  alpha: TravelTheme.isDark(context) ? 0.25 : 0.35,
+                                )
                               : TravelTheme.surfaceFor(context),
                           side: BorderSide(
                             color: dest == searchedDestination
                                 ? TravelTheme.yellow
                                 : TravelTheme.borderFor(context),
                           ),
-                          onPressed: () => _searchPackages(dest),
+                          onPressed: () {
+                            HapticFeedback.lightImpact();
+                            _searchPackages(dest);
+                          },
                         ),
                     ],
                   ),
@@ -238,18 +254,24 @@ class _EsimPackagesScreenState extends State<EsimPackagesScreen> {
                   Container(
                     padding: EdgeInsets.all(AppSpacing.md.r),
                     decoration: BoxDecoration(
-                      color: TravelTheme.yellow.withValues(alpha: .12),
+                      color: TravelTheme.yellow.withValues(
+                        alpha: TravelTheme.isDark(context) ? .08 : .12,
+                      ),
                       borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
                       border: Border.all(
-                        color: TravelTheme.yellow.withValues(alpha: 0.3),
+                        color: TravelTheme.yellow.withValues(
+                          alpha: TravelTheme.isDark(context) ? 0.35 : 0.3,
+                        ),
                       ),
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.info_outline_rounded,
-                          color: TravelTheme.ink,
+                          color: TravelTheme.isDark(context)
+                              ? const Color(0xFFFFD54F)
+                              : TravelTheme.ink,
                           size: 20,
                         ),
                         SizedBox(width: AppSpacing.sm.w),
@@ -327,6 +349,11 @@ class _EsimPackagesScreenState extends State<EsimPackagesScreen> {
               }
               return Column(
                 children: [
+                  if (controller.searchError.value != null)
+                    TravelRetryBanner(
+                      message: controller.searchError.value!,
+                      onRetry: () => _searchPackages(searchedDestination),
+                    ),
                   for (final package in controller.esimPackages)
                     Padding(
                       padding: EdgeInsets.only(bottom: AppSpacing.md.h),
@@ -352,6 +379,8 @@ class _PackageCard extends StatelessWidget {
     final localization = AppLocalizations.of(context)!;
     final controller = ensureTravelController();
     final canPurchase = controller.canPurchase(TravelProductType.esim);
+    final flag = travelCountryCodeToEmoji(package.destinationCode);
+    final countryName = travelCountryName(package.destinationCode);
     return TravelCard(
       onTap: canPurchase
           ? () {
@@ -373,16 +402,29 @@ class _PackageCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                width: 54.r,
-                height: 54.r,
+                width: 50.r,
+                height: 50.r,
                 decoration: BoxDecoration(
-                  color: TravelTheme.yellow.withValues(alpha: .25),
+                  color: TravelTheme.yellow.withValues(
+                    alpha: TravelTheme.isDark(context) ? .18 : .25,
+                  ),
                   borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+                  border: Border.all(
+                    color: TravelTheme.yellow.withValues(
+                      alpha: TravelTheme.isDark(context) ? 0.35 : 0.45,
+                    ),
+                  ),
                 ),
-                child: const Icon(
-                  Icons.sim_card_rounded,
-                  color: TravelTheme.ink,
-                  size: 26,
+                child: Center(
+                  child: flag.isNotEmpty
+                      ? Text(flag, style: TextStyle(fontSize: 24.sp))
+                      : Icon(
+                          Icons.sim_card_rounded,
+                          color: TravelTheme.isDark(context)
+                              ? const Color(0xFFFFD54F)
+                              : TravelTheme.ink,
+                          size: 26.r,
+                        ),
                 ),
               ),
               SizedBox(width: AppSpacing.md.w),
@@ -390,21 +432,54 @@ class _PackageCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Directionality(
-                      textDirection: TextDirection.ltr,
-                      child: Text(
-                        package.dataLabel,
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w900,
-                          color: TravelTheme.textPrimaryFor(context),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.w,
+                        vertical: 3.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: TravelTheme.isDark(context)
+                            ? const Color(0xFF382F19)
+                            : const Color(0xFFFFF8E1),
+                        borderRadius: BorderRadius.circular(8.r),
+                        border: Border.all(
+                          color: TravelTheme.yellow.withValues(
+                            alpha: TravelTheme.isDark(context) ? 0.45 : 0.65,
+                          ),
                         ),
                       ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.wifi_tethering_rounded,
+                            size: 13.r,
+                            color: TravelTheme.isDark(context)
+                                ? const Color(0xFFFFD54F)
+                                : const Color(0xFF8B6400),
+                          ),
+                          SizedBox(width: 4.w),
+                          Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: Text(
+                              package.dataLabel,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w900,
+                                color: TravelTheme.isDark(context)
+                                    ? const Color(0xFFFFE082)
+                                    : const Color(0xFF6B4D00),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
+                    SizedBox(height: 4.h),
                     Directionality(
                       textDirection: TextDirection.ltr,
                       child: Text(
-                        package.destinationCode,
+                        '$countryName (${package.destinationCode})',
                         style: TextStyle(
                           color: TravelTheme.textSecondaryFor(context),
                           fontSize: 11.sp,
@@ -416,27 +491,43 @@ class _PackageCard extends StatelessWidget {
                 ),
               ),
               if (package.isPopular)
-                Chip(
-                  backgroundColor: TravelTheme.yellow,
-                  label: Text(
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8.w,
+                    vertical: 4.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: TravelTheme.isDark(context)
+                        ? const Color(0xFF3A3018)
+                        : TravelTheme.yellow,
+                    borderRadius: BorderRadius.circular(10.r),
+                    border: Border.all(
+                      color: TravelTheme.yellow.withValues(alpha: 0.7),
+                    ),
+                  ),
+                  child: Text(
                     localization.travelMostPopular,
-                    style: const TextStyle(
-                      color: TravelTheme.ink,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 11,
+                    style: TextStyle(
+                      color: TravelTheme.isDark(context)
+                          ? const Color(0xFFFFE082)
+                          : TravelTheme.ink,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 10.sp,
                     ),
                   ),
                 ),
             ],
           ),
-          Divider(height: 28.h, color: TravelTheme.borderFor(context)),
+          Divider(height: 24.h, color: TravelTheme.borderFor(context)),
           Row(
             children: [
               Expanded(
                 child: _PackageFact(
                   icon: Icons.public_rounded,
                   label: localization.travelDestinationCountry,
-                  value: package.destinationCode,
+                  value: flag.isNotEmpty
+                      ? '$flag $countryName'
+                      : package.destinationCode,
                   forceLtr: true,
                 ),
               ),

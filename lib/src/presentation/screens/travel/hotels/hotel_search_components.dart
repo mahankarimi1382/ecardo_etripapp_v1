@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
@@ -355,7 +356,10 @@ class _HotelDestinationScreenState extends State<HotelDestinationScreen> {
                                 ),
                               ),
                         trailing: const Icon(Icons.chevron_right_rounded),
-                        onTap: () => Navigator.of(context).pop(suggestion),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.of(context).pop(suggestion);
+                        },
                       );
                     },
                   ),
@@ -427,7 +431,7 @@ class _HotelDateRangeScreenState extends State<HotelDateRangeScreen> {
         child: Padding(
           padding: EdgeInsets.all(16.r),
           child: FilledButton(
-            onPressed: start != null && end != null && end.isAfter(start)
+            onPressed: start != null && end != null && !end.isBefore(start)
                 ? () => Navigator.of(
                     context,
                   ).pop(DateTimeRange(start: start, end: end))
@@ -465,8 +469,10 @@ class _HotelDateRangeScreenState extends State<HotelDateRangeScreen> {
                       ),
                     ],
                     selected: {persianCalendar},
-                    onSelectionChanged: (selection) =>
-                        setState(() => persianCalendar = selection.first),
+                    onSelectionChanged: (selection) {
+                      HapticFeedback.lightImpact();
+                      setState(() => persianCalendar = selection.first);
+                    },
                   ),
                   SizedBox(height: 14.h),
                   Row(
@@ -481,7 +487,10 @@ class _HotelDateRangeScreenState extends State<HotelDateRangeScreen> {
                           value: start == null ? '—' : _dateLabel(start),
                         ),
                       ),
-                      const Icon(Icons.arrow_forward_rounded),
+                      Icon(
+                        Icons.arrow_forward_rounded,
+                        color: TravelTheme.textSecondaryFor(context),
+                      ),
                       Expanded(
                         child: _SelectedDateSummary(
                           label: hotelFlowText(
@@ -495,16 +504,41 @@ class _HotelDateRangeScreenState extends State<HotelDateRangeScreen> {
                     ],
                   ),
                   if (start != null && end != null) ...[
-                    SizedBox(height: 10.h),
-                    Text(
-                      hotelFlowText(
-                        context,
-                        '${end.difference(start).inDays} شب',
-                        '${end.difference(start).inDays} nights',
+                    SizedBox(height: 12.h),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                      decoration: BoxDecoration(
+                        color: TravelTheme.isDark(context)
+                            ? const Color(0xFF1E2E42)
+                            : TravelTheme.purple.withValues(alpha: .15),
+                        borderRadius: BorderRadius.circular(20.r),
+                        border: Border.all(
+                          color: TravelTheme.purple.withValues(
+                            alpha: TravelTheme.isDark(context) ? 0.35 : 0.5,
+                          ),
+                        ),
                       ),
-                      style: const TextStyle(
-                        color: TravelTheme.purple,
-                        fontWeight: FontWeight.w900,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.nights_stay_rounded,
+                            size: 14.r,
+                            color: TravelTheme.purple,
+                          ),
+                          SizedBox(width: 5.w),
+                          Text(
+                            hotelFlowText(
+                              context,
+                              '${end.difference(start).inDays} شب اقامت',
+                              '${end.difference(start).inDays} nights stay',
+                            ),
+                            style: const TextStyle(
+                              color: TravelTheme.purple,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -528,7 +562,10 @@ class _HotelDateRangeScreenState extends State<HotelDateRangeScreen> {
                 controlsTextStyle: const TextStyle(fontWeight: FontWeight.w900),
               ),
               value: values,
-              onValueChanged: (next) => setState(() => values = next),
+              onValueChanged: (next) {
+                HapticFeedback.selectionClick();
+                setState(() => values = next);
+              },
             ),
           ),
         ],

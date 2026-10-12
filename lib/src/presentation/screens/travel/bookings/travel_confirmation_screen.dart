@@ -59,6 +59,9 @@ class TravelConfirmationScreen extends StatelessWidget {
         TravelProductType.hotel => localization.travelHotelBookingSubmitted,
         TravelProductType.flight => localization.travelFlightRequestSubmitted,
         TravelProductType.esim => localization.travelEsimRequestSubmitted,
+        TravelProductType.tour => 'Tour Request Submitted',
+        TravelProductType.visa => 'Visa Application Submitted',
+        TravelProductType.carRental => 'Car Rental Request Submitted',
       },
       TravelOrderStatus.unknown => localization.travelBookingStatusUnavailable,
       TravelOrderStatus.confirmed => localization.travelConfirmed,
@@ -68,6 +71,9 @@ class TravelConfirmationScreen extends StatelessWidget {
         TravelProductType.hotel => localization.travelHotelVoucher,
         TravelProductType.flight => localization.travelFlightTicket,
         TravelProductType.esim => localization.travelEsimActivation,
+        TravelProductType.tour => 'Tour Voucher',
+        TravelProductType.visa => 'Visa Document',
+        TravelProductType.carRental => 'Car Rental Voucher',
       },
     };
     final description = switch (order.status) {
@@ -98,6 +104,7 @@ class TravelConfirmationScreen extends StatelessWidget {
         TravelProductType.hotel => localization.travelVoucherReady,
         TravelProductType.flight => localization.travelTicketReady,
         TravelProductType.esim => localization.travelEsimActivationReady,
+        _ => localization.travelVoucherReady,
       },
     };
     final statusText = travelOrderStatusText(localization, order.status);
@@ -226,6 +233,17 @@ class TravelConfirmationScreen extends StatelessWidget {
               ],
             ),
           ),
+          if (order.details['cancellation_policy'] != null ||
+              order.canRequestCancellation) ...[
+            SizedBox(height: 14.h),
+            TravelCancellationBadge(
+              policyText: order.details['cancellation_policy'] ??
+                  (order.canRequestCancellation
+                      ? localization.travelCancellationRequestedDescription
+                      : localization.travelNonRefundable),
+              isRefundable: order.canRequestCancellation,
+            ),
+          ],
           if (order.hasIssuedVoucher) ...[
             SizedBox(height: 16.h),
             TravelVoucherCard(order: order),
@@ -234,7 +252,10 @@ class TravelConfirmationScreen extends StatelessWidget {
               width: double.infinity,
               text: localization.qrCodeScreenDownloadButton,
               backgroundColor: travelProductColor(order.type),
-              onPressed: () => downloadTravelVoucher(context, order),
+              onPressed: () {
+                HapticFeedback.lightImpact();
+                downloadTravelVoucher(context, order);
+              },
             ),
           ],
           if (order.canRequestCancellation) ...[
@@ -369,7 +390,14 @@ class TravelVoucherQr extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18.r),
-        border: Border.all(color: TravelTheme.border),
+        border: Border.all(color: TravelTheme.borderFor(context)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: SvgPicture.string(svg),
     );
@@ -687,7 +715,7 @@ class _VoucherDetailRow extends StatelessWidget {
       value,
       textAlign: TextAlign.end,
       style: TextStyle(
-        color: TravelTheme.ink,
+        color: TravelTheme.textPrimaryFor(context),
         fontSize: 11.sp,
         fontWeight: FontWeight.w800,
       ),

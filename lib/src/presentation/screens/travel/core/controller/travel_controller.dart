@@ -62,6 +62,8 @@ class TravelController extends GetxController {
   final Rx<TravelBookingDetails> flightBookingDetails =
       const TravelBookingDetails().obs;
   String? _activeIdempotencyKey;
+  String? get activeIdempotencyKey => _activeIdempotencyKey;
+  final Map<String, String> _reservationIdempotencyKeys = {};
   final Map<String, String> _paymentIdempotencyKeys = {};
   final Map<String, String> _refundIdempotencyKeys = {};
   int _idempotencySequence = 0;
@@ -464,20 +466,41 @@ class TravelController extends GetxController {
       checkoutError.value = travelSafeErrorMessage();
       return null;
     }
+
+    // Invariant: date range validation (check-in <= check-out)
+    final checkIn = bookingDetails.checkInDate;
+    final checkOut = bookingDetails.checkOutDate;
+    if (type == TravelProductType.hotel &&
+        checkIn != null &&
+        checkOut != null &&
+        checkOut.isBefore(checkIn)) {
+      checkoutFailed.value = true;
+      checkoutError.value = 'Check-out date cannot be before check-in date.';
+      return null;
+    }
+
     isCheckoutLoading.value = true;
     checkoutFailed.value = false;
     checkoutError.value = null;
-    _activeIdempotencyKey ??=
-        '${type.name}-$productId-${_nextIdempotencyNonce()}';
+
+    final productKey = '${type.name}-$productId';
+    final idempotencyKey = _reservationIdempotencyKeys.putIfAbsent(
+      productKey,
+      () => '$productKey-${_nextIdempotencyNonce()}',
+    );
+    _activeIdempotencyKey = idempotencyKey;
+
     try {
       final reservation = await repository.createReservation(
         type: type,
         productId: productId,
         expectedTotal: total,
-        idempotencyKey: _activeIdempotencyKey!,
+        idempotencyKey: idempotencyKey,
         bookingDetails: bookingDetails,
       );
       activeReservation.value = reservation;
+      _reservationIdempotencyKeys.remove(productKey);
+      _activeIdempotencyKey = null;
       return reservation;
     } catch (error) {
       checkoutFailed.value = true;
@@ -530,6 +553,7 @@ class TravelController extends GetxController {
       activeReservation.value = null;
       _activeIdempotencyKey = null;
     }
+    _reservationIdempotencyKeys.clear();
     _paymentIdempotencyKeys.remove(reservation.id);
   }
 

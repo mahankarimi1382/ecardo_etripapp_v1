@@ -137,9 +137,15 @@ class TravelApiRepository implements TravelRepository {
   }) async {
     final checkInDate = bookingDetails.checkInDate;
     final checkOutDate = bookingDetails.checkOutDate;
-    if (type == TravelProductType.hotel &&
-        (checkInDate == null || checkOutDate == null)) {
-      throw ArgumentError('Hotel booking dates are required.');
+    if (type == TravelProductType.hotel) {
+      if (checkInDate == null || checkOutDate == null) {
+        throw ArgumentError('Hotel booking dates are required.');
+      }
+      if (checkOutDate.isBefore(checkInDate)) {
+        throw ArgumentError(
+          'Hotel booking check-out date must not be before check-in date.',
+        );
+      }
     }
     final token = await _ensureTravelAccessToken();
     final isCatalogOffer = productId.startsWith('master_json:');
@@ -396,6 +402,9 @@ class TravelApiRepository implements TravelRepository {
     final type = switch (productSnapshot['service']?.toString()) {
       'flight' => TravelProductType.flight,
       'esim' => TravelProductType.esim,
+      'tour' => TravelProductType.tour,
+      'visa' => TravelProductType.visa,
+      'car_rental' || 'carrental' => TravelProductType.carRental,
       _ => TravelProductType.hotel,
     };
     final snapshotOffer = _map(productSnapshot['offer']);
@@ -571,6 +580,9 @@ class TravelApiRepository implements TravelRepository {
       'hotel' => TravelProductType.hotel,
       'flight' => TravelProductType.flight,
       'esim' => TravelProductType.esim,
+      'tour' => TravelProductType.tour,
+      'visa' => TravelProductType.visa,
+      'car_rental' || 'carrental' => TravelProductType.carRental,
       _ => null,
     };
     if (type == null) return null;
