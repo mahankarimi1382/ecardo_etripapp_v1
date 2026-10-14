@@ -795,10 +795,27 @@ class TravelJourneyGuide extends StatelessWidget {
 }
 
 String travelMoney(BuildContext context, TravelMoney money) {
-  final value = NumberFormat.decimalPattern(
-    Localizations.localeOf(context).toLanguageTag(),
-  ).format(money.amount);
-  return '$value ${money.currency}';
+  final lang = Localizations.localeOf(context).languageCode;
+  final numFormat = NumberFormat('#,##0', 'en_US');
+  final formattedAmount = numFormat.format(money.amount.round());
+
+  final currUpper = money.currency.toUpperCase().trim();
+  if (currUpper == 'IRR') {
+    return lang == 'fa' ? '$formattedAmount ریال' : '$formattedAmount IRR';
+  } else if (currUpper == 'TOMAN' || currUpper == 'IRT') {
+    return lang == 'fa' ? '$formattedAmount تومان' : '$formattedAmount Toman';
+  } else if (currUpper == 'USD') {
+    return '\$$formattedAmount';
+  } else if (currUpper == 'EUR') {
+    return '€$formattedAmount';
+  } else if (currUpper == 'AED') {
+    return lang == 'fa' ? '$formattedAmount درهم' : '$formattedAmount AED';
+  } else if (currUpper == 'TRY') {
+    return '₺$formattedAmount';
+  } else if (currUpper == 'GBP') {
+    return '£$formattedAmount';
+  }
+  return '$formattedAmount ${money.currency}';
 }
 
 IconData travelProductIcon(TravelProductType type) => switch (type) {
