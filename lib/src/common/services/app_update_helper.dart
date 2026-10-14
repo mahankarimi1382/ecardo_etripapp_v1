@@ -6,6 +6,7 @@ import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:ecardo_etrip/src/common/services/settings_service.dart';
 import 'package:ecardo_etrip/src/app/constants/app_colors.dart';
 
@@ -74,11 +75,15 @@ class AppUpdateHelper {
                 ),
                 onPressed: () {
                   if (!forceUpdate) Navigator.pop(ctx);
-                  _downloadAndInstall(url);
+                  if (Platform.isIOS) {
+                    _openIosUpdate(url);
+                  } else {
+                    _downloadAndInstall(url);
+                  }
                 },
-                child: const Text(
-                  'Download & Update',
-                  style: TextStyle(color: Colors.white),
+                child: Text(
+                  Platform.isIOS ? 'Update' : 'Download & Update',
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             ],
@@ -86,6 +91,20 @@ class AppUpdateHelper {
         );
       },
     );
+  }
+
+  static Future<void> _openIosUpdate(String url) async {
+    try {
+      final targetUri = Uri.parse(url.isNotEmpty ? url : 'https://ecardo.ir/download');
+      if (await canLaunchUrl(targetUri)) {
+        await launchUrl(targetUri, mode: LaunchMode.externalApplication);
+      } else {
+        Get.snackbar('Update', 'Please visit https://ecardo.ir/download to update.');
+      }
+    } catch (e) {
+      debugPrint('iOS update launch error: $e');
+      Get.snackbar('Update', 'Could not open update link: $e');
+    }
   }
 
   static Future<void> _downloadAndInstall(String url) async {

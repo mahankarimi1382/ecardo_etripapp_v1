@@ -2,7 +2,7 @@ name: ecardo_etrip
 description: "eCardo etrip — Travel & hotel booking app (auth, wallet & profile shared with eCardo super app)."
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ^3.9.2
@@ -54,6 +54,7 @@ dependencies:
   cached_network_image: ^3.4.1
   flutter_secure_storage: ^9.2.2
   crypto: ^3.0.5
+  url_launcher: ^6.3.3
 
 dev_dependencies:
   flutter_test:
